@@ -1,0 +1,193 @@
+
+/*LICENSE INFORMATION*
+ * Kure is distributed under the terms of the GNU General Public License
+ * (http://www.gnu.org/licenses/gpl.html).
+ * Kure Copyright 2007-2008 Ben Carlsson
+ * 
+ *-->
+ * This file is part of Kure.
+ * 
+ * Kure is free software: you can redistribute it and/or modify it under the terms of the 
+ * GNU General Public License as published by the Free Software Foundation, either version
+ * 3 of the License, or (at your option) any later version.
+ * 
+ * Kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.  See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along with Kure.  If
+ * not, see <http://www.gnu.org/licenses/>.
+ *-->
+ *
+ * Please see index.php for notes and license information.
+ */
+
+a.blog_title {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover.blog_title {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.navitem {
+  color: #0300ff;
+  font-family: "trebuchet ms", arial;
+  font-size: 14px;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+a:hover.navitem {
+  background: #0300ff;
+  color: #ffffff;
+  font-family: "trebuchet ms", arial;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: "trebuchet ms", arial;
+  font-size: 14px;
+}
+
+p {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 12px;
+}
+
+table.table_download {
+  border: 1px;
+  border-style: solid;
+}
+
+table.table_download td {
+  border: 1px;
+  border-color: #cccccc;
+  border-style: solid;
+}
+
+.blog_content {
+  color: #000000;
+  font-family: "trebuchet ms", arial;
+  font-size: 12px;
+}
+
+.blog_date {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 10px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.footertext {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 10px;
+}
+
+.form_text, .form_textarea {
+  background: #ffffff;
+  border: 1px;
+  border-color:#000000;
+  border-style: solid;
+  color: #000000;
+  font-family: "trebuchet ms", arial;
+  font-size: 16px;
+  margin: 0px 5px 0px;
+  padding: 0px 3px 0px;
+}
+
+.form_submit {
+  background: #ffffff;
+  border: 1px;
+  border-color: #000000;
+  border-style: none solid none solid;
+  color: #000000;
+  font-family: "courier new";
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+.navtitle {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 16px;
+  letter-spacing: -1px;
+}
+
+.note {
+  color: #7f7f7f;
+  font-family: arial;
+  font-size: 12px;
+}
+
+.pagetitle {
+  color: #404040;
+  font-family: "trebuchet ms", arial;
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+
+.pagesub, .smallsub {
+  color: #101010;
+  font-family: "trebuchet ms", arial;
+  font-size: 24px;
+  letter-spacing: -2px;
+  line-height: 50%;
+  text-decoration: none;
+}
+
+.smallsub {
+  font-size: 20px;
+}
+
+a:hover.pagesub, a:hover.smallsub {
+  background-color: #eeeeee;
+  text-decoration: underline;
+}
+
+.sitesub {
+  color: #7f7f7f;
+  font-family: "trebuchet ms", arial;
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+
+.sitetitle {
+  color: #404040;
+  font-family: "trebuchet ms", arial;
+  font-size: 26px;
+  letter-spacing: -2px;
+}
+
+a.small {
+  color: black;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+a:hover.small {
+  color: gray;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+}
+}

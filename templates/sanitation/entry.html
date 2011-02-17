@@ -1,0 +1,18 @@
+    <table align="center" width="90%">
+      <tr>
+        <td width="100%">
+          <a class="blog_title" href="?{ENTRYTYPE}={ENTRYADDRESS}" name="{ENTRYTITLE}">{ENTRYTITLE}</a>{HOOK:{ENTRYTYPE}-TITLE_AFTER}<br />
+          {IF:POST}<span class="blog_date">{ENTRYDATE}</span>{/IF:POST}
+          {IF:DOC}{IF:DOCDATES}<span class="blog_date">{ENTRYDATE}</span>{/IF:DOCDATES}{/IF:DOC}{HOOK:{ENTRYTYPE}-DATE_AFTER}<br />
+        </td>
+      </tr>
+      <tr>
+        <td width="100%">
+          <br />
+          <span class="blog_content">
+            {ENTRYCONTENT}
+          </span>
+          {HOOK:{ENTRYTYPE}-BODY_AFTER}<br /><br />
+        </td>
+      </tr>
+    </table>
