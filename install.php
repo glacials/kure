@@ -114,7 +114,7 @@ if(isset($_POST['create'])) {
 
 	}
 
-	if(isset($todo_kure['posts']) && !mkdir('posts/')
+	if(isset($todo_kure['posts']) && !mkdir('posts/'))
 		exit($head . '<span class="error">Couldn\'t create directory <tt>posts/</tt></span>');
 
 	if(isset($todo_kure['docs']) && !mkdir('docs/'))
