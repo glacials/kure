@@ -79,12 +79,12 @@ if(!file_exists('config.php'))
 	$todo_kure['config'] = 'generate <tt>config.php</tt>';
 
 if(!file_exists('posts/'))
-	$todo_kure['posts'] = 'create a <tt>posts/</tt> directory';
+	$todo_kure['posts'] = 'create a <tt>posts</tt> directory';
 elseif(!is__writable("posts"))
 	$todo_user[] = 'make the <tt>posts/</tt> directory writeable';
 
 if(!file_exists('docs/'))
-	$todo_kure['docs'] = 'create a <tt>docs/</tt> directory';
+	$todo_kure['docs'] = 'create a <tt>docs</tt> directory';
 elseif(!is__writable('docs'))
 	$todo_user[] = 'make the <tt>docs/</tt> directory writeable';
 
@@ -172,8 +172,9 @@ if(isset($todo_user)) {
 
 	if(isset($todo_kure['config'])) {
 
-		print('Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/>You can change this later.<br/>\n');
-		print('<form action="?" method="post"><p><input type="password" name="pass1"> (enter)</p>\n<p><input type="password" name="pass2"> (confirm)</p>\n');
+		print('Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>');
+    print('<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>');
+		print('<form action="?" method="post"><p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>');
 
 	}
 
