@@ -155,7 +155,7 @@ print('<br/><br/>');
 
 if(isset($todo_kure))
 	foreach($todo_kure as $task)
-		print('&bull;' . $task . '<br/>');
+		print('&bull; ' . $task . '<br/>');
 
 print('<br/>');
 
