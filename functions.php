@@ -147,7 +147,7 @@ function config_value($var) {
 
   // if it's a string, surround it with quotes
   if(is_string($var))
-    return '"$var"';
+    return '"' . $var . '"';
 
   exit('<span class="error">Invalid datatype: <tt>' . write_value($var) . '</tt></span>');
 
