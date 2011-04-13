@@ -20,6 +20,9 @@ class Config {
   public static $abcPosts;
   public static $abcDocs;
 
+  public static $sort_type;
+  public static $sort_order;
+
 };
 
 ?>
