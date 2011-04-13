@@ -36,28 +36,29 @@
 
 $need_install = false;
 $root = "./"; // so functions.php knows where we are
-@include_once("functions.php"); // supress errors because the file & directory check below will handle it
+@include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
+require_once 'classes/config.php';
 
 /***** PREPERATIONS *********************************************************************/
 
 /***** CHECK FOR INSTALLATION *****/
-if(!file_exists("config.php"))
+if(!file_exists('config.php'))
   $need_install = true;
 else
-  require_once("config.php");
+  require_once('config.php');
 
 /***** CHECK FOR REQUIRED FILES/DIRECTORIES *****/
 if(!$need_install) {
 
-  $required_paths = array("admin/", "admin/index.php", "templates/", "posts/", "docs/", "functions.php");
+  $required_paths = array('admin/', 'admin/index.php', 'templates/', 'posts/', 'docs/', 'functions.php');
   $success = true;
 
   foreach($required_paths as $path) {
 
     if(!file_exists($path)) {
 
-      error("File or directory <tt>$path</tt> is missing.", false);
+      error('File or directory <tt>' . $path . '</tt> is missing.', false);
       $success = false;
 
     }
@@ -65,13 +66,13 @@ if(!$need_install) {
   }
 
   if(!$success)
-    exit("<br />Either remove <tt>config.php</tt> to perform a fresh install, or replace any missing files/directories above.");
+    exit('<br />Either remove <tt>config.php</tt> to perform a fresh install, or replace any missing files/directories above.');
 
 }
 
 /***** HEADER *****/
 if($need_install)
-  exit("<span style=\"font-family: trebuchet ms; font-size: 14px;\">It looks like you haven't installed kure yet!<br />Proceed to <a href=\"install.php\">installation</a> if you need to install.<br />If you don't, be sure to make sure your Kure-related directories exist.</span>\n");
+  exit('<span style="font-family: trebuchet ms; font-size: 14px;">It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your Kure-related directories exist.</span>');
 else
   runtemplate("header");
 
@@ -84,7 +85,7 @@ if(isset($_GET['docs'])) { // if we're at the docs page
   runtemplate("doclist_header");
   $alldocs = glob("docs/*.txt");
 
-  if(!$config['abcdocs']) // if we're NOT sorting alphabetically
+  if(!Config::$abcdocs) // if we're NOT sorting alphabetically
     usort($alldocs, "sort_by_mtime");
 
   if(count($alldocs) == 0) {
@@ -161,14 +162,14 @@ else { // if we weren't told to do anything else
   $total_posts = count($allposts);
 
   // if the total number of posts isn't divisible by the number we want to display,
-  // then we want to make $total_posts / $config['num_posts'] round up one. (think it out.) this is for pagination.
-  if($total_posts % $config['num_posts'] != 0)
-    $total_posts += $config['num_posts'];
+  // then we want to make $total_posts / Config::$num_posts round up one. (think it out.) this is for pagination.
+  if($total_posts % Config::$num_posts != 0)
+    $total_posts += Config::$num_posts;
   
-  if(!$config['abcposts']) // if we're NOT sorting alphabetically
+  if(!Config::$abcposts) // if we're NOT sorting alphabetically
     usort($allposts, "sort_by_mtime");
 
-  $page_firstpost = ($_GET['page'] * $config['num_posts']) - $config['num_posts'];
+  $page_firstpost = ($_GET['page'] * Config::$num_posts) - Config::$num_posts;
   $curpost = 0;
   $i = 0; // monitor how many posts we display
 
@@ -180,10 +181,10 @@ else { // if we weren't told to do anything else
 
     foreach($allposts as $file) {
 
-      if($i == $config['num_posts'] && $config['num_posts'] != 0)
+      if($i == Config::$num_posts && Config::$num_posts != 0)
         break;
 
-      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + $config['num_posts']))) {
+      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + Config::$num_posts))) {
 
         $curpost++;
         continue;
@@ -206,9 +207,9 @@ else { // if we weren't told to do anything else
 
   }
 
-  if($config['num_posts'] != 0 && $total_posts > $config['num_posts']) {
+  if(Config::$num_posts != 0 && $total_posts > Config::$num_posts) {
 
-    if($_GET['page'] + 1 <= $total_posts / $config['num_posts'])
+    if($_GET['page'] + 1 <= $total_posts / Config::$num_posts)
       print("<a class=\"navitem\" href=\"?page=" . ($_GET['page'] + 1) . "\"><font size=\"1\">&lt;&lt;</font>previous posts</a>\n");
     
     if($_GET['page'] != 1) {
