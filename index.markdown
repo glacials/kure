@@ -16,10 +16,8 @@ Kure is currently in beta.
 
 For more information, check out the faq.
 
-[home]:index.html
-[faq]:faq.markdown
-[download]
-[source]
-[forums]
-[demo]
-[donate]
+[home]    :index.html
+[faq]     :faq.html
+[download]:download.html
+[source]  :http://github.com/skoh-fley/kure
+[donate]  :donate.html
