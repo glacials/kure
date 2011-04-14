@@ -23,7 +23,11 @@
 
 class Engine {
 
-  public static $configFile;
+  __construct() {
+
+    require_once 'config.php';
+
+  }
 
 };
 
