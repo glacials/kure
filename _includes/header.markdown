@@ -61,13 +61,13 @@
         </td> 
         <td valign="bottom"> 
           <div align="right"> 
-            (home)[index.html] -
-            (faq)[faq.html] -
-            (download)[download.html] -
-            (source)[http://github.com/skoh-fley/kure] -
-            (forums)[http://findthekure.net/forum.php] -
-            (demo)[demo.html] -
-            (donate)[donate.html] -
+            [home](index.html) -
+            [faq](faq.html) -
+            [download](download.html) -
+            [source](http://github.com/skoh-fley/kure) -
+            [forums](http://findthekure.net/forum.php) -
+            [demo](demo.html) -
+            [donate](donate.html) -
             &nbsp;&nbsp;
           </div> 
         </td> 
