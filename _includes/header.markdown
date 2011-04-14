@@ -1,7 +1,3 @@
----
-layout: page
----
-
 <html> 
   <head> 
     <title>kure</title> 
