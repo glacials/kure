@@ -61,13 +61,13 @@
         </td> 
         <td valign="bottom"> 
           <div align="right"> 
-            <a href="index.html"></a> -
-            <a href="faq.html"></a> -
-            <a href="download.html"></a> -
-            <a href="http://github.com/skoh-fley/kure"></a> -
-            <a href="http://findthekure.net/forum.php"></a> -
-            <a href="demo.html"></a> -
-            <a href="donate.html"></a> -
+            <a href="index.html">home</a> -
+            <a href="faq.html">faq</a> -
+            <a href="download.html">download</a> -
+            <a href="http://github.com/skoh-fley/kure">source</a> -
+            <a href="http://findthekure.net/forum.php">forums</a> -
+            <a href="demo.html">demo</a> -
+            <a href="donate.html">donate</a> -
             &nbsp;&nbsp;
           </div> 
         </td> 
