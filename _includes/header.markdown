@@ -1,7 +1,6 @@
-
-# kure
-
-[home][home] - [faq][faq] - [download][download] - [source][source] - [donate][donate]
+---
+layout: page
+---
 
 <html> 
   <head> 
