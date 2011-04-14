@@ -2,7 +2,7 @@
 layout: page
 ---
 
-{% include header.html %}
+{% include header.markdown %}
 
 Kure is a blogging engine written in PHP. It runs on a flat-file database, meaning it stores its posts and information in straight-up text files rather than database systems.
 
@@ -14,4 +14,4 @@ Kure is currently in beta.
 
 For more information, check out the faq.
 
-{% include footer.html %}
+{% include footer.markdown %}
