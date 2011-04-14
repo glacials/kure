@@ -16,7 +16,7 @@ Kure is currently in beta.
 
 For more information, check out the faq.
 
-[home]:index.markdown
+[home]:index.html
 [faq]:faq.markdown
 [download]
 [source]
