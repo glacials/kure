@@ -4,14 +4,14 @@ layout: page
 
 {% include header.markdown %}
 
-Kure is a blogging engine written in PHP. It runs on a flat-file database, meaning it stores its posts and information in straight-up text files rather than database systems.
+<p>Kure is a blogging engine written in PHP. It runs on a flat-file database, meaning it stores its posts and information in straight-up text files rather than database systems.</p>
 
-Kure sports a templating engine to suit your styling needs and a plugin engine to suit your mechanical ones.
+<p>Kure sports a templating engine to suit your styling needs and a plugin engine to suit your mechanical ones.</p>
 
-Kure is built to be simple, portable, and easy to understand.
+<p>Kure is built to be simple, portable, and easy to understand.</p>
 
-Kure is currently in beta.
+<p>Kure is currently in beta.</p>
 
-For more information, check out the faq.
+<p>For more information, check out the faq.</p>
 
 {% include footer.markdown %}

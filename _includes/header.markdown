@@ -61,13 +61,13 @@
         </td> 
         <td valign="bottom"> 
           <div align="right"> 
-            [home][home] - 
-            [faq][faq] - 
-            [download][download] - 
-            [source][source] - 
-            [forums][forums] - 
-            [demo][demo]
-            [donate][donate]
+            [home][index.html] -
+            [faq][faq.html] -
+            [download][download.html] -
+            [source][http://github.com/skoh-fley/kure] -
+            [forums][http://findthekure.net/forum.php] -
+            [demo][demo.html] -
+            [donate][donate.html] -
             &nbsp;&nbsp;
           </div> 
         </td> 
@@ -76,4 +76,4 @@
         <td style="border-top: 1px dashed #cccccc" valign="top"> 
         </td>
         <td width="100%" style="border-top: 1px dashed #cccccc;" valign="top"> 
-          <br /> 
+          <br />
