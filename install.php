@@ -1,26 +1,24 @@
 <?php
 
 /*LICENSE INFORMATION*
- * Kure is distributed under the terms of the GNU General Public License
+ * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
- * Kure Copyright 2007-2008 Ben Carlsson
+ * kure Copyright 2007-2011 Ben Carlsson
  * 
  *-->
- * This file is part of Kure.
+ * This file is part of kure.
  * 
- * Kure is free software: you can redistribute it and/or modify it under the terms of the 
+ * kure is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version
  * 3 of the License, or (at your option) any later version.
  * 
- * Kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  * PURPOSE.  See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with Kure.  If
- * not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with kure.
+ * If not, see <http://www.gnu.org/licenses/>.
  *-->
- * 
- * Please see index.php for notes and license information.
  */
 
 $kure_ver = "0.7.1";
@@ -29,7 +27,7 @@ $kure_ver = "0.7.1";
 $head = 
 '<html>
 	<head>
-		<title>Kure ' . $kure_ver . '</title>
+		<title>kure ' . $kure_ver . '</title>
 		<style type="text/css">
 			body {
 				font-family: trebuchet ms, trebuchet, arial;
@@ -44,7 +42,7 @@ $head =
 		</style>
 	</head>
 	<body>
-		<span class="pagetitle">Install Kure ' . $kure_ver . '</span><br/>
+		<span class="pagetitle">Install kure ' . $kure_ver . '</span><br/>
 		<p>Detecting tasks...</p>
 ';
 
@@ -125,7 +123,7 @@ if(isset($_POST['create'])) {
 }
 
 if(!isset($todo_user) && !isset($todo_kure))
-	exit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>Kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in Kure will only affect Kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using Kure, to backup important files and information on your server regularly.');
+	exit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
 
 print('Okay. ');
 if(isset($todo_user))
@@ -141,13 +139,13 @@ if(isset($todo_user)) {
 	print('<br/>');
 
 	if(isset($todo_kure))
-		print('So that <b>Kure</b> can:');
+		print('So that <b>kure</b> can:');
 	else
 		print('Then you\'ll be done.');
 
 } else {
 
-  print('Looks like Kure is ready to do the following.');
+  print('Looks like kure is ready to do the following.');
   
 }
 
@@ -164,7 +162,7 @@ if(isset($todo_user)) {
 	print('Refresh this page when you\'ve completed your tasks');
 	
 	if(isset($todo_kure))
-		print(', and Kure will be ready to complete its own');
+		print(', and kure will be ready to complete its own');
 	
 	print('.');
 

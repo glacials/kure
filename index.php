@@ -1,32 +1,30 @@
 <?php
 
 /*LICENSE INFORMATION*
- * Kure is distributed under the terms of the GNU General Public License
+ * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
- * Kure Copyright 2007-2008 Ben Carlsson
+ * kure Copyright 2007-2011 Ben Carlsson
  * 
  *-->
- * This file is part of Kure.
+ * This file is part of kure.
  * 
- * Kure is free software: you can redistribute it and/or modify it under the terms of the 
+ * kure is free software: you can redistribute it and/or modify it under the terms of the 
  * GNU General Public License as published by the Free Software Foundation, either version
  * 3 of the License, or (at your option) any later version.
  * 
- * Kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  * PURPOSE.  See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with Kure.  If
- * not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with kure.
+ * If not, see <http://www.gnu.org/licenses/>.
  *-->
  * 
  *NOTES*
- * Kure is in BETA. Be aware that there may be BUGS and/or SECURITY HOLES
- * in the engine, and that you are using it at your own risk. (To be honest, I
- * really don't think there will be any HUGE security holes or anything, but there's
- * always a chance.) BE CAUTIOUS.
+ * kure is in BETA. Be aware that there may be BUGS and/or SECURITY HOLES
+ * in the engine, and that you are using it at your own risk. Please be cautious.
  * 
- * I graciously accept bug reports and suggestions for Kure's engine. Visit Kure's site
+ * I graciously accept bug reports and suggestions for kure's engine. Visit kure's site
  * at http://findthekure.net/. My email is skoh.fley@gmail.com if you wish to reach me
  * directly.
  *  
@@ -39,6 +37,7 @@ $root = './'; // so functions.php knows where we are
 @include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
 require_once 'classes/config.php';
+require_once 'classes/engine.php';
 
 /***** PREPERATIONS *********************************************************************/
 
@@ -46,7 +45,7 @@ require_once 'classes/config.php';
 if(!file_exists('config.php'))
   $need_install = true;
 else
-  require_once('config.php');
+  require_once 'config.php';
 
 /***** CHECK FOR REQUIRED FILES/DIRECTORIES *****/
 if(!$need_install) {
@@ -72,7 +71,7 @@ if(!$need_install) {
 
 /***** HEADER *****/
 if($need_install)
-  exit('<span style="font-family: trebuchet ms; font-size: 14px;">It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your Kure-related directories exist.</span>');
+  exit('<span style="font-family: trebuchet ms; font-size: 14px;">It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</span>');
 else
   runtemplate('header');
 
