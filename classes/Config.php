@@ -41,9 +41,6 @@ class Config {
   private static $abcPosts;
   private static $abcDocs;
 
-  private static $sort_type;
-  private static $sort_order;
-
   // Returns the value of property $key.
   public static function get($key) {
 

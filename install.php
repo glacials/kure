@@ -101,21 +101,21 @@ if(isset($_POST['create'])) {
 			exit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
 
 		$config = array(
-			'kure_ver' => $kure_ver,
-			'adminpass' => md5($_POST['pass1']),
-			'blog_name' => 'kure',
-			'blog_sub' => 'beta',
-			'num_posts' => 8,
-			'docdates' => true,
-			'docspagedates' => true,
-			'abcdocs' => true,
-			'abcposts' => false,
-			'showadmin' => true,
+			'version' => $kure_ver,
+			'adminPassword' => md5($_POST['pass1']),
+			'showAdminLink' => true,
+			'blogName' => 'kure',
+			'blogSub' => 'beta',
 			'template' => 'sanitation'
+			'postsPerPage' => 8,
+			'showDocDates' => true,
+			'showDocPageDates' => true,
+			'abcPosts' => false,
+			'abcDocs' => true,
 		);
-    
+
     foreach($config as $key => $value)
-      print Config::set($key, $value);
+      Config::set($key, $value);
 
     if(!Config::save())
 			exit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
