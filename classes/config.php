@@ -23,28 +23,35 @@
 
 class Config {
 
-  public static $version;
+  private static $version;
 
-  public static $adminPassword;
-  public static $showAdminLink;
+  private static $adminPassword;
+  private static $showAdminLink;
 
-  public static $blogName;
-  public static $blogSub;
+  private static $blogName;
+  private static $blogSub;
 
-  public static $template;
+  private static $template;
 
-  public static $postsPerPage;
+  private static $postsPerPage;
 
-  public static $showDocDates;
-  public static $showDocPageDates;
+  private static $showDocDates;
+  private static $showDocPageDates;
 
-  public static $abcPosts;
-  public static $abcDocs;
+  private static $abcPosts;
+  private static $abcDocs;
 
-  public static $sort_type;
-  public static $sort_order;
+  private static $sort_type;
+  private static $sort_order;
 
-  // Sets Config property $key to $value.
+  // Returns the value of property $key.
+  public static function get($key) {
+
+    return self::$$key;
+
+  }
+
+  // Sets property $key to $value.
   // Returns the old value of $key.
   public static function set($key, $value) {
 

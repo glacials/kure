@@ -111,7 +111,7 @@ if(isset($_POST['create'])) {
 		);
     
     foreach($config as $key => $value)
-      Config::set($key, $value);
+      print Config::set($key, $value);
 
     if(!Config::save())
 			exit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
