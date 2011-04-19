@@ -39,6 +39,8 @@ $root = './'; // so functions.php knows where we are
 require_once 'classes/config.php';
 require_once 'classes/engine.php';
 
+Config::load();
+
 /***** PREPERATIONS *********************************************************************/
 
 /***** CHECK FOR INSTALLATION *****/

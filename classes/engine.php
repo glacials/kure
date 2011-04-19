@@ -23,11 +23,5 @@
 
 class Engine {
 
-  __construct() {
-
-    require_once 'config.php';
-
-  }
-
 };
 
