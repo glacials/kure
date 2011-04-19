@@ -109,8 +109,11 @@ if(isset($_POST['create'])) {
 			'showadmin' => true,
 			'template' => 'sanitation'
 		);
+    
+    foreach($config as $key => $value)
+      Config::set($key, $value);
 
-		if(!write_config($config))
+    if(!Config::save())
 			exit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
 
 	}
