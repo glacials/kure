@@ -36,8 +36,12 @@ $need_install = false;
 $root = './'; // so functions.php knows where we are
 @include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
-require_once 'classes/config.php';
-require_once 'classes/engine.php';
+// Autoload any class which is used in this file
+function __autoload($class) {
+  
+  include 'classes/' . $class . '.php';
+
+}
 
 Config::load();
 
