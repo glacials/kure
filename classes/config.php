@@ -44,19 +44,20 @@ class Config {
   public static $sort_type;
   public static $sort_order;
 
-  function __construct() {
+  // Sets Config property $key to $value.
+  // Returns the old value of $key.
+  public static function set($key, $value) {
 
-    self::load();
+    $oldValue = self::$$key;
 
-  }
+    self::$$key = $value;
 
-  function __destruct() {
-
-    self::save();
+    return $oldValue;
 
   }
 
   // Reads configuration from file into the Config class.
+  // Returns false if the config file doesn't exit; true otherwise.
   public static function load() {
 
     if(!file_exists('config.php'))

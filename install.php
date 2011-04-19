@@ -21,8 +21,11 @@
  *-->
  */
 
-$kure_ver = "0.7.1";
-@include_once("functions.php"); // supress errors because the file & directory check below will handle it
+$kure_ver = '0.7.1';
+@include_once 'functions.php'; // supress errors because the file & directory check below will handle it
+
+require_once 'classes/config.php';
+require_once 'classes/engine.php';
 
 $head = 
 '<html>
