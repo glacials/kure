@@ -1,11 +1,10 @@
 <?php
 
-/*LICENSE INFORMATION*
+/* LICENSE INFORMATION
  * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
  * kure Copyright 2007-2011 Ben Carlsson
  * 
- *-->
  * This file is part of kure.
  * 
  * kure is free software: you can redistribute it and/or modify it under the terms of the 
@@ -18,9 +17,8 @@
  * 
  * You should have received a copy of the GNU General Public License along with kure.
  * If not, see <http://www.gnu.org/licenses/>.
- *-->
  * 
- *NOTES*
+ * NOTES
  * kure is in BETA. Be aware that there may be BUGS and/or SECURITY HOLES
  * in the engine, and that you are using it at your own risk. Please be cautious.
  * 
@@ -33,7 +31,6 @@
  */
 
 $need_install = false;
-$root = './'; // so functions.php knows where we are
 @include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
 // Autoload any class which is used in this file
@@ -43,38 +40,13 @@ function __autoload($class) {
 
 }
 
-$need_install = !Config::load()
-
 /***** PREPERATIONS *********************************************************************/
 
-/***** CHECK FOR REQUIRED FILES/DIRECTORIES *****/
-if(!$need_install) {
-
-  $required_paths = array('templates/', 'posts/', 'docs/', 'functions.php');
-  $success = true;
-
-  foreach($required_paths as $path) {
-
-    if(!file_exists($path)) {
-
-      Engine::error('File or directory <tt>' . $path . '</tt> is missing.', false);
-      $success = false;
-
-    }
-
-  }
-
-  if(!$success)
-    exit('<br />Either remove <tt>config.php</tt> to perform a fresh install, or replace any missing files/directories above.');
-
-}
-
 /***** HEADER *****/
-if($need_install)
-  exit('<span style="font-family: trebuchet ms; font-size: 14px;">It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</span>');
-else
-  runtemplate('header');
+runtemplate('header');
 
+if(!Config::load())
+  Engine::quit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>');
 
 /***** DISPLAY **************************************************************************/
 
@@ -135,12 +107,12 @@ elseif(isset($_GET['post']) || isset($_GET['doc'])) { // if a post/doc has been 
 
   } else {
 
-    $file = $type . 's/' . $filename . '.txt';
-    $title = $file;
-    $title = str_replace($type . 's/', '', $title);
-    $title = str_replace('.txt', '', $title);
+    $file    = $type . 's/' . $filename . '.txt';
+    $title   = $file;
+    $title   = str_replace($type . 's/', '', $title);
+    $title   = str_replace('.txt', '', $title);
     $uftitle = $title;
-    $title = str_replace('_', ' ', $title);
+    $title   = str_replace('_', ' ', $title);
     $content = str_replace('\n', '<br/>', file_get_contents($file));
     
     runtemplate('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $uftitle, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));

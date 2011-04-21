@@ -1,11 +1,10 @@
 <?php
 
-/*LICENSE INFORMATION*
+/* LICENSE INFORMATION
  * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
  * kure Copyright 2007-2011 Ben Carlsson
  * 
- *-->
  * This file is part of kure.
  * 
  * kure is free software: you can redistribute it and/or modify it under the terms of the 
@@ -18,9 +17,7 @@
  * 
  * You should have received a copy of the GNU General Public License along with kure.
  * If not, see <http://www.gnu.org/licenses/>.
- *-->
  */
-
 
 /***** FILE HANDLING ********************************************************************/
 

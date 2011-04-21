@@ -1,10 +1,10 @@
 <?php
-/*LICENSE INFORMATION*
+
+/* LICENSE INFORMATION
  * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
  * kure Copyright 2007-2011 Ben Carlsson
  * 
- *-->
  * This file is part of kure.
  * 
  * kure is free software: you can redistribute it and/or modify it under the terms of the 
@@ -17,10 +17,9 @@
  * 
  * You should have received a copy of the GNU General Public License along with kure.
  * If not, see <http://www.gnu.org/licenses/>.
- *-->
  */
 
-$kure_ver = '0.7.1';
+$version = '0.7.1';
 @include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
 // Autoload any class which is used in this file
@@ -33,7 +32,7 @@ function __autoload($class) {
 $head = 
 '<html>
 	<head>
-		<title>kure ' . $kure_ver . '</title>
+		<title>kure ' . $version . '</title>
 		<style type="text/css">
 			body {
 				font-family: trebuchet ms, trebuchet, arial;
@@ -48,7 +47,7 @@ $head =
 		</style>
 	</head>
 	<body>
-		<span class="pagetitle">Install kure ' . $kure_ver . '</span><br/>
+		<span class="pagetitle">Install kure ' . $version . '</span><br/>
 		<p>Detecting tasks...</p>
 ';
 
@@ -100,7 +99,7 @@ if(isset($_POST['create'])) {
 			Engine::quit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
 
 		$config = array(
-			'version' => $kure_ver,
+			'version' => $version,
 			'adminPassword' => md5($_POST['pass1']),
 			'showAdminLink' => true,
 			'blogName' => 'kure',
