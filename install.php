@@ -58,7 +58,7 @@ foreach($required_paths as $path) {
 
 	if(!file_exists($path)) {
 
-		print('<b>ERROR:</b> File or directory <tt>' . $path . '</tt> is missing.<br/>');
+		print '<b>ERROR:</b> File or directory <tt>' . $path . '</tt> is missing.<br/>';
 		$success = false;
 
 	}
@@ -69,7 +69,7 @@ if(!$success)
   Engine::quit('<br/>Please upload any missing files before continuing.');
 
 if(!isset($_POST['create'])) // so that we can use header() to refresh later
-	print($head);
+	print $head;
 
 // find out what needs to be done
 
@@ -99,17 +99,17 @@ if(isset($_POST['create'])) {
 			Engine::quit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
 
 		$config = array(
-			'version' => $version,
-			'adminPassword' => md5($_POST['pass1']),
-			'showAdminLink' => true,
-			'blogName' => 'kure',
-			'blogSub' => 'beta',
-			'template' => 'sanitation',
-			'postsPerPage' => 8,
-			'showDocDates' => true,
+			'version'          => $version,
+			'adminPassword'    => md5($_POST['pass1']),
+			'showAdminLink'    => true,
+			'blogName'         => 'kure',
+			'blogSub'          => 'beta',
+			'template'         => 'sanitation',
+			'postsPerPage'     => 8,
+			'showDocDates'     => true,
 			'showDocPageDates' => true,
-			'abcPosts' => false,
-			'abcDocs' => true
+			'abcPosts'         => false,
+			'abcDocs'          => true
 		);
 
     foreach($config as $key => $value)
@@ -133,58 +133,58 @@ if(isset($_POST['create'])) {
 if(!isset($todo_user) && !isset($todo_kure))
 	Engine::quit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
 
-print('Okay. ');
+print 'Okay. ';
 if(isset($todo_user))
-	print('Let\'s see what\'s on the agenda for today:<br/><br/>');
+	print 'Let\'s see what\'s on the agenda for today:<br/><br/>';
 
 if(isset($todo_user)) {
 
-	print('<b>You</b> need to:<br/><br/>');
+	print '<b>You</b> need to:<br/><br/>';
 
 	foreach($todo_user as $task)
-		print('&bull; ' . $task . '<br/>');
+		print '&bull; ' . $task . '<br/>';
 
-	print('<br/>');
+	print '<br/>';
 
 	if(isset($todo_kure))
-		print('So that <b>kure</b> can:');
+		print 'So that <b>kure</b> can:';
 	else
-		print('Then you\'ll be done.');
+		print 'Then you\'ll be done.';
 
 } else {
 
-  print('Looks like kure is ready to do the following.');
+  print 'Looks like kure is ready to do the following.';
   
 }
 
-print('<br/><br/>');
+print '<br/><br/>';
 
 if(isset($todo_kure))
 	foreach($todo_kure as $task)
-		print('&bull; ' . $task . '<br/>');
+		print '&bull; ' . $task . '<br/>';
 
-print('<br/>');
+print '<br/>';
 
 if(isset($todo_user)) {
 
-	print('Refresh this page when you\'ve completed your tasks');
+	print 'Refresh this page when you\'ve completed your tasks';
 	
 	if(isset($todo_kure))
-		print(', and kure will be ready to complete its own');
+		print ', and kure will be ready to complete its own';
 	
-	print('.');
+	print '.'; // <('.'<)
 
 } else {
 
 	if(isset($todo_kure['config'])) {
 
-		print('Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>');
-    print('<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>');
-		print('<form action="?" method="post"><p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>');
+		print 'Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>';
+    print '<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>';
+		print '<form action="?" method="post"><p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>';
 
 	}
 
-	print('Ready to go?<br/><br/><input type="submit" name="create" value="Let\'s do it"></form>');
+	print 'Ready to go?<br/><br/><input type="submit" name="create" value="Let\'s do it"></form>';
 	
 }
 
