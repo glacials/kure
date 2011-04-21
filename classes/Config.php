@@ -66,12 +66,9 @@ class Config {
   // Returns false if the config file doesn't exist; true otherwise.
   public static function load() {
 
-    if(!file_exists('config.php'))
-      return false;
+    include 'config.php';
 
-    require_once 'config.php';
-
-    return true;
+    return file_exists('config.php');
 
   }
 

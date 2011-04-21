@@ -43,27 +43,21 @@ function __autoload($class) {
 
 }
 
-Config::load();
+$need_install = !Config::load()
 
 /***** PREPERATIONS *********************************************************************/
-
-/***** CHECK FOR INSTALLATION *****/
-if(!file_exists('config.php'))
-  $need_install = true;
-else
-  require_once 'config.php';
 
 /***** CHECK FOR REQUIRED FILES/DIRECTORIES *****/
 if(!$need_install) {
 
-  $required_paths = array('admin/', 'admin/index.php', 'templates/', 'posts/', 'docs/', 'functions.php');
+  $required_paths = array('templates/', 'posts/', 'docs/', 'functions.php');
   $success = true;
 
   foreach($required_paths as $path) {
 
     if(!file_exists($path)) {
 
-      error('File or directory <tt>' . $path . '</tt> is missing.', false);
+      Engine::error('File or directory <tt>' . $path . '</tt> is missing.', false);
       $success = false;
 
     }
@@ -137,7 +131,7 @@ elseif(isset($_GET['post']) || isset($_GET['doc'])) { // if a post/doc has been 
 
   if(!file_exists($type . 's/' . $filename . '.txt')) {
 
-    print('The requested file <tt>' . $type . 's/' . $filename . '.txt</tt> does not exist.');
+    print 'The requested file <tt>' . $type . 's/' . $filename . '.txt</tt> does not exist.';
 
   } else {
 
@@ -180,7 +174,7 @@ else { // if we weren't told to do anything else
 
   if(count($allposts) == 0) {
 
-    print('<i>&lt;no posts to display&gt;</i>');
+    print '<i>&lt;no posts to display&gt;</i>';
 
   } else {
 
@@ -215,7 +209,7 @@ else { // if we weren't told to do anything else
   if(Config::$num_posts != 0 && $total_posts > Config::$num_posts) {
 
     if($_GET['page'] + 1 <= $total_posts / Config::$num_posts)
-      print('<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>');
+      print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>';
     
     if($_GET['page'] != 1) {
 
@@ -225,7 +219,7 @@ else { // if we weren't told to do anything else
       else
         $next = '?page=' . ($_GET['page'] - 1);
 
-      print('| <a class="navitem" href="' . $next . '">more recent posts<font size="1">&gt;&gt;</font></a>');
+      print '| <a class="navitem" href="' . $next . '">more recent posts<font size="1">&gt;&gt;</font></a>';
 
     }
 

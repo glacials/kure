@@ -442,18 +442,4 @@ function sanitize($string) {
 
 }
 
-// outputs $string in error format and stops page execution if $exit is true
-function error($string, $exit = true) {
-
-  print("<span class=\"error\">ERROR: " . $string . "</span><br />");
-
-  if($exit) {
-
-    runtemplate("footer", array()); // print footer
-    exit();
-
-  }
-
-}
-
 ?>
