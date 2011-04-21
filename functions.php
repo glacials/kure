@@ -169,13 +169,11 @@ function delete_entry($title, $type) {
 // outputs code from $page in the current template using the variables contained in array $vars
 function runtemplate($page, $vars = null) {
 
-  global $config, $root;
+  $code = file_get_contents($root . 'templates/' . Config::$template . '/' . $page . '.html');
 
-  $code = file_get_contents($root . 'templates/' . $config['template'] . '/' . $page . '.html');
-
-  $vars['TITLE'] = $config['blog_name'];
-  $vars['SUBTITLE'] = $config['blog_sub'];
-  $vars['VERSION'] = $config['kure_ver'];
+  $vars['TITLE']    = Config::$blogName;
+  $vars['SUBTITLE'] = Config::$blogSub;
+  $vars['VERSION']  = Config::$version;
   
   foreach($vars as $var => $val)
     $code = str_replace('{' . $var . '}', $val, $code);
@@ -189,17 +187,17 @@ function runtemplate($page, $vars = null) {
     '/{IF:DOC}(.*?)\{\/IF:DOC}/is',
   );
   
-  if($config['docdates'])
+  if(Config::$showDocDates)
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
   
-  if($config['docspagedates'])
+  if(Config::$showDocPageDates)
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
   
-  if($config['showadmin'])
+  if(Config::$showAdminLink)
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
