@@ -1,5 +1,4 @@
 <?php
-
 /*LICENSE INFORMATION*
  * kure is distributed under the terms of the GNU General Public License
  * (http://www.gnu.org/licenses/gpl.html).
@@ -106,12 +105,12 @@ if(isset($_POST['create'])) {
 			'showAdminLink' => true,
 			'blogName' => 'kure',
 			'blogSub' => 'beta',
-			'template' => 'sanitation'
+			'template' => 'sanitation',
 			'postsPerPage' => 8,
 			'showDocDates' => true,
 			'showDocPageDates' => true,
 			'abcPosts' => false,
-			'abcDocs' => true,
+			'abcDocs' => true
 		);
 
     foreach($config as $key => $value)
