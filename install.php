@@ -67,7 +67,7 @@ foreach($required_paths as $path) {
 }
 
 if(!$success)
-	exit('<br/>Please upload any missing files before continuing.');
+  Engine::quit('<br/>Please upload any missing files before continuing.');
 
 if(!isset($_POST['create'])) // so that we can use header() to refresh later
 	print($head);
@@ -97,7 +97,7 @@ if(isset($_POST['create'])) {
 	if(isset($todo_kure['config'])) {
 
 		if($_POST['pass1'] != $_POST['pass2'] || $_POST['pass1'] == "")
-			exit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
+			Engine::quit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
 
 		$config = array(
 			'version' => $kure_ver,
@@ -117,22 +117,22 @@ if(isset($_POST['create'])) {
       Config::set($key, $value);
 
     if(!Config::save())
-			exit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
+			Engine::quit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
 
 	}
 
 	if(isset($todo_kure['posts']) && !mkdir('posts/'))
-		exit($head . '<span class="error">Couldn\'t create directory <tt>posts/</tt></span>');
+		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>posts/</tt></span>');
 
 	if(isset($todo_kure['docs']) && !mkdir('docs/'))
-		exit($head . '<span class="error">Couldn\'t create directory <tt>docs/</tt></span>');
+		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>docs/</tt></span>');
 
 	header('Location: ?'); // refresh the page to refresh the tasks
 
 }
 
 if(!isset($todo_user) && !isset($todo_kure))
-	exit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
+	Engine::quit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
 
 print('Okay. ');
 if(isset($todo_user))

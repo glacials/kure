@@ -37,7 +37,7 @@ function sort_by_mtime($file1,$file2) {
 }
 
 // if php version is low enough, simulate a file_put_contents function
-if(!function_exists("file_put_contents")) {
+if(!function_exists('file_put_contents')) {
 
   define('FILE_APPEND', 1);
 
@@ -66,7 +66,7 @@ if(!function_exists("file_put_contents")) {
 }
 
 // if php version is low enough, simlate a file_get_contents function
-if(!function_exists("file_get_contents")) {
+if(!function_exists('file_get_contents')) {
 
   function file_get_contents($filename) {
 
@@ -98,12 +98,12 @@ function config_key($var) {
 function config_value($var) {
 
  // if it's a boolean, make it a string so it will write as a boolean
- if(is_bool($var) || $var === "true" || $var === "false") {
+ if(is_bool($var) || $var === 'true' || $var === 'false') {
 
-    if($var === "true" || $var === "false")
+    if($var === 'true' || $var === 'false')
       return $var;
     else
-      return ($var ? "true" : "false");
+      return ($var ? 'true' : 'false');
 
   }
 
@@ -171,14 +171,14 @@ function runtemplate($page, $vars = null) {
 
   global $config, $root;
 
-  $code = file_get_contents($root . "templates/" . $config['template'] . "/" . $page . ".html");
+  $code = file_get_contents($root . 'templates/' . $config['template'] . '/' . $page . '.html');
 
   $vars['TITLE'] = $config['blog_name'];
   $vars['SUBTITLE'] = $config['blog_sub'];
   $vars['VERSION'] = $config['kure_ver'];
   
   foreach($vars as $var => $val)
-    $code = str_replace("{" . $var . "}", $val, $code);
+    $code = str_replace('{' . $var . '}', $val, $code);
 
   // conditionals: show if the config value is true, hide if it is not
   $vars_find = array(
@@ -204,12 +204,12 @@ function runtemplate($page, $vars = null) {
   else
     $vars_replace[] = '';
   
-  if($vars['ENTRYTYPE'] == "post")
+  if($vars['ENTRYTYPE'] == 'post')
     $vars_replace[] = '$1'; 
   else
     $vars_replace[] = '';
   
-  if($vars['ENTRYTYPE'] == "doc")
+  if($vars['ENTRYTYPE'] == 'doc')
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
@@ -221,15 +221,15 @@ function runtemplate($page, $vars = null) {
   
   // todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
   $hook_pages = array(
-    "kure" => array("head", "top", "title_before", "title_after", "navtitle_before", "navtitle_after", "navposts_after", "navdocs_after", "navadmin_after", "page_top", "page_bottom", "bottom"),
-    "posts" => array("top", "bottom", "post_top", "post-title_after", "post-date_after", "post-body_after"),
-    "post" => array("top", "title_after", "date_after", "body_after"),
-    "docs" => array("top", "bottom", "doc-title_after", "doc-body_after"), 
-    "doc" => array("top", "title_after", "date_after", "body_after"),
-    "adm" => array("head", "top"),
-    "admcreate" => array("top", "title_after", "content_after", "type_after", "button_after"),
-    "admmodify" => array("top", "title_after", "content_after", "type_after", "button_after"),
-    "admplugins" => array("listing", "page")
+    'kure' => array('head', 'top', 'title_before', 'title_after', 'navtitle_before', 'navtitle_after', 'navposts_after', 'navdocs_after', 'navadmin_after', 'page_top', 'page_bottom', 'bottom'),
+    'posts' => array('top', 'bottom', 'post_top', 'post-title_after', 'post-date_after', 'post-body_after'),
+    'post' => array('top', 'title_after', 'date_after', 'body_after'),
+    'docs' => array('top', 'bottom', 'doc-title_after', 'doc-body_after'), 
+    'doc' => array('top', 'title_after', 'date_after', 'body_after'),
+    'adm' => array('head', 'top'),
+    'admcreate' => array('top', 'title_after', 'content_after', 'type_after', 'button_after'),
+    'admmodify' => array('top', 'title_after', 'content_after', 'type_after', 'button_after'),
+    'admplugins' => array('listing', 'page')
   );
   
   foreach($hook_pages as $page => $locs) {
@@ -241,7 +241,7 @@ function runtemplate($page, $vars = null) {
       else
         $plug = plug($page, $loc); // if not, then don't
 
-      $code = str_ireplace("{HOOK:" . $page . "-" . $loc . "}", $plug, $code);
+      $code = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', $plug, $code);
 
     }
 
@@ -259,9 +259,9 @@ function runtemplate($page, $vars = null) {
 $plugging = false;
 $rac[] = true; // mockup array so all our foreach()s don't fail if we don't find plugins
 
-if(file_exists($root . "plugins/")) { // plugins dir is optional
+if(file_exists($root . 'plugins/')) { // plugins dir is optional
 
-  $findmods = glob($root . "plugins/*.php");
+  $findmods = glob($root . 'plugins/*.php');
 
   // intialize our arrays so array_merge_recursive won't fail if they are not arrays by that time
   if(count($findmods) != 0) {
@@ -290,7 +290,7 @@ function plug($page, $hook, $id = false) {
   $plugging = true;
 
   if(!$id)
-    $output = "";
+    $output = '';
 
   if(is_array($rac[$page][$hook])) {
 
@@ -304,7 +304,7 @@ function plug($page, $hook, $id = false) {
   }
 
   if($id)
-    $output .= plug($page, $hook . "#" . $id); // dynamic plug
+    $output .= plug($page, $hook . '#' . $id); // dynamic plug
 
   $plugging = false;
   return $output;
@@ -405,22 +405,22 @@ function parse_title($string) {
 
   $string = parse($string);
 
-  if(strpos($string, "_") ||
-    strpos($string, "/") ||
-    strpos($string, "\\")||
-    strpos($string, "|") ||
-    strpos($string, ":") ||
-    strpos($string, "*") ||
-    strpos($string, "?") ||
-    strpos($string, "\"")||
-    strpos($string, "<") ||
-    strpos($string, ">") ||
-    strpos($string, "../")
+  if(strpos($string, '_') ||
+    strpos($string, '/') ||
+    strpos($string, '\\')||
+    strpos($string, '|') ||
+    strpos($string, ':') ||
+    strpos($string, '*') ||
+    strpos($string, '?') ||
+    strpos($string, '\'')||
+    strpos($string, '<') ||
+    strpos($string, '>') ||
+    strpos($string, '../')
   )
     exit("Invalid characters in title.");
 
-  $string = str_replace(" ", "_", $string);
-  $string = str_replace("../", "", $string);
+  $string = str_replace(' ', '_', $string);
+  $string = str_replace('../', '', $string);
 
   return $string;
 
@@ -429,14 +429,14 @@ function parse_title($string) {
 // inverse function of parse_title()
 function deparse_title($string) {
 
-  return str_replace("_", " ", $string);
+  return str_replace('_', ' ', $string);
 
 }
 
 // cleans $string of any attempts to access things it shouldn't
 function sanitize($string) {
 
-  $string = str_replace("../", "", $string);
+  $string = str_replace('../', '', $string);
   $string = htmlspecialchars($string);
   return $string;
 
