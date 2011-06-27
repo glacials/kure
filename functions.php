@@ -166,11 +166,11 @@ function delete_entry($title, $type) {
 // outputs code from $page in the current template using the variables contained in array $vars
 function runtemplate($page, $vars = null) {
 
-  $code = file_get_contents($root . 'templates/' . Config::$template . '/' . $page . '.html');
+  $code = file_get_contents('templates/' . Config::get('template') . '/' . $page . '.html');
 
-  $vars['TITLE']    = Config::$blogName;
-  $vars['SUBTITLE'] = Config::$blogSub;
-  $vars['VERSION']  = Config::$version;
+  $vars['TITLE']    = Config::get('blogName');
+  $vars['SUBTITLE'] = Config::get('blogSub');
+  $vars['VERSION']  = Config::get('version');
   
   foreach($vars as $var => $val)
     $code = str_replace('{' . $var . '}', $val, $code);
@@ -184,27 +184,27 @@ function runtemplate($page, $vars = null) {
     '/{IF:DOC}(.*?)\{\/IF:DOC}/is',
   );
   
-  if(Config::$showDocDates)
+  if(Config::get('showDocDates'))
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
   
-  if(Config::$showDocPageDates)
+  if(Config::get('showDocPageDates'))
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
   
-  if(Config::$showAdminLink)
+  if(Config::get('showAdminLink'))
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
   
-  if($vars['ENTRYTYPE'] == 'post')
+  if(isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'post')
     $vars_replace[] = '$1'; 
   else
     $vars_replace[] = '';
   
-  if($vars['ENTRYTYPE'] == 'doc')
+  if(isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'doc')
     $vars_replace[] = '$1';
   else
     $vars_replace[] = '';
@@ -287,7 +287,7 @@ function plug($page, $hook, $id = false) {
   if(!$id)
     $output = '';
 
-  if(is_array($rac[$page][$hook])) {
+  if(isset($rac[$page][$hook])) {
 
     foreach($rac[$page][$hook] as $file => $html) {
 

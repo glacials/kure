@@ -36,5 +36,13 @@ class Engine {
 
   }
 
+  // Returns the size of the longest string in $strings
+  public static function strlen_array($strings) {
+
+        $longestStrings = array_keys(array_combine($array, array_map('strlen', $array)), max($mapping));
+        return strlen($logestStrings);
+
+  }
+
 };
 

@@ -40,6 +40,8 @@ function __autoload($class) {
 
 }
 
+Config::load();
+
 /***** PREPERATIONS *********************************************************************/
 
 /***** HEADER *****/
@@ -133,14 +135,14 @@ else { // if we weren't told to do anything else
   $total_posts = count($allposts);
 
   // if the total number of posts isn't divisible by the number we want to display,
-  // then we want to make $total_posts / Config::$num_posts round up one. (think it out.) this is for pagination.
-  if($total_posts % Config::$num_posts != 0)
-    $total_posts += Config::$num_posts;
+  // then we want to make $total_posts / Config::$postsPerPage round up one. (think it out.) this is for pagination.
+  if($total_posts % Config::get('postsPerPage') != 0)
+    $total_posts += Config::get('postsPerPage');
   
-  if(!Config::$abcposts) // if we're NOT sorting alphabetically
+  if(!Config::get('abcPosts')) // if we're NOT sorting alphabetically
     usort($allposts, 'sort_by_mtime');
 
-  $page_firstpost = ($_GET['page'] * Config::$num_posts) - Config::$num_posts;
+  $page_firstpost = ($_GET['page'] * Config::get('postsPerPage')) - Config::get('postsPerPage');
   $curpost = 0;
   $i = 0; // monitor how many posts we display
 
@@ -152,10 +154,10 @@ else { // if we weren't told to do anything else
 
     foreach($allposts as $file) {
 
-      if($i == Config::$num_posts && Config::$num_posts != 0)
+      if($i == Config::get('postsPerPage') && Config::get('postsPerPage') != 0)
         break;
 
-      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + Config::$num_posts))) {
+      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + Config::get('postsPerPage')))) {
 
         $curpost++;
         continue;
@@ -178,9 +180,9 @@ else { // if we weren't told to do anything else
 
   }
 
-  if(Config::$num_posts != 0 && $total_posts > Config::$num_posts) {
+  if(Config::get('postsPerPage') != 0 && $total_posts > Config::get('postsPerPage')) {
 
-    if($_GET['page'] + 1 <= $total_posts / Config::$num_posts)
+    if($_GET['page'] + 1 <= $total_posts / Config::get('postsPerPage'))
       print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>';
     
     if($_GET['page'] != 1) {
@@ -206,3 +208,4 @@ if(!isset($_GET['install']) && !$need_install) // if we're not installing
   runtemplate('footer');
 
 ?>
+

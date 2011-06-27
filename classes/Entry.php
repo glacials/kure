@@ -19,7 +19,7 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Entry {
+abstract class Entry {
 
   private $title;
   private $content;
