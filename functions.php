@@ -333,7 +333,7 @@ function get_config($plugin) {
 function parse($string) {
 
   $string = str_replace('<?', '&lt;?', $string);
-  $string = str_replace('?>', '?&gt;', $string);
+  $string = str_replace('?>', '?&gt;', $string); // Please ignore this comment; it is meant to fix broken syntax coloring in some editors caused by this line. <?php
   $string = str_replace('\\', '',      $string);
   
   // start bbcode
@@ -370,16 +370,16 @@ function parse_title($string) {
   $string = parse($string);
 
   if(strpos($string, '_') ||
-    strpos($string, '/') ||
-    strpos($string, '\\')||
-    strpos($string, '|') ||
-    strpos($string, ':') ||
-    strpos($string, '*') ||
-    strpos($string, '?') ||
-    strpos($string, '\'')||
-    strpos($string, '<') ||
-    strpos($string, '>') ||
-    strpos($string, '../')
+     strpos($string, '/') ||
+     strpos($string, '\\')||
+     strpos($string, '|') ||
+     strpos($string, ':') ||
+     strpos($string, '*') ||
+     strpos($string, '?') ||
+     strpos($string, '\'')||
+     strpos($string, '<') ||
+     strpos($string, '>') ||
+     strpos($string, '../')
   )
     exit("Invalid characters in title.");
 
