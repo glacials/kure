@@ -52,8 +52,6 @@ class Config {
 
     $oldValue = self::$$key;
 
-    print 'setting ' . $key . ' to ' . $value . '<br/>';
-
     self::$$key = $value;
 
     return $oldValue;
