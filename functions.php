@@ -189,7 +189,9 @@ function runtemplate($page, $vars = null) {
   $vars_replace[] = Config::get('showDocDates') ? '$1' : '';
   $vars_replace[] = Config::get('showDocPageDates') ? '$1' : '';
   $vars_replace[] = Config::get('showAdminLink') ? '$1' : '';
-  $vars_replace[] = Config::get('ENTRYTYPE') ? '$1' : '';
+
+  $vars_replace[] = $vars['ENTRYTYPE'] == 'post' ? '$1' : '';
+  $vars_replace[] = $vars['ENTRYTYPE'] == 'doc' ? '$1' : '';
 
   $code = preg_replace($vars_find, $vars_replace, $code);
   // template conditionals end
