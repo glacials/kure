@@ -168,14 +168,16 @@ function runtemplate($page, $vars = null) {
 
   $code = file_get_contents('templates/' . Config::get('template') . '/' . $page . '.html');
 
+  // template variables start
   $vars['TITLE']    = Config::get('blogName');
   $vars['SUBTITLE'] = Config::get('blogSub');
   $vars['VERSION']  = Config::get('version');
   
   foreach($vars as $var => $val)
     $code = str_replace('{' . $var . '}', $val, $code);
+  // template variables end
 
-  // conditionals: show if the config value is true, hide if it is not
+  // template conditionals start
   $vars_find = array(
     '/{IF:DOCDATES}(.*?){\/IF:DOCDATES}/is',
     '/{IF:DOCSPAGEDATES}(.*?){\/IF:DOCSPAGEDATES}/is',
@@ -184,35 +186,15 @@ function runtemplate($page, $vars = null) {
     '/{IF:DOC}(.*?)\{\/IF:DOC}/is',
   );
   
-  if(Config::get('showDocDates'))
-    $vars_replace[] = '$1';
-  else
-    $vars_replace[] = '';
-  
-  if(Config::get('showDocPageDates'))
-    $vars_replace[] = '$1';
-  else
-    $vars_replace[] = '';
-  
-  if(Config::get('showAdminLink'))
-    $vars_replace[] = '$1';
-  else
-    $vars_replace[] = '';
-  
-  if(isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'post')
-    $vars_replace[] = '$1'; 
-  else
-    $vars_replace[] = '';
-  
-  if(isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'doc')
-    $vars_replace[] = '$1';
-  else
-    $vars_replace[] = '';
-  
+  $vars_replace[] = Config::get('showDocDates') ? '$1' : '';
+  $vars_replace[] = Config::get('showDocPageDates') ? '$1' : '';
+  $vars_replace[] = Config::get('showAdminLink') ? '$1' : '';
+  $vars_replace[] = Config::get('ENTRYTYPE') ? '$1' : '';
+
   $code = preg_replace($vars_find, $vars_replace, $code);
-  // end conditionals
+  // template conditionals end
   
-  // start hook processing
+  // template hooks start
   
   // todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
   $hook_pages = array(
@@ -227,22 +209,11 @@ function runtemplate($page, $vars = null) {
     'admplugins' => array('listing', 'page')
   );
   
-  foreach($hook_pages as $page => $locs) {
-
-    foreach($locs as $loc) {
-
-      if(isset($vars['id']))
-        $plug = plug($page, $loc, $vars['id']); // if it's a dynamic hook, pass plug() the id for it
-      else
-        $plug = plug($page, $loc); // if not, then don't
-
-      $code = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', $plug, $code);
-
-    }
-
-  }
-
-  // end hook processing
+  // call plug() for each hook on each page, passing id if dynamic
+  foreach($hook_pages as $page => $locs)
+    foreach($locs as $loc)
+      $code = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', isset($vars['id']) ? plug($page, $loc, $vars['id']) : plug($page, $loc), $code);
+  // template hooks end
   
   print($code);
 
@@ -338,9 +309,7 @@ function set_config($plugin, $config) {
   foreach($config as $option => $value)
     $write .= '$' . $plugin . '[\'' . $option . '\'] = ' . config_value($value) . ';\n';
 
-  $write .= '\n?>';
-  
-  if(!file_put_contents($root . 'plugins/config/$plugin.php', $write))
+  if(!file_put_contents('plugins/config/' . $plugin . '.php', $write))
     return false;
 
   return true;
@@ -352,7 +321,7 @@ function set_config($plugin, $config) {
 function get_config($plugin) {
 
   $plugin = config_key($plugin);
-  include($root . 'plugins/config/' . $plugin . '.php');
+  include('plugins/config/' . $plugin . '.php');
 
   return $$plugin; // variable variables: http://php.net/manual/en/language.variables.variable.php
 
