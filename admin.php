@@ -37,7 +37,7 @@ if(isset($_GET['logout'])) {
 
   unset($_SESSION['admin']);
   session_destroy();
-  header('Location: ../');
+  header('Location: ?');
 
 }
 
@@ -254,7 +254,7 @@ if(isset($_GET['config'])) {
       }
       
       $oldtitle = deparse_title($oldtitle);
-      $oldcontent = file_get_contents('../' . $_GET['modify'] . '.txt');
+      $oldcontent = file_get_contents($_GET['modify'] . '.txt');
       
       plug('admmodify', 'top');
       print('<form action="?modify=submit" method="post">' . "\n");
@@ -296,7 +296,7 @@ if(isset($_GET['config'])) {
     
     foreach($posts as $post) {
 
-      $post = str_replace('../posts/', '', $post);
+      $post = str_replace('posts/', '', $post);
       $post = str_replace('.txt', '', $post);
       $post_title = deparse_title($post);
       $poststr .= '&nbsp;&nbsp;<a href="?del=posts/' . $post . '" class="small">[del]</a>&nbsp;<a href="?modify=posts/' . $post . '">$post_title</a><br/>';
@@ -305,7 +305,7 @@ if(isset($_GET['config'])) {
     
     foreach($docs as $doc) {
 
-      $doc = str_replace('../docs/', '', $doc);
+      $doc = str_replace('docs/', '', $doc);
       $doc = str_replace('.txt', '', $doc);
       $doc_title = deparse_title($doc);
       $docstr .= '&nbsp;&nbsp;<a href="?del=docs/' . $doc . '" class="small">[del]</a>&nbsp;<a href="?modify=docs/' . $doc . '">$doc_title</a><br/>';
@@ -317,7 +317,7 @@ if(isset($_GET['config'])) {
 
 ?>
 <div id="tabs"></div>
-<script src="../js/tabs.js" type="text/javascript"></script>
+<script src="js/tabs.js" type="text/javascript"></script>
 <script type="text/javascript">
 var tabs = new Tabs(document.getElementById('tabs'));
 tabs.Add('posts', postsTabSwitch);
@@ -412,7 +412,7 @@ change your administration password</p>
 <p>&gt;&gt; <a href="?logout" class="pagesub">logout</a> &bull;
 destroy your administration session and return to your blog</p>
 <br/>
-<p>&lt;&lt; <a href="../" class="pagesub">back to site</a> &bull;
+<p>&lt;&lt; <a href="?" class="pagesub">back to site</a> &bull;
 return to your blog</p>
 
 <?php
