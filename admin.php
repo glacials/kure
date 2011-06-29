@@ -42,13 +42,13 @@ if(isset($_GET['logout'])) {
 }
 
 // login
-if($_SESSION['admin'] != $config['adminpass']) {
+if($_SESSION['admin'] != Config::get('adminPassword')) {
 
   if(isset($_POST['login'])) {
 
-    if(md5($_POST['password']) == $config['adminpass']) {
+    if(md5($_POST['password']) == Config::get('adminPassword')) {
 
-      $_SESSION['admin'] = $config['adminpass'];
+      $_SESSION['admin'] = Config::get('adminPassword');
       header('Location: ./');
 
     } else {
@@ -70,7 +70,7 @@ if($_SESSION['admin'] != $config['adminpass']) {
   if(isset($_SESSION['admin'])) // bad session
     print('<span class="error">Session invalid; please login again.</span><br/>');
 
-  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . $config['blog_name'] . '</span><br/><br/>');
+  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::get(blogName) . '</span><br/><br/>');
   print('<form action="./" method="post">');
   print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
   print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
@@ -88,14 +88,14 @@ if(isset($_GET['config'])) {
   if(isset($_POST['config_submit'])) {
 
     $options = array(
-      'blog_name'     => $_POST['blog_name'],
-      'blog_sub'      => $_POST['blog_sub'],
-      'num_posts'     => $_POST['num_posts'],
-      'docdates'      => $_POST['docdates'],
-      'docspagedates' => $_POST['docspagedates'],
-      'abcdocs'       => $_POST['abcdocs'],
-      'abcposts'      => $_POST['abcposts'],
-      'showadmin'     => $_POST['showadmin']
+      'blogName'         => $_POST['blogName'],
+      'blogSub'          => $_POST['blogSub'],
+      'postsPerPage'     => $_POST['postsPerPage'],
+      'showDocDates'     => $_POST['showDocDates'],
+      'showDocPageDates' => $_POST['showDocPageDates'],
+      'abcDocs'          => $_POST['abcDocs'],
+      'abcPosts'         => $_POST['abcPosts'],
+      'showAdminLink'    => $_POST['showAdminLink']
     );
 
     if(!write_config($options))
@@ -107,28 +107,28 @@ if(isset($_GET['config'])) {
 
   ?>
   <form action="?config" method="post">
-  blog name<br/><input type="text" name="blog_name" value="<?php print($config['blog_name']); ?>" class="form_text"><br/><br/>
-  subname<br/><input type="text" name="blog_sub" value="<?php print($config['blog_sub']); ?>" class="form_text"><br/><br/>
-  posts per page<br/><input type="text" name="num_posts" value="<?php print($config['num_posts']); ?>" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>
-  <select name="docdates">
-    <option value="true" <?php if($config['docdates']) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!$config['docdates']) print("selected"); ?>>No</option>
+  blog name<br/><input type="text" name="blogName" value="<?php print Config::get('blogName'); ?>" class="form_text"><br/><br/>
+  subname<br/><input type="text" name="blogSub" value="<?php print(Config::get('blogSub')); ?>" class="form_text"><br/><br/>
+  posts per page<br/><input type="text" name="postsPerPage" value="<?php print(Config::get('postsPerPage')); ?>" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>
+  <select name="showDocDates">
+    <option value="true" <?php if(Config::get('showDocDates')) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::get('showDocDates')) print("selected"); ?>>No</option>
   </select> display dates on docs<br/><br/>
-  <select name="docspagedates">
-    <option value="true" <?php if($config['docspagedates']) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!$config['docspagedates']) print("selected"); ?>>No</option>
+  <select name="showDocPageDates">
+    <option value="true" <?php if(Config::get('showDocPageDates')) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::get('showDocPageDates')) print("selected"); ?>>No</option>
   </select> display dates on doc listing<br/><br/>
-  <select name="abcdocs">
-    <option value="true" <?php if($config['abcdocs']) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!$config['abcdocs']) print("selected"); ?>>Date descending</option>
+  <select name="abcDocs">
+    <option value="true" <?php if(Config::get('abcDocs')) print("selected"); ?>>Alphabetical</option>
+    <option value="false" <?php if(!Config::get('abcDocs')) print("selected"); ?>>Date descending</option>
   </select> doc order<br/><br/>
-  <select name="abcposts">
-    <option value="true" <?php if($config['abcposts']) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!$config['abcposts']) print("selected"); ?>>Date descending</option>
+  <select name="abcPosts">
+    <option value="true" <?php if(Config::get('abcPosts')) print("selected"); ?>>Alphabetical</option>
+    <option value="false" <?php if(!Config::get('abcPosts')) print("selected"); ?>>Date descending</option>
   </select> post order<br/><br/>
-  <select name="showadmin">
-    <option value="true" <?php if($config['showadmin']) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!$config['showadmin']) print("selected"); ?>>No</option>
+  <select name="showAdminLink">
+    <option value="true" <?php if(Config::get('showAdminLink')) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::get('showAdminLink')) print("selected"); ?>>No</option>
   </select> show admin panel link in sidebar<br/><br/>
   <input type="submit" name="config_submit" value="save" class="form_submit">
 
@@ -372,11 +372,11 @@ if(paneElement.innerHTML == '')
   if(isset($_POST['pass_submit'])) {
 
     if($_POST['newpass1'] != $_POST['newpass2'] || $_POST['newpass1'] == "")
-      exit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
-    if(md5($_POST['curpass']) != $config['adminpass'])
-      exit('Incorrect current password. <a href="?password">Try again</a>.');
-    if(!write_config(array('adminpass' => md5($_POST['newpass1']))))
-      exit('<span class="error">Error writing to <tt>config.php</tt>. Check permissions and try again.</span>');
+      Engine::quit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
+    if(md5($_POST['curpass']) != Config::get('adminPassword'))
+      Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
+    if(!write_config(array('adminPassword' => md5($_POST['newpass1']))))
+      Engine::quit('Error writing to <tt>config.php</tt>. Check permissions and try again.');
 
     print('<span class="success">Password changed.</span>');
 
