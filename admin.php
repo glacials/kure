@@ -375,8 +375,9 @@ if(paneElement.innerHTML == '')
       Engine::quit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
     if(md5($_POST['curpass']) != Config::get('adminPassword'))
       Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
-    if(!write_config(array('adminPassword' => md5($_POST['newpass1']))))
-      Engine::quit('Error writing to <tt>config.php</tt>. Check permissions and try again.');
+
+    Config::set('adminPassword', md5($_POST['newpass1']));
+    Config::save();
 
     print('<span class="success">Password changed.</span>');
 
