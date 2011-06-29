@@ -83,7 +83,7 @@ runtemplate('admin_header');
 
 if(isset($_GET['config'])) {
 
-  print('<span class="pagesub">config</span><br/><br/>\n');
+  print('<span class="pagesub">config</span><br/><br/>' . "\n");
 
   if(isset($_POST['config_submit'])) {
 
@@ -138,7 +138,7 @@ if(isset($_GET['config'])) {
 
 } elseif(isset($_GET['plugins'])) {
 
-  print('<span class="pagesub">plugins</span><br/>\n');
+  print('<span class="pagesub">plugins</span><br/>' . "\n");
   print('<div style="position: relative; left: 8px;">');
   plug('admplugins', 'listing');
   print('</div>');
@@ -150,7 +150,7 @@ if(isset($_GET['config'])) {
 
 } elseif(isset($_GET['templates'])) {
 
-  print('<span class="pagesub">templates</span><br/><br/>\n');
+  print('<span class="pagesub">templates</span><br/><br/>' . "\n");
 
   if(isset($_POST['template_submit'])) {
 
@@ -161,7 +161,7 @@ if(isset($_GET['config'])) {
 
   } else {
 
-    print('<form action="?templates" method="post">\n');
+    print('<form action="?templates" method="post">' . "\n");
     $templates = glob($root . 'templates/*', GLOB_ONLYDIR);
 
     foreach($templates as $template) {
@@ -172,7 +172,7 @@ if(isset($_GET['config'])) {
       if($config['template'] == $template)
         print(' checked');
 
-      print('> <tt>$template</tt><br/>\n');
+      print('> <tt>$template</tt><br/>' . "\n");
 
     }
 
@@ -358,16 +358,16 @@ if(paneElement.innerHTML == '')
 
   } else {
 
-    print('<span class="pagesub">delete entry</span><br/><br/>\n');
-    print('Are you sure you want to delete the ' . $type . '<b><tt>' . deparse_title($title) . '</tt></b>? This cannot be undone.<br/><br/>\n');
-    print('<div align="right"><form action="?del=' . $_GET['del'] . '" method="post"><input type="submit" name="confirm_delete" value="Yes, delete this ' . $type . '"></form>\n');
+    print('<span class="pagesub">delete entry</span><br/><br/>' . "\n");
+    print('Are you sure you want to delete the ' . $type . '<b><tt>' . deparse_title($title) . '</tt></b>? This cannot be undone.<br/><br/>' . "\n");
+    print('<div align="right"><form action="?del=' . $_GET['del'] . '" method="post"><input type="submit" name="confirm_delete" value="Yes, delete this ' . $type . '"></form>' . "\n");
     print('<a href="?modify" class="navitem">Go back</a></div>');
 
   }
 
 } elseif(isset($_GET['password'])) {
 
-  print("<span class=\"pagesub\">change password</span><br/><br/>\n");
+  print('<span class="pagesub">change password</span><br/><br/>' . "\n");
 
   if(isset($_POST['pass_submit'])) {
 
