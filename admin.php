@@ -169,7 +169,7 @@ if(isset($_GET['config'])) {
       $template = str_replace($root . 'templates/', '', $template);
       print('<input type="radio" name="template" value="' . $template . '"');
 
-      if($config['template'] == $template)
+      if($template == Config::get('template'))
         print(' checked');
 
       print('> <tt>' . $template. '</tt><br/>' . "\n");
