@@ -299,7 +299,7 @@ if(isset($_GET['config'])) {
       $post = str_replace('posts/', '', $post);
       $post = str_replace('.txt', '', $post);
       $post_title = deparse_title($post);
-      $poststr .= '&nbsp;&nbsp;<a href="?del=posts/' . $post . '" class="small">[del]</a>&nbsp;<a href="?modify=posts/' . $post . '">$post_title</a><br/>';
+      $poststr .= '&nbsp;&nbsp;<a href="?del=posts/' . $post . '" class="small">[del]</a>&nbsp;<a href="?modify=posts/' . $post . '">' . $post_title . '</a><br/>';
 
     }
     
@@ -308,7 +308,7 @@ if(isset($_GET['config'])) {
       $doc = str_replace('docs/', '', $doc);
       $doc = str_replace('.txt', '', $doc);
       $doc_title = deparse_title($doc);
-      $docstr .= '&nbsp;&nbsp;<a href="?del=docs/' . $doc . '" class="small">[del]</a>&nbsp;<a href="?modify=docs/' . $doc . '">$doc_title</a><br/>';
+      $docstr .= '&nbsp;&nbsp;<a href="?del=docs/' . $doc . '" class="small">[del]</a>&nbsp;<a href="?modify=docs/' . $doc . '">' . $doc_title . '</a><br/>';
 
     }
     
