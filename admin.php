@@ -172,7 +172,7 @@ if(isset($_GET['config'])) {
       if($config['template'] == $template)
         print(' checked');
 
-      print('> <tt>$template</tt><br/>' . "\n");
+      print('> <tt>' . $template. '</tt><br/>' . "\n");
 
     }
 
