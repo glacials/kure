@@ -260,7 +260,7 @@ if(isset($_GET['config'])) {
       print('<form action="?modify=submit" method="post">' . "\n");
       print('title<br/><input class="form_text" name="title" size="50" type="text" value="' . $oldtitle . '"><br><br>' . "\n");
       plug('admmodify', 'title_after');
-      print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">$oldcontent</textarea><br><br>' . "\n");
+      print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">' . $oldcontent . '</textarea><br><br>' . "\n");
       plug('admmodify', 'content_after');
       
       print('<input ');
