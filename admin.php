@@ -49,13 +49,13 @@ if($_SESSION['admin'] != Config::get('adminPassword')) {
     if(md5($_POST['password']) == Config::get('adminPassword')) {
 
       $_SESSION['admin'] = Config::get('adminPassword');
-      header('Location: ./');
+      header('Location: admin.php');
 
     } else {
 
       runtemplate('admin_header');
       print('<div style="position: absolute; left: 400px; top: 180px;">');
-      error('Invalid password.', false);
+      Engine::error('Invalid password.', false);
 
     }
 
@@ -71,11 +71,11 @@ if($_SESSION['admin'] != Config::get('adminPassword')) {
     print('<span class="error">Session invalid; please login again.</span><br/>');
 
   print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::get(blogName) . '</span><br/><br/>');
-  print('<form action="./" method="post">');
+  print('<form action="?" method="post">');
   print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
   print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
   
-  exit(); // don't allow any further access of administration unless logged in
+  Engine::quit(); // don't allow any further access of administration unless logged in
 
 }
 

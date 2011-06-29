@@ -39,8 +39,13 @@ class Config {
   private static $abcPosts;
   private static $abcDocs;
 
+  private static $loaded = false;
+
   // Returns the value of property $key.
   public static function get($key) {
+
+    if(!$loaded)
+      $loaded = self::load();
 
     return self::$$key;
 
