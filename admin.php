@@ -21,7 +21,14 @@
  *-->
  */
 
-require_once('../functions.php');
+// Autoload any class which is used in this file
+function __autoload($class) {
+  
+  include 'classes/' . $class . '.php';
+
+}
+
+require_once('functions.php');
 Config::load();
 session_start();
 
