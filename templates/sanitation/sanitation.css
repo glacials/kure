@@ -14,7 +14,7 @@ a:hover.blog_title {
   text-decoration: none;
 }
 
-a.navitem {
+a:link.navitem, a:visited.navitem {
   color: #0300ff;
   font-family: "trebuchet ms", arial;
   font-size: 14px;
@@ -25,9 +25,19 @@ a.navitem {
 a:hover.navitem {
   background: #0300ff;
   color: #ffffff;
+}
+
+a:link.footer, a:visited.footer {
+  color: #7f7f7f;
   font-family: "trebuchet ms", arial;
-  font-size: 14px;
-  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: -1px;
+  text-decoration: none; 
+}
+
+a:hover.footer {
+  background: #0300ff;
+  color: #ffffff;
 }
 
 body {
@@ -71,7 +81,7 @@ table.table_download td {
   font-weight: bold;
 }
 
-.footertext {
+.footer {
   color: #7f7f7f;
   font-family: "trebuchet ms", arial;
   font-size: 10px;
