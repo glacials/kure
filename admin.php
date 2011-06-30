@@ -42,13 +42,13 @@ if(isset($_GET['logout'])) {
 }
 
 // login
-if($_SESSION['admin'] != Config::get('adminPassword')) {
+if($_SESSION['admin'] != Config::$adminPassword) {
 
   if(isset($_POST['login'])) {
 
-    if(md5($_POST['password']) == Config::get('adminPassword')) {
+    if(md5($_POST['password']) == Config::$adminPassword) {
 
-      $_SESSION['admin'] = Config::get('adminPassword');
+      $_SESSION['admin'] = Config::$adminPassword;
       header('Location: admin.php');
 
     } else {
@@ -70,7 +70,7 @@ if($_SESSION['admin'] != Config::get('adminPassword')) {
   if(isset($_SESSION['admin'])) // bad session
     print('<span class="error">Session invalid; please login again.</span><br/>');
 
-  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::get('blogName') . '</span><br/><br/>');
+  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::$blogName . '</span><br/><br/>');
   print('<form action="?" method="post">');
   print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
   print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
@@ -107,28 +107,28 @@ if(isset($_GET['config'])) {
 
   ?>
   <form action="?config" method="post">
-  blog name<br/><input type="text" name="blogName" value="<?php print Config::get('blogName'); ?>" class="form_text"><br/><br/>
-  subname<br/><input type="text" name="blogSub" value="<?php print(Config::get('blogSub')); ?>" class="form_text"><br/><br/>
-  posts per page<br/><input type="text" name="postsPerPage" value="<?php print(Config::get('postsPerPage')); ?>" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>
+  blog name<br/><input type="text" name="blogName" value="<?php print Config::$blogName; ?>" class="form_text"><br/><br/>
+  subname<br/><input type="text" name="blogSub" value="<?php print(Config::$blogSub); ?>" class="form_text"><br/><br/>
+  posts per page<br/><input type="text" name="postsPerPage" value="<?php print(Config::$postsPerPage); ?>" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>
   <select name="showDocDates">
-    <option value="true" <?php if(Config::get('showDocDates')) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::get('showDocDates')) print("selected"); ?>>No</option>
+    <option value="true" <?php if(Config::$showDocDates) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::$showDocDates) print("selected"); ?>>No</option>
   </select> display dates on docs<br/><br/>
   <select name="showDocPageDates">
-    <option value="true" <?php if(Config::get('showDocPageDates')) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::get('showDocPageDates')) print("selected"); ?>>No</option>
+    <option value="true" <?php if(Config::$showDocPageDates) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::$showDocPageDates) print("selected"); ?>>No</option>
   </select> display dates on doc listing<br/><br/>
   <select name="abcDocs">
-    <option value="true" <?php if(Config::get('abcDocs')) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!Config::get('abcDocs')) print("selected"); ?>>Date descending</option>
+    <option value="true" <?php if(Config::$abcDocs) print("selected"); ?>>Alphabetical</option>
+    <option value="false" <?php if(!Config::$abcDocs) print("selected"); ?>>Date descending</option>
   </select> doc order<br/><br/>
   <select name="abcPosts">
-    <option value="true" <?php if(Config::get('abcPosts')) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!Config::get('abcPosts')) print("selected"); ?>>Date descending</option>
+    <option value="true" <?php if(Config::$abcPosts) print("selected"); ?>>Alphabetical</option>
+    <option value="false" <?php if(!Config::$abcPosts) print("selected"); ?>>Date descending</option>
   </select> post order<br/><br/>
   <select name="showAdminLink">
-    <option value="true" <?php if(Config::get('showAdminLink')) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::get('showAdminLink')) print("selected"); ?>>No</option>
+    <option value="true" <?php if(Config::$showAdminLink) print("selected"); ?>>Yes</option>
+    <option value="false" <?php if(!Config::$showAdminLink) print("selected"); ?>>No</option>
   </select> show admin panel link in sidebar<br/><br/>
   <input type="submit" name="config_submit" value="save" class="form_submit">
 
@@ -169,7 +169,7 @@ if(isset($_GET['config'])) {
       $template = str_replace($root . 'templates/', '', $template);
       print('<input type="radio" name="template" value="' . $template . '"');
 
-      if($template == Config::get('template'))
+      if($template == Config::$template)
         print(' checked');
 
       print('> <tt>' . $template. '</tt><br/>' . "\n");
@@ -373,7 +373,7 @@ if(paneElement.innerHTML == '')
 
     if($_POST['newpass1'] != $_POST['newpass2'] || $_POST['newpass1'] == "")
       Engine::quit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
-    if(md5($_POST['curpass']) != Config::get('adminPassword'))
+    if(md5($_POST['curpass']) != Config::$adminPassword)
       Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
 
     Config::set('adminPassword', md5($_POST['newpass1']));

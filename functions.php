@@ -166,12 +166,12 @@ function delete_entry($title, $type) {
 // outputs code from $page in the current template using the variables contained in array $vars
 function runtemplate($page, $vars = null) {
 
-  $code = file_get_contents('templates/' . Config::get('template') . '/' . $page . '.html');
+  $code = file_get_contents('templates/' . Config::$template . '/' . $page . '.html');
 
   // template variables start
-  $vars['TITLE']    = Config::get('blogName');
-  $vars['SUBTITLE'] = Config::get('blogSub');
-  $vars['VERSION']  = Config::get('version');
+  $vars['TITLE']    = Config::$blogName;
+  $vars['SUBTITLE'] = Config::$blogSub;
+  $vars['VERSION']  = Config::$version;
   
   foreach($vars as $var => $val)
     $code = str_replace('{' . $var . '}', $val, $code);
@@ -186,9 +186,9 @@ function runtemplate($page, $vars = null) {
     '/{IF:DOC}(.*?)\{\/IF:DOC}/is',
   );
   
-  $vars_replace[] = Config::get('showDocDates') ? '$1' : '';
-  $vars_replace[] = Config::get('showDocPageDates') ? '$1' : '';
-  $vars_replace[] = Config::get('showAdminLink') ? '$1' : '';
+  $vars_replace[] = Config::$showDocDates ? '$1' : '';
+  $vars_replace[] = Config::$showDocPageDates ? '$1' : '';
+  $vars_replace[] = Config::$showAdminLink ? '$1' : '';
 
   $vars_replace[] = isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'post' ? '$1' : '';
   $vars_replace[] = isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'doc' ? '$1' : '';

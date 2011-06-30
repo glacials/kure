@@ -21,57 +21,23 @@
 
 class Config {
 
-  private static $version;
+  public static $version;
 
-  private static $adminPassword;
-  private static $showAdminLink;
+  public static $adminPassword;
+  public static $showAdminLink;
 
-  private static $blogName;
-  private static $blogSub;
+  public static $blogName;
+  public static $blogSub;
 
-  private static $template;
+  public static $template;
 
-  private static $postsPerPage;
+  public static $postsPerPage;
 
-  private static $showDocDates;
-  private static $showDocPageDates;
+  public static $showDocDates;
+  public static $showDocPageDates;
 
-  private static $abcPosts;
-  private static $abcDocs;
-
-  private static $loaded = false;
-
-  // Returns the value of property $key.
-  public static function get($key) {
-
-    if(!self::$loaded)
-      self::$loaded = self::load();
-
-    return self::$$key;
-
-  }
-
-  // Sets property $key to $value.
-  // Returns the old value of $key.
-  public static function set($key, $value) {
-
-    $oldValue = self::$$key;
-
-    self::$$key = $value;
-
-    return $oldValue;
-
-  }
-
-  // Reads configuration from file.
-  // Returns false if the config file doesn't exist; true otherwise.
-  public static function load() {
-
-    include 'config.php';
-
-    return file_exists('config.php');
-
-  }
+  public static $abcPosts;
+  public static $abcDocs;
 
   // Writes the current configuration to file.
   // Returns true on success; false otherwise.
@@ -114,3 +80,4 @@ class Config {
 
 };
 
+?>

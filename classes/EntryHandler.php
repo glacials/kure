@@ -4,14 +4,13 @@ class EntryHandler {
 
   private $entries[];
 
-  // Constructs a new EntryHandler with source $path
-  function __construct($path) {
+  // Returns the next entry in the queue
+  public function getNext() {
 
-    foreach(glob($path . '/*.txt')) {
+    if(!isset($this->entries[0]))
+      return false;
 
-      
-
-    }
+    return array_shift($this->entries);
 
   }
 

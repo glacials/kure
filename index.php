@@ -126,18 +126,20 @@ else { // if we weren't told to do anything else
   if(!isset($_GET['page']))
     $_GET['page'] = 1; // default to page 1
 
+  $postHandler = new PostHandler();
+
   $allposts = glob('posts/*.txt');
   $total_posts = count($allposts);
 
   // if the total number of posts isn't divisible by the number we want to display,
   // then we want to make $total_posts / Config::$postsPerPage round up one. (think it out.) this is for pagination.
-  if($total_posts % Config::get('postsPerPage') != 0)
-    $total_posts += Config::get('postsPerPage');
+  if($total_posts % Config::$postsPerPage != 0)
+    $total_posts += Config::$postsPerPage;
   
-  if(!Config::get('abcPosts')) // if we're NOT sorting alphabetically
+  if(!Config::$abcPosts) // if we're NOT sorting alphabetically
     usort($allposts, 'sort_by_mtime');
 
-  $page_firstpost = ($_GET['page'] * Config::get('postsPerPage')) - Config::get('postsPerPage');
+  $page_firstpost = ($_GET['page'] * Config::$postsPerPage) - Config::$postsPerPage;
   $curpost = 0;
   $i = 0; // monitor how many posts we display
 
@@ -149,10 +151,10 @@ else { // if we weren't told to do anything else
 
     foreach($allposts as $file) {
 
-      if($i == Config::get('postsPerPage') && Config::get('postsPerPage') != 0)
+      if($i == Config::$postsPerPage && Config::$postsPerPage != 0)
         break;
 
-      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + Config::get('postsPerPage')))) {
+      if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + Config::$postsPerPage))) {
 
         $curpost++;
         continue;
@@ -175,9 +177,9 @@ else { // if we weren't told to do anything else
 
   }
 
-  if(Config::get('postsPerPage') != 0 && $total_posts > Config::get('postsPerPage')) {
+  if(Config::$postsPerPage != 0 && $total_posts > Config::$postsPerPage) {
 
-    if($_GET['page'] + 1 <= $total_posts / Config::get('postsPerPage'))
+    if($_GET['page'] + 1 <= $total_posts / Config::$postsPerPage)
       print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>';
     
     if($_GET['page'] != 1) {
