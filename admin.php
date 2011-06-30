@@ -70,7 +70,7 @@ if($_SESSION['admin'] != Config::get('adminPassword')) {
   if(isset($_SESSION['admin'])) // bad session
     print('<span class="error">Session invalid; please login again.</span><br/>');
 
-  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::get(blogName) . '</span><br/><br/>');
+  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::get('blogName') . '</span><br/><br/>');
   print('<form action="?" method="post">');
   print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
   print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');

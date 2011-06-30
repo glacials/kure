@@ -21,14 +21,14 @@
 
 class Engine {
 
-  public static function error($message) {
+  public static function error($message = '') {
 
     print '<span class="error">' . $message . '</span>';
 
   }
 
   // Exits all PHP processing on-the-spot and spits error message $error.
-  public static function quit($message) {
+  public static function quit($message = '') {
 
     self::error($message);
     runtemplate("footer", array());

@@ -44,8 +44,8 @@ class Config {
   // Returns the value of property $key.
   public static function get($key) {
 
-    if(!$loaded)
-      $loaded = self::load();
+    if(!self::$loaded)
+      self::$loaded = self::load();
 
     return self::$$key;
 
