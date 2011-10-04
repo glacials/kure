@@ -7,31 +7,37 @@
  * 
  * This file is part of kure.
  * 
- * kure is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version
- * 3 of the License, or (at your option) any later version.
+ * kure is free software: you can redistribute it and/or modify it under the
+ * terms of the * GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU General Public License for more details.
+ * kure is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License along with kure.
- * If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * kure. If not, see <http://www.gnu.org/licenses/>.
  * 
  * NOTES
  * kure is in BETA. Be aware that there may be BUGS and/or SECURITY HOLES
- * in the engine, and that you are using it at your own risk. Please be cautious.
+ * in the engine, and that you are using it at your own risk. Please be
+ * cautious.
  * 
- * I graciously accept bug reports and suggestions for kure's engine. Visit kure's site
- * at http://findthekure.net/. My email is skoh.fley@gmail.com if you wish to reach me
- * directly.
+ * I graciously accept bug reports and suggestions for kure's engine. Visit
+ * kure's repo at github.com/skoh-fley/kure. My email is breachreach@gmail.com
+ * if you wish to reach me directly.
  *  
- * If you wish to remove the footer's "powered by kure" text, feel free. I always
- * appreciate recognition somewhere, but I'll let you decide what's fair. :P
+ * If you wish to remove the footer's "powered by kure" text, feel free. I
+ * always appreciate recognition somewhere, but I'll let you decide what's fair.
+ * :P
  */
 
+// Tell all files to include relative to THIS FILE's directory
+set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
+
 $need_install = false;
-@include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
 // Autoload any class which is used in this file
 function __autoload($class) {
@@ -44,8 +50,6 @@ if(!Config::load())
   Engine::quit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>');
 
 runtemplate('header');
-
-/***** DISPLAY **************************************************************************/
 
 /***** DOCS *****/
 if(isset($_GET['docs'])) { // if we're at the docs page
