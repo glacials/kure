@@ -13,37 +13,46 @@
  * 
  * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU General Public License for more details.
+ * PURPOSE. See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along with kure.
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
 class Engine {
-
-  public static function error($message = '') {
-
-    print '<span class="error">' . $message . '</span>';
-
-  }
-
-  // Exits all PHP processing on-the-spot and spits error message $error.
-  public static function quit($message = '') {
-
-    self::error($message);
+	
+	private static $config;
+	
+	public static function error($message = '') {
+		print '<span class="error">' . $message . '</span>';
+	}
+	
+	// Exits all PHP processing on-the-spot and spits error message $error.
+	public static function quit($message = '') {
+		
+		self::error($message);
 		Template::run("footer", array());
-    exit();
+		exit();
+		
+	}
+	
+	public static function get_config() {
+		
+		if(self::$config == null)
+			self::$config = new Config();
+		
+		return self::$config;
 
-  }
-
-  // Returns the size of the longest string in $strings
-  public static function strlen_array($strings) {
-
-        $longestStrings = array_keys(array_combine($array, array_map('strlen', $array)), max($mapping));
-        return strlen($logestStrings);
-
-  }
-
+	}
+	
+	// Returns the size of the longest string in $strings
+	public static function strlen_array($strings) {
+		
+		$longestStrings = array_keys(array_combine($array, array_map('strlen', $array)), max($mapping));
+		return strlen($logestStrings);
+		
+	}
+	
 };
 
 ?>

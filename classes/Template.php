@@ -5,12 +5,12 @@ class Template {
 	// outputs code from $page in the current template using the variables contained in array $vars
 	static function run($page, $vars = null) {
 		
-		$code = file_get_contents('templates/' . Config::$template . '/' . $page . '.html');
-
+		$code = file_get_contents('templates/' . Engine::get_config()->template . '/' . $page . '.html');
+		
 		// template variables start
-		$vars['TITLE']    = Config::$blogName;
-		$vars['SUBTITLE'] = Config::$blogSub;
-		$vars['VERSION']  = Config::$version;
+		$vars['TITLE']    = Engine::get_config()->blog_name;
+		$vars['SUBTITLE'] = Engine::get_config()->blog_sub;
+		$vars['VERSION']  = Engine::get_config()->version;
 		
 		foreach($vars as $var => $val)
 			$code = str_replace('{' . $var . '}', $val, $code);
@@ -25,13 +25,13 @@ class Template {
 			'/{IF:DOC}(.*?)\{\/IF:DOC}/is',
 		);
 		
-		$vars_replace[] = Config::$showDocDates ? '$1' : '';
-		$vars_replace[] = Config::$showDocPageDates ? '$1' : '';
-		$vars_replace[] = Config::$showAdminLink ? '$1' : '';
-
+		$vars_replace[] = Engine::get_config()->show_doc_dates ? '$1' : '';
+		$vars_replace[] = Engine::get_config()->show_doc_page_dates ? '$1' : '';
+		$vars_replace[] = Engine::get_config()->show_admin_link ? '$1' : '';
+		
 		$vars_replace[] = isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'post' ? '$1' : '';
 		$vars_replace[] = isset($vars['ENTRYTYPE']) && $vars['ENTRYTYPE'] == 'doc' ? '$1' : '';
-
+		
 		$code = preg_replace($vars_find, $vars_replace, $code);
 		// template conditionals end
 		
