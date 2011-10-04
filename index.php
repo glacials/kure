@@ -37,8 +37,6 @@
 // Tell all files to include relative to THIS FILE's directory
 set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
 
-$need_install = false;
-
 // Autoload any class which is used in this file
 function __autoload($class) {
   
@@ -49,12 +47,12 @@ function __autoload($class) {
 if(!Config::load())
   Engine::quit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>');
 
-runtemplate('header');
+Template::run('header');
 
 /***** DOCS *****/
 if(isset($_GET['docs'])) { // if we're at the docs page
 
-  runtemplate('doclist_header');
+  Template::run('doclist_header');
   $alldocs = glob('docs/*.txt');
 
   if(!Config::$abcdocs) // if we're NOT sorting alphabetically
@@ -74,13 +72,13 @@ if(isset($_GET['docs'])) { // if we're at the docs page
       $uftitle = $title;
       $id = md5($title); // dynamic hook identifier
       $title = deparse_title($title);
-      runtemplate('doclist', array('id' => $id, 'DOCTITLE' => $title, 'DOCADDRESS' => $uftitle, 'DOCDATE' => date('F jS, Y', filemtime($file))));
+      Template::run('doclist', array('id' => $id, 'DOCTITLE' => $title, 'DOCADDRESS' => $uftitle, 'DOCDATE' => date('F jS, Y', filemtime($file))));
 
     }
 
   }
 
-  runtemplate('doclist_footer');
+  Template::run('doclist_footer');
 
 }
 
@@ -116,7 +114,7 @@ elseif(isset($_GET['post']) || isset($_GET['doc'])) { // if a post/doc has been 
     $title   = str_replace('_', ' ', $title);
     $content = str_replace('\n', '<br/>', file_get_contents($file));
     
-    runtemplate('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $uftitle, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
+    Template::run('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $uftitle, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
 
   }
 
@@ -125,7 +123,7 @@ elseif(isset($_GET['post']) || isset($_GET['doc'])) { // if a post/doc has been 
 /***** POSTS *****/
 else { // if we weren't told to do anything else
 
-  runtemplate('postlist_header');
+  Template::run('postlist_header');
 
   if(!isset($_GET['page']))
     $_GET['page'] = 1; // default to page 1
@@ -173,7 +171,7 @@ else { // if we weren't told to do anything else
       $title = deparse_title($title);
       $content = str_replace("\n", '<br/>' . "\n", file_get_contents($file));
       
-      runtemplate('postlist', array('id' => $id, 'POSTTITLE' => $title, 'POSTADDRESS' => $uftitle, 'POSTDATE' => date('F jS, Y', filemtime($file)), 'POSTCONTENT' => $content));
+      Template::run('postlist', array('id' => $id, 'POSTTITLE' => $title, 'POSTADDRESS' => $uftitle, 'POSTDATE' => date('F jS, Y', filemtime($file)), 'POSTCONTENT' => $content));
       
       $i++;
 
@@ -200,12 +198,11 @@ else { // if we weren't told to do anything else
 
   }
 
-  runtemplate('postlist_footer');
+  Template::run('postlist_footer');
 
 }
 
 /***** DISASSEMBLY *****/
-if(!isset($_GET['install']) && !$need_install) // if we're not installing
-  runtemplate('footer');
+Template::run('footer');
 
 ?>

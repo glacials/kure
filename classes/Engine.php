@@ -31,7 +31,7 @@ class Engine {
   public static function quit($message = '') {
 
     self::error($message);
-    runtemplate("footer", array());
+		Template::run("footer", array());
     exit();
 
   }
