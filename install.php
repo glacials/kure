@@ -24,9 +24,7 @@ $version = '0.7.1';
 
 // Autoload any class which is used in this file
 function __autoload($class) {
-  
-  include 'classes/' . $class . '.php';
-
+	include 'classes/' . $class . '.php';
 }
 
 $head = 
@@ -51,18 +49,18 @@ $head =
 		<p>Detecting tasks...</p>
 ';
 
-$required_paths = array('admin/', 'admin/index.php', 'functions.php', 'index.php');
+$required_paths = array('admin.php', 'functions.php', 'index.php');
 $success = true;
 
 foreach($required_paths as $path) {
-
+	
 	if(!file_exists($path)) {
-
+		
 		print '<b>ERROR:</b> File or directory <tt>' . $path . '</tt> is missing.<br/>';
 		$success = false;
-
+		
 	}
-
+	
 }
 
 if(!$success)
@@ -92,42 +90,46 @@ elseif(!is__writable('docs'))
 	$todo_user[] = 'make the <tt>docs/</tt> directory writeable';
 
 if(isset($_POST['create'])) {
-
+	
 	if(isset($todo_kure['config'])) {
-
+		
 		if($_POST['pass1'] != $_POST['pass2'] || $_POST['pass1'] == "")
 			Engine::quit($head .  'Passwords did not match or were not entered. <a href="?">Try again</a>.');
-
-		$config = array(
-			'version'          => $version,
-			'adminPassword'    => md5($_POST['pass1']),
-			'showAdminLink'    => true,
-			'blogName'         => 'kure',
-			'blogSub'          => 'beta',
-			'template'         => 'sanitation',
-			'postsPerPage'     => 8,
-			'showDocDates'     => true,
-			'showDocPageDates' => true,
-			'abcPosts'         => false,
-			'abcDocs'          => true
+		
+		$prefs = array(
+			'version'             => $version,
+			'admin_password'      => md5($_POST['pass1']),
+			'show_admin_link'     => true,
+			'blog_name'           => 'kure',
+			'blog_sub'            => 'beta',
+			'template'            => 'sanitation',
+			'posts_per_page'      => 8,
+			'show_doc_dates'      => true,
+			'show_doc_page_dates' => true,
+			'abc_posts'           => false,
+			'abc_docs'            => true
 		);
-
-    foreach($config as $key => $value)
-      Config::set($key, $value);
-
-    if(!Config::save())
+		
+		$config = new Config();
+		
+		foreach($prefs as $key => $value)
+			$config->$key = $value;
+		
+		$config->save();
+		
+		if(!$config->save())
 			Engine::quit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
-
+		
 	}
-
+	
 	if(isset($todo_kure['posts']) && !mkdir('posts/'))
 		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>posts/</tt></span>');
-
+	
 	if(isset($todo_kure['docs']) && !mkdir('docs/'))
 		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>docs/</tt></span>');
-
+	
 	header('Location: ?'); // refresh the page to refresh the tasks
-
+	
 }
 
 if(!isset($todo_user) && !isset($todo_kure))
@@ -138,22 +140,22 @@ if(isset($todo_user))
 	print 'Let\'s see what\'s on the agenda for today:<br/><br/>';
 
 if(isset($todo_user)) {
-
+	
 	print '<b>You</b> need to:<br/><br/>';
-
+	
 	foreach($todo_user as $task)
 		print '&bull; ' . $task . '<br/>';
-
+	
 	print '<br/>';
-
+	
 	if(isset($todo_kure))
 		print 'So that <b>kure</b> can:';
 	else
 		print 'Then you\'ll be done.';
-
+	
 } else {
-
-  print 'Looks like kure is ready to do the following.';
+	
+	print 'Looks like kure is ready to do the following.';
   
 }
 
@@ -166,31 +168,33 @@ if(isset($todo_kure))
 print '<br/>';
 
 if(isset($todo_user)) {
-
+	
 	print 'Refresh this page when you\'ve completed your tasks';
 	
 	if(isset($todo_kure))
 		print ', and kure will be ready to complete its own';
 	
 	print '.'; // <('.'<)
-
+	
 } else {
 
+	print '<form action="?" method="post">';
+	
 	if(isset($todo_kure['config'])) {
-
+		
 		print 'Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>';
     print '<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>';
-		print '<form action="?" method="post"><p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>';
-
+		print '<p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>';
+		
 	}
-
+	
 	print 'Ready to go?<br/><br/><input type="submit" name="create" value="Let\'s do it"></form>';
 	
 }
 
 // from http://php.net/manual/en/function.is-writable.php#73596
 function is__writable($path) {
-
+	
 	// will work despite Windows ACLs bug
 	// NOTE: use a trailing slash for folders!!!
 	// see http://bugs.php.net/bug.php?id=27609
@@ -200,21 +204,21 @@ function is__writable($path) {
 		return is__writable($path . uniqid(mt_rand()) . '.tmp');
 	elseif(is_dir($path))
 		return is__writable($path . '/' . uniqid(mt_rand()) . '.tmp');
-
+	
 	// check tmp file for read/write capabilities
 	$rm = file_exists($path);
 	$f = @fopen($path, 'a');
-
+	
 	if($f === false)
 		return false;
-
+	
 	fclose($f);
-
+	
 	if(!$rm)
 		unlink($path);
-
+	
 	return true;
-
+	
 }
 
 ?>
