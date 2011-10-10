@@ -39,15 +39,13 @@ set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
 
 // Autoload any class which is used in this file
 function __autoload($class) {
-  
   include 'classes/' . $class . '.php';
-
 }
 
 require_once 'functions.php';
 
 if(!file_exists('config.php'))
-  exit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>');
+  exit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>' . "\n");
 
 $config = new Config();
 
