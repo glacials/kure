@@ -53,6 +53,65 @@ class Engine {
 		
 	}
 	
+	public static function init_plugins() {
+		
+		$plugging = false;
+		$rac[] = true; // mockup array so all our foreach()s don't fail if we don't find plugins
+		
+		if(file_exists($root . 'plugins/')) { // plugins dir is optional
+			
+			$findmods = glob($root . 'plugins/*.php');
+			
+			// intialize our arrays so array_merge_recursive won't fail if they are not arrays by that time
+			if(count($findmods) != 0) {
+				
+				$rac = array();
+				$rack = array();
+				
+				foreach($findmods as $weight => $pluginfile) {
+					
+					include($pluginfile); // read the plugin ($rack will get set by the plugin during this time)
+					$rack = add_dimension($rack, $pluginfile); // turns $rack['posts']['post-body_after'] into $rack['posts']['post-body_after']['pluginfilename.php']
+					$rac = array_merge_recursive($rac, $rack); // merge with all other plugins
+					unset($rack); // remove all entries from $rack so that they don't overflow into the next plugin's array
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+
+function plug($page, $hook, $id = false) {
+	
+	$GLOBALS['plugging'] = true;
+	
+	if(!$id)
+		$output = '';
+	
+	if(isset($GLOBALS['rac'][$page][$hook])) {
+		
+		foreach($GLOBALS['rac'][$page][$hook] as $file => $html) {
+			
+			include($file);
+			$output .= ($rack[$page][$hook]); // print refreshed html
+			
+		}
+		
+	}
+	
+	if($id)
+		$output .= plug($page, $hook . '#' . $id); // dynamic plug
+	
+	$GLOBALS['plugging'] = false;
+	
+	return $output;
+	
+}
+
+
+	
 };
 
 ?>

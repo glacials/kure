@@ -53,7 +53,7 @@ class Template {
 		// call plug() for each hook on each page, passing id if dynamic
 		foreach($hook_pages as $page => $locs)
 			foreach($locs as $loc)
-				$code = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', isset($vars['id']) ? plug($page, $loc, $vars['id']) : plug($page, $loc), $code);
+				$code = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', isset($vars['id']) ? Engine::plug($page, $loc, $vars['id']) : Engine::plug($page, $loc), $code);
 		// template hooks end
 		
 		print($code);
