@@ -21,4 +21,4 @@ kure is currently in beta. At the current rate, it will probably stay in beta fo
 kure does, however, tickle my fancy, which is why I started it. I love it and I love to develop it. Even more, however, I love people who love kure. Rest assured that I do what I can when
 I can, but it won't always be fast.
 
-Please feel free to hit me up if you have any questions, bug reports/fixes, praise, or just want to chat. I'm all ears.
+Please feel free to hit me up if you have any questions, bug reports/fixes, or just want to chat. I'm all ears.
