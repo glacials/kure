@@ -20,13 +20,13 @@ if(isset($_GET['logout'])) {
 }
 
 // login
-if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $config->$admin_password) {
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $config->admin_password) {
 	
 	if(isset($_POST['login'])) {
 		
-		if(md5($_POST['password']) == $config->$admin_password) {
+		if(md5($_POST['password']) == $config->admin_password) {
 			
-			$_SESSION['admin'] = $config->$admin_password;
+			$_SESSION['admin'] = $config->admin_password;
 			header('Location: admin.php');
 			
 		} else {
@@ -61,7 +61,7 @@ Template::run('admin_header');
 
 if(isset($_GET['config'])) {
 	
-	print('<span class="pagesub">config</span><br/><br/>' . "\n");
+	print '<span class="pagesub">config</span><br/><br/>' . "\n";
 	
 	if(isset($_POST['config_submit'])) {
 		
@@ -77,48 +77,52 @@ if(isset($_GET['config'])) {
 		if(!$config->save())
 			Engine::quit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
 		
-		print('<span class="success">Configuration saved.</span>');
+		print '<span class="success">Configuration saved.</span>';
 		
 	} else {
 		
-		?>
-  <form action="?config" method="post">
-  blog name<br/><input type="text" name="blogName" value="<?php print Config::$blogName; ?>" class="form_text"><br/><br/>
-  subname<br/><input type="text" name="blogSub" value="<?php print(Config::$blogSub); ?>" class="form_text"><br/><br/>
-  posts per page<br/><input type="text" name="postsPerPage" value="<?php print(Config::$postsPerPage); ?>" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>
-  <select name="showDocDates">
-    <option value="true" <?php if(Config::$showDocDates) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::$showDocDates) print("selected"); ?>>No</option>
-  </select> display dates on docs<br/><br/>
-  <select name="showDocPageDates">
-    <option value="true" <?php if(Config::$showDocPageDates) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::$showDocPageDates) print("selected"); ?>>No</option>
-  </select> display dates on doc listing<br/><br/>
-  <select name="abcDocs">
-    <option value="true" <?php if(Config::$abcDocs) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!Config::$abcDocs) print("selected"); ?>>Date descending</option>
-  </select> doc order<br/><br/>
-  <select name="abcPosts">
-    <option value="true" <?php if(Config::$abcPosts) print("selected"); ?>>Alphabetical</option>
-    <option value="false" <?php if(!Config::$abcPosts) print("selected"); ?>>Date descending</option>
-  </select> post order<br/><br/>
-  <select name="showAdminLink">
-    <option value="true" <?php if(Config::$showAdminLink) print("selected"); ?>>Yes</option>
-    <option value="false" <?php if(!Config::$showAdminLink) print("selected"); ?>>No</option>
-  </select> show admin panel link in sidebar<br/><br/>
-  <input type="submit" name="config_submit" value="save" class="form_submit">
-
-  <?php
-
-  }
-
+		print '<form action="?config" method="post">';
+		
+		print 'blog name<br/><input type="text" name="blog_name" value="' . $config->blog_name . '" class="form_text"><br/><br/>';
+		print 'subname<br/><input type="text" name="blog_sub" value="' . $config->blog_sub . '" class="form_text"><br/><br/>';
+		print 'posts per page<br/><input type="text" name="posts_per_page" value="' . $config->posts_per_page . '" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>';
+		
+		print '<select name="show_doc_dates">';
+		print '<option value="true"' . ($config->show_doc_dates ? 'selected' : '') . '>Yes</option>';
+		print '<option value="false"' . (!$config->show_doc_dates ? 'selected' : '') . '>No</option>';
+		print '</select> display dates on docs<br/><br/>';
+		
+		print '<select name="show_doc_page_dates">';
+		print '<option value="true"' . ($config->show_doc_page_dates ? 'selected' : '') . '>Yes</option>';
+		print '<option value="false"' . (!$config->show_doc_page_dates ? 'selected' : '') . '>No</option>';
+		print '</select> display dates on doc listing<br/><br/>';
+		
+		print '<select name="abc_docs">';
+		print '<option value="true"' . ($config->abc_docs ? 'selected' : '') . '>Alphabetical</option>';
+		print '<option value="false"' . (!$config->abc_docs ? 'selected' : '') . '>Date descending</option>';
+		print '</select> doc order<br/><br/>';
+		
+		print '<select name="abc_posts">';
+		print '<option value="true"' . ($config->abc_posts ? 'selected' : '') . '>Alphabetical</option>';
+		print '<option value="false"' . (!$config->abc_posts ? 'selected' : '') . '>Date descending</option>';
+		print '</select> post order<br/><br/>';
+		
+		print '<select name="show_admin_link">';
+		print '<option value="true"' . ($config->show_admin_link ? 'selected' : '') . '>Yes</option>';
+		print '<option value="false"' . (!$config->show_admin_link ? 'selected' : '') . '>No</option>';
+		print '</select> show admin panel link in sidebar<br/><br/>';
+		
+		print '<input type="submit" name="config_submit" value="save" class="form_submit">';
+		
+	}
+	
 } elseif(isset($_GET['plugins'])) {
-
-  print('<span class="pagesub">plugins</span><br/>' . "\n");
-  print('<div style="position: relative; left: 8px;">');
-  plug('admplugins', 'listing');
-  print('</div>');
-
+	
+	print('<span class="pagesub">plugins</span><br/>' . "\n");
+	print('<div style="position: relative; left: 8px;">');
+	plug('admplugins', 'listing');
+	print('</div>');
+	
 } elseif(isset($_GET['plugin'])) {
 
   // blank page for plugins to use as a config/about page
@@ -349,7 +353,7 @@ if(paneElement.innerHTML == '')
 
     if($_POST['newpass1'] != $_POST['newpass2'] || $_POST['newpass1'] == "")
       Engine::quit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
-    if(md5($_POST['curpass']) != $config->$admin_password)
+    if(md5($_POST['curpass']) != $config->admin_password)
       Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
 
     Config::set('admin_password', md5($_POST['newpass1']));

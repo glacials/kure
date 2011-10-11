@@ -60,10 +60,12 @@ class Config {
 	
 	public static function variable_to_string($var) {
 		
-		if(is_string($var))
-			return '\'' . $var . '\'';
+		if($var == 'true' || $var == 'false')
+			return $var;
 		if(is_bool($var))
 			return $var ? 'true' : 'false';
+		if(is_string($var))
+			return '\'' . $var . '\'';
 		return $var;
 		
 	}
