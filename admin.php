@@ -41,18 +41,18 @@ if(isset($_GET['logout'])) {
 }
 
 // login
-if($_SESSION['admin'] != $config->$adminPassword) {
+if(isset($_SESSION['admin']) && $_SESSION['admin'] != $config->$admin_password) {
 
   if(isset($_POST['login'])) {
 
-    if(md5($_POST['password']) == $config->$adminPassword) {
+    if(md5($_POST['password']) == $config->$admin_password) {
 
-      $_SESSION['admin'] = $config->$adminPassword;
+      $_SESSION['admin'] = $config->$admin_password;
       header('Location: admin.php');
 
     } else {
 
-      runtemplate('admin_header');
+			Template::run('admin_header');
       print('<div style="position: absolute; left: 400px; top: 180px;">');
       Engine::error('Invalid password.', false);
 
@@ -60,7 +60,7 @@ if($_SESSION['admin'] != $config->$adminPassword) {
 
   } else {
 
-    runtemplate('admin_header');
+		Template::run('admin_header');
 
   }
   
@@ -78,7 +78,7 @@ if($_SESSION['admin'] != $config->$adminPassword) {
 
 }
 
-runtemplate('admin_header');
+Template::run('admin_header');
 
 if(isset($_GET['config'])) {
 	
@@ -370,10 +370,10 @@ if(paneElement.innerHTML == '')
 
     if($_POST['newpass1'] != $_POST['newpass2'] || $_POST['newpass1'] == "")
       Engine::quit('Passwords did not match or were not entered. <a href="?password">Try again</a>.');
-    if(md5($_POST['curpass']) != Config::$adminPassword)
+    if(md5($_POST['curpass']) != $config->$admin_password)
       Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
 
-    Config::set('adminPassword', md5($_POST['newpass1']));
+    Config::set('admin_password', md5($_POST['newpass1']));
     Config::save();
 
     print('<span class="success">Password changed.</span>');
@@ -417,6 +417,6 @@ return to your blog</p>
 
 }
 
-runtemplate('admin_footer');
+Template::run('admin_footer');
 
 ?>
