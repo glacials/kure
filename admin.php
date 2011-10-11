@@ -23,13 +23,12 @@
 
 // Autoload any class which is used in this file
 function __autoload($class) {
-  
   include 'classes/' . $class . '.php';
-
 }
 
-require_once('functions.php');
-Config::load();
+$config = Engine::get_config();
+
+require_once 'functions.php';
 session_start();
 
 // logout
@@ -42,13 +41,13 @@ if(isset($_GET['logout'])) {
 }
 
 // login
-if($_SESSION['admin'] != Config::$adminPassword) {
+if($_SESSION['admin'] != $config->$adminPassword) {
 
   if(isset($_POST['login'])) {
 
-    if(md5($_POST['password']) == Config::$adminPassword) {
+    if(md5($_POST['password']) == $config->$adminPassword) {
 
-      $_SESSION['admin'] = Config::$adminPassword;
+      $_SESSION['admin'] = $config->$adminPassword;
       header('Location: admin.php');
 
     } else {
@@ -70,7 +69,7 @@ if($_SESSION['admin'] != Config::$adminPassword) {
   if(isset($_SESSION['admin'])) // bad session
     print('<span class="error">Session invalid; please login again.</span><br/>');
 
-  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . Config::$blogName . '</span><br/><br/>');
+  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . $config->$blogName . '</span><br/><br/>');
   print('<form action="?" method="post">');
   print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
   print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
@@ -82,30 +81,28 @@ if($_SESSION['admin'] != Config::$adminPassword) {
 runtemplate('admin_header');
 
 if(isset($_GET['config'])) {
-
-  print('<span class="pagesub">config</span><br/><br/>' . "\n");
-
-  if(isset($_POST['config_submit'])) {
-
-    $options = array(
-      'blogName'         => $_POST['blogName'],
-      'blogSub'          => $_POST['blogSub'],
-      'postsPerPage'     => $_POST['postsPerPage'],
-      'showDocDates'     => $_POST['showDocDates'],
-      'showDocPageDates' => $_POST['showDocPageDates'],
-      'abcDocs'          => $_POST['abcDocs'],
-      'abcPosts'         => $_POST['abcPosts'],
-      'showAdminLink'    => $_POST['showAdminLink']
-    );
-
-    if(!write_config($options))
-      exit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
-
-    print('<span class="success">Configuration saved.</span>');
-
-  } else {
-
-  ?>
+	
+	print('<span class="pagesub">config</span><br/><br/>' . "\n");
+	
+	if(isset($_POST['config_submit'])) {
+		
+		$config->blog_name           = $_POST['blog_name']
+		$config->blog_sub            = $_POST['blog_sub']
+		$config->posts_per_page      = $_POST['posts_per_page']
+		$config->show_doc_dates      = $_POST['show_doc_dates']
+		$config->show_doc_page_dates = $_POST['show_doc_page_dates']
+		$config->abc_docs            = $_POST['abc_docs']
+		$config->abc_posts           = $_POST['abc_posts']
+		$config->show_admin_link     = $_POST['show_admin_link']
+		
+		if(!$config->save())
+			Engine::quit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
+		
+		print('<span class="success">Configuration saved.</span>');
+		
+	} else {
+		
+		?>
   <form action="?config" method="post">
   blog name<br/><input type="text" name="blogName" value="<?php print Config::$blogName; ?>" class="form_text"><br/><br/>
   subname<br/><input type="text" name="blogSub" value="<?php print(Config::$blogSub); ?>" class="form_text"><br/><br/>
