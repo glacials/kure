@@ -410,7 +410,7 @@ change your administration password</p>
 <p>&gt;&gt; <a href="?logout" class="pagesub">logout</a> &bull;
 destroy your administration session and return to your blog</p>
 <br/>
-<p>&lt;&lt; <a href="?" class="pagesub">back to site</a> &bull;
+<p>&lt;&lt; <a href="index.php" class="pagesub">back to site</a> &bull;
 return to your blog</p>
 
 <?php
