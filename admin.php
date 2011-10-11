@@ -86,14 +86,14 @@ if(isset($_GET['config'])) {
 	
 	if(isset($_POST['config_submit'])) {
 		
-		$config->blog_name           = $_POST['blog_name']
-		$config->blog_sub            = $_POST['blog_sub']
-		$config->posts_per_page      = $_POST['posts_per_page']
-		$config->show_doc_dates      = $_POST['show_doc_dates']
-		$config->show_doc_page_dates = $_POST['show_doc_page_dates']
-		$config->abc_docs            = $_POST['abc_docs']
-		$config->abc_posts           = $_POST['abc_posts']
-		$config->show_admin_link     = $_POST['show_admin_link']
+		$config->blog_name           = $_POST['blog_name'];
+		$config->blog_sub            = $_POST['blog_sub'];
+		$config->posts_per_page      = $_POST['posts_per_page'];
+		$config->show_doc_dates      = $_POST['show_doc_dates'];
+		$config->show_doc_page_dates = $_POST['show_doc_page_dates'];
+		$config->abc_docs            = $_POST['abc_docs'];
+		$config->abc_posts           = $_POST['abc_posts'];
+		$config->show_admin_link     = $_POST['show_admin_link'];
 		
 		if(!$config->save())
 			Engine::quit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
