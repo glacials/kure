@@ -129,20 +129,20 @@ else { // if we weren't told to do anything else
   if(!isset($_GET['page']))
     $_GET['page'] = 1; // default to page 1
 
-  $postHandler = new PostHandler();
+  $postHandler = new PostHandler($_GET['page']);
 
   $allposts = glob('posts/*.txt');
   $total_posts = count($allposts);
 
   // if the total number of posts isn't divisible by the number we want to display,
   // then we want to make $total_posts / Config::$postsPerPage round up one. (think it out.) this is for pagination.
-  if($total_posts % Config::$postsPerPage != 0)
-    $total_posts += Config::$postsPerPage;
+  if($total_posts % Engine::get_config()->posts_per_page != 0)
+    $total_posts += Engine::get_config()->posts_per_page;
   
-  if(!Config::$abcPosts) // if we're NOT sorting alphabetically
+  if(!Engine::get_config()->abc_posts) // if we're NOT sorting alphabetically
     usort($allposts, 'sort_by_mtime');
 
-  $page_firstpost = ($_GET['page'] * Config::$postsPerPage) - Config::$postsPerPage;
+  $page_firstpost = ($_GET['page'] * Engine::get_config()->posts_per_page) - Engine::get_config()->posts_per_page;
   $curpost = 0;
   $i = 0; // monitor how many posts we display
 
@@ -180,9 +180,9 @@ else { // if we weren't told to do anything else
 
   }
 
-  if(Config::$postsPerPage != 0 && $total_posts > Config::$postsPerPage) {
+  if(Engine::get_config()->posts_per_page != 0 && $total_posts > Engine::get_config()->posts_per_page) {
 
-    if($_GET['page'] + 1 <= $total_posts / Config::$postsPerPage)
+    if($_GET['page'] + 1 <= $total_posts / Engine::get_config()->posts_per_page)
       print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>';
     
     if($_GET['page'] != 1) {

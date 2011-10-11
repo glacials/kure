@@ -2,7 +2,7 @@
 
 class EntryHandler {
 
-  private $entries[];
+  private $entries;
 
   // Returns the next entry in the queue
   public function getNext() {
