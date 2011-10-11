@@ -1,29 +1,8 @@
 <?php
 
-/*LICENSE INFORMATION*
- * kure is distributed under the terms of the GNU General Public License
- * (http://www.gnu.org/licenses/gpl.html).
- * kure Copyright 2007-2011 Ben Carlsson
- * 
- *-->
- * This file is part of kure.
- * 
- * kure is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version
- * 3 of the License, or (at your option) any later version.
- * 
- * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with Kure.
- * If not, see <http://www.gnu.org/licenses/>.
- *-->
- */
-
 // Autoload any class which is used in this file
 function __autoload($class) {
-  include 'classes/' . $class . '.php';
+	include 'classes/' . $class . '.php';
 }
 
 $config = Engine::get_config();
@@ -33,49 +12,49 @@ session_start();
 
 // logout
 if(isset($_GET['logout'])) {
-
-  unset($_SESSION['admin']);
-  session_destroy();
-  header('Location: ?');
-
+	
+	unset($_SESSION['admin']);
+	session_destroy();
+	header('Location: ?');
+	
 }
 
 // login
-if(isset($_SESSION['admin']) && $_SESSION['admin'] != $config->$admin_password) {
-
-  if(isset($_POST['login'])) {
-
-    if(md5($_POST['password']) == $config->$admin_password) {
-
-      $_SESSION['admin'] = $config->$admin_password;
-      header('Location: admin.php');
-
-    } else {
-
+if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $config->$admin_password) {
+	
+	if(isset($_POST['login'])) {
+		
+		if(md5($_POST['password']) == $config->$admin_password) {
+			
+			$_SESSION['admin'] = $config->$admin_password;
+			header('Location: admin.php');
+			
+		} else {
+			
 			Template::run('admin_header');
-      print('<div style="position: absolute; left: 400px; top: 180px;">');
-      Engine::error('Invalid password.', false);
-
-    }
-
-  } else {
-
+			print('<div style="position: absolute; left: 400px; top: 180px;">');
+			Engine::error('Invalid password.', false);
+			
+		}
+		
+	} else {
+		
 		Template::run('admin_header');
-
-  }
-  
-  print('<div style="position: absolute; left: 400px; top: 200px;">');
-
-  if(isset($_SESSION['admin'])) // bad session
-    print('<span class="error">Session invalid; please login again.</span><br/>');
-
-  print('<span class="sitetitle">administrate</span> <span class="sitesub">' . $config->$blogName . '</span><br/><br/>');
-  print('<form action="?" method="post">');
-  print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
-  print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
-  
-  Engine::quit(); // don't allow any further access of administration unless logged in
-
+		
+	}
+	
+	print('<div style="position: absolute; left: 400px; top: 200px;">');
+	
+	if(isset($_SESSION['admin'])) // bad session
+		print('<span class="error">Session invalid; please login again.</span><br/>');
+	
+	print('<span class="sitetitle">administrate</span> <span class="sitesub">' . $config->blog_name . '</span><br/><br/>');
+	print('<form action="?" method="post">');
+	print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
+	print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
+	
+	Engine::quit(); // don't allow any further access of administration unless logged in
+	
 }
 
 Template::run('admin_header');
