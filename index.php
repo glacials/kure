@@ -132,6 +132,9 @@ else { // if we weren't told to do anything else
   $postHandler = new PostHandler($_GET['page']);
 
   $allposts = glob('posts/*.txt');
+	if(!$allposts)
+		$allposts = array();
+
   $total_posts = count($allposts);
 
   // if the total number of posts isn't divisible by the number we want to display,
