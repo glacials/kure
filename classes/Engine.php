@@ -1,23 +1,6 @@
 <?php
 
-/* LICENSE INFORMATION
- * kure is distributed under the terms of the GNU General Public License
- * (http://www.gnu.org/licenses/gpl.html).
- * kure Copyright 2007-2011 Ben Carlsson
- * 
- * This file is part of kure.
- * 
- * kure is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version
- * 3 of the License, or (at your option) any later version.
- * 
- * kure is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with kure.
- * If not, see <http://www.gnu.org/licenses/>.
- */
+define('KURE_ROOT', '../');
 
 class Engine {
 	
@@ -38,8 +21,12 @@ class Engine {
 	
 	public static function get_config() {
 		
-		if(self::$config == null)
+		if(self::$config == null) {
+			
 			self::$config = new Config();
+			self::$config->load();
+			
+		}
 		
 		return self::$config;
 
@@ -58,7 +45,7 @@ class Engine {
 		$plugging = false;
 		$rac[] = true; // mockup array so all our foreach()s don't fail if we don't find plugins
 		
-		if(file_exists($root . 'plugins/')) { // plugins dir is optional
+		if(file_exists(KURE_ROOT . 'plugins/')) { // plugins dir is optional
 			
 			$findmods = glob($root . 'plugins/*.php');
 			

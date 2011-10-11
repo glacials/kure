@@ -117,9 +117,6 @@ if(isset($_POST['create'])) {
 		
 		$config->save();
 		
-		if(!$config->save())
-			Engine::quit($head . '<span class="error">Couldn\'t write to <tt>config.php</tt>!</span>');
-		
 	}
 	
 	if(isset($todo_kure['posts']) && !mkdir('posts/'))
@@ -222,3 +219,4 @@ function is__writable($path) {
 }
 
 ?>
+
