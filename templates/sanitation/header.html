@@ -1,26 +1,26 @@
 <html>
-  <head>
-    <title>{TITLE}</title>
-    <link rel="stylesheet" type="text/css" href="templates/sanitation/sanitation.css">
-    {HOOK:KURE-HEAD}
-  </head>
-  <body>
-    {HOOK:KURE-TOP}
-    <table height="100%" width="100%">
-      <tr>
-        <td colspan="2" height="1px" valign="top">
-          {HOOK:KURE-TITLE_BEFORE}
-          <span class="sitetitle">{TITLE}</span>
-            {HOOK:KURE-TITLE_AFTER}
-          <span class="sitesub">{SUBTITLE}</span>
-        </td>
-      </tr>
-      <tr>
-        <td align="left" valign="top" width="10%">
-          {HOOK:KURE-NAVTITLE_BEFORE}
-          <span class="navtitle">navigation</span>{HOOK:KURE-NAVTITLE_AFTER}<br/>
-          <a class="navitem" href="./">posts</a>{HOOK:KURE-NAVPOSTS_AFTER}<br/>
-          <a class="navitem" href="?docs">docs</a>{HOOK:KURE-NAVDOCS_AFTER}<br/>
-          {IF:ADMINLINK}<a class="navitem" href="admin.php">admin</a><br/>{/IF:ADMINLINK}{HOOK:KURE-NAVADMIN_AFTER}
-        </td>
-        <td valign="top">{HOOK:KURE-PAGE_TOP}
+	<head>
+		<title>{TITLE}</title>
+		<link rel="stylesheet" type="text/css" href="templates/sanitation/sanitation.css">
+		{HOOK:KURE-HEAD}
+	</head>
+	<body>
+		{HOOK:KURE-TOP}
+		<table height="100%" width="100%">
+			<tr>
+				<td colspan="2" height="1px" valign="top">
+					{HOOK:KURE-TITLE_BEFORE}
+					<span class="sitetitle">{TITLE}</span>
+						{HOOK:KURE-TITLE_AFTER}
+					<span class="sitesub">{SUBTITLE}</span>
+				</td>
+			</tr>
+			<tr>
+				<td align="left" valign="top" width="10%">
+					{HOOK:KURE-NAVTITLE_BEFORE}
+					<span class="navtitle">navigation</span>{HOOK:KURE-NAVTITLE_AFTER}<br/>
+					<a class="navitem" href="./">posts</a>{HOOK:KURE-NAVPOSTS_AFTER}<br/>
+					<a class="navitem" href="?docs">docs</a>{HOOK:KURE-NAVDOCS_AFTER}<br/>
+					{IF:ADMINLINK}<a class="navitem" href="admin.php">admin</a><br/>{/IF:ADMINLINK}{HOOK:KURE-NAVADMIN_AFTER}
+				</td>
+				<td valign="top">{HOOK:KURE-PAGE_TOP}
