@@ -74,8 +74,7 @@ function plug($page, $hook, $id = false) {
 	
 	$GLOBALS['plugging'] = true;
 	
-	if(!$id)
-		$output = '';
+	$output = '';
 	
 	if(isset($GLOBALS['rac'][$page][$hook])) {
 		
@@ -89,7 +88,7 @@ function plug($page, $hook, $id = false) {
 	}
 	
 	if($id)
-		$output .= plug($page, $hook . '#' . $id); // dynamic plug
+		$output .= Engine::plug($page, $hook . '#' . $id); // dynamic plug
 	
 	$GLOBALS['plugging'] = false;
 	

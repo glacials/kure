@@ -193,7 +193,7 @@ if(isset($_GET['config'])) {
 	
 	if($_GET['modify'] != null) {
 		
-		if(isset($_POST['modify_post'])) {
+		if(isset($_POST['modify_entry'])) {
 			
 			$oldname = $_POST['oldfile'];
 			
@@ -243,21 +243,13 @@ if(isset($_GET['config'])) {
 			print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">' . $oldcontent . '</textarea><br><br>' . "\n");
 			plug('admmodify', 'content_after');
 			
-			print('<input ');
-			if($oldtype == 'posts') print('checked ');
-			print('name="type" type="radio" value="posts">post' . "\n");
-			
-			print('<input ');
-			
-			if($oldtype == 'docs')
-				print('checked ');
-			
-			print('name="type" type="radio" value="docs">doc' . "\n");
+			print '<input ' . ($oldtype == 'posts' ? 'checked' : '') . 'name="type" type="radio" value="posts">post' . "\n";
+			print '<input ' . ($oldtype == 'docs' ? 'checked' : '') . 'name="type" type="radio" value="docs">doc' . "\n";
 			
 			plug('admmodify', 'type_after');
 			print('<br><br>' . "\n");
 			print('<input type="hidden" name="oldfile" value="' . $_GET['modify'] . '">' . "\n");
-			print('<input class="form_submit" name="modify_post" type="submit" value="modify">' . "\n");
+			print('<input class="form_submit" name="modify_entry" type="submit" value="modify">' . "\n");
 			plug('admmodify', 'button_after');
 			print('</form>' . "\n\n");
 			

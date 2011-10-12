@@ -158,7 +158,7 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 			if($i == $config->posts_per_page && $config->posts_per_page != 0)
 				break;
 			
-			if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + $config->postsPerPage))) {
+			if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + $config->posts_per_page))) {
 				
 				$curpost++;
 				continue;
