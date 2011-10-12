@@ -183,7 +183,7 @@ if(isset($_GET['config'])) {
 		print('<input name="type" type="radio" value="docs">doc' . "\n");
 		Engine::plug('admcreate', 'type_after');
 		print('<br><br>' . "\n");
-		print('<input class="form_submit" name="submit_post" type="submit" value="post">' . "\n");
+		print('<input name="submit_post" type="submit" value="create">' . "\n");
 		Engine::plug('admcreate', 'button_after');
 		print('</form>' . "\n\n");
 		
@@ -202,20 +202,24 @@ if(isset($_GET['config'])) {
 			if(strstr($oldname, 'docs/')) {
 				
 				$type = 'docs';
-				$oldname = str_replace(KURE_ROOT . 'docs/', '', $oldname);
+				$oldname = str_replace('docs/', '', $oldname);
 				
 			} elseif(strstr($oldname, 'posts/')) {
 				
 				$type = 'posts';
-				$oldname = str_replace(KURE_ROOT . 'posts/', '', $oldname);
+				$oldname = str_replace('posts/', '', $oldname);
+				
+			} else {
+				
+				Engine::quit('Bad entry type.');
 				
 			}
 			
 			if(!delete_entry($oldname, $type))
-				Engine::quit('<span class="error">Old entry could not be removed. Check permissions and try again.</span>');
+				Engine::quit('Old entry could not be removed. Check permissions and try again.');
 			
 			if(create_entry($_POST['title'], $_POST['content'], $_POST['type']))
-				print '<span class="success">Entry modified.</span>';
+				print '<span class="success">Entry saved.</span>';
 			
 		} else {
 			
@@ -231,7 +235,7 @@ if(isset($_GET['config'])) {
 				
 			} else {
 				
-				Engine::quit('<span class="error">Bad entry type.</span>');
+				Engine::quit('Bad entry type.');
 				
 			}
 			
@@ -245,13 +249,13 @@ if(isset($_GET['config'])) {
 			print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">' . $oldcontent . '</textarea><br><br>' . "\n");
 			Engine::plug('admmodify', 'content_after');
 			
-			print '<input ' . ($oldtype == 'posts' ? 'checked' : '') . 'name="type" type="radio" value="posts">post' . "\n";
-			print '<input ' . ($oldtype == 'docs' ? 'checked' : '') . 'name="type" type="radio" value="docs">doc' . "\n";
+			print '<input ' . ($oldtype == 'posts' ? 'checked' : '') . ' name="type" type="radio" value="posts">post' . "\n";
+			print '<input ' . ($oldtype == 'docs' ? 'checked' : '') . ' name="type" type="radio" value="docs">doc' . "\n";
 			
 			Engine::plug('admmodify', 'type_after');
 			print('<br><br>' . "\n");
 			print('<input type="hidden" name="oldfile" value="' . $_GET['modify'] . '">' . "\n");
-			print('<input class="form_submit" name="modify_entry" type="submit" value="modify">' . "\n");
+			print('<input name="modify_entry" type="submit" value="save">' . "\n");
 			Engine::plug('admmodify', 'button_after');
 			print('</form>' . "\n\n");
 			
@@ -355,11 +359,12 @@ if(isset($_GET['config'])) {
 		
 	} else {
 		
-		print'<form action="?password" method="post">';
-		print'current password<br/><input type="password" name="curpass" class="form_text"><br/><br/>';
-		print'new password<br/><input type="password" name="newpass1" class="form_text"><br/><br/>';
-		print'confirm<br/><input type="password" name="newpass2" class="form_text"><br/><br/>';
-		print'<input type="submit" name="pass_submit" value="change password" class="form_submit"></form>';
+		print '<form action="?password" method="post">';
+		print 'current<br/><input type="password" name="curpass" class="form_text"><br/><br/>';
+		print '<hr>';
+		print 'new<br/><input type="password" name="newpass1" class="form_text"><br/><br/>';
+		print 'confirm<br/><input type="password" name="newpass2" class="form_text"><br/><br/>';
+		print '<input type="submit" name="pass_submit" value="save"></form>';
 		
 	}
 

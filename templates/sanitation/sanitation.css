@@ -94,15 +94,25 @@ table.table_download td {
 	padding: 0px 3px 0px;
 }
 
-.form_submit {
-	background: #ffffff;
-	border: 1px;
-	border-color: #000000;
-	border-style: none solid none solid;
-	color: #000000;
-	font-family: "courier new";
-	font-weight: bold;
-	letter-spacing: -1px;
+input[type="submit"] {
+	background-color: #ffffff;
+	border:           1px solid #000;
+	box-shadow:       2px 2px 1px #ccc;
+	color:            #000000;
+	font-family:      "trebuchet ms";
+	font-size:        16px;
+	letter-spacing:   -1px;
+	padding:          2px 8px;
+}
+
+input[type="submit"]:active {
+	box-shadow: inset 2px 2px 1px #ccc;
+}
+
+hr {
+	background-color: #ccc;
+	border:           none;
+	height:           1px;
 }
 
 .navtitle {
