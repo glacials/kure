@@ -1,17 +1,13 @@
-a.blog_title {
+.blog_title {
 	color: #7f7f7f;
 	font-family: "trebuchet ms", arial;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	text-decoration: none;
 }
 
 a:hover.blog_title {
-	color: #7f7f7f;
-	font-family: "trebuchet ms", arial;
-	font-size: 16px;
-	font-weight: bold;
-	text-decoration: none;
+	color: #9f9f9f;
 }
 
 a:link.navitem, a:visited.navitem {
