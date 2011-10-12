@@ -1,5 +1,5 @@
 .blog_title {
-	color: #7f7f7f;
+	color: #606060;
 	font-family: "trebuchet ms", arial;
 	font-size: 18px;
 	font-weight: bold;
@@ -144,7 +144,7 @@ a:hover.pagesub, a:hover.smallsub {
 }
 
 .sitesub {
-	color: #7f7f7f;
+	color: #606060;
 	font-family: "trebuchet ms", arial;
 	font-size: 20px;
 	letter-spacing: -1px;
@@ -152,9 +152,10 @@ a:hover.pagesub, a:hover.smallsub {
 
 .sitetitle {
 	color: #404040;
-	font-family: "trebuchet ms", arial;
-	font-size: 26px;
+	font-family:    "trebuchet ms", arial;
+	font-size:      26px;
 	letter-spacing: -2px;
+	text-shadow:    0px 1px 1px #aaa;
 }
 
 a.small {
@@ -168,6 +169,5 @@ a:hover.small {
 }
 
 .success {
-	color: green;
-	font-weight: bold;
+	color: #090;
 }
