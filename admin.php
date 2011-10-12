@@ -50,10 +50,10 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $config->admin_password) 
 	if(isset($_SESSION['admin'])) // bad session
 		print('<span class="error">Session invalid; please login again.</span><br/>');
 	
-	print('<span class="sitetitle">administrate</span> <span class="sitesub">' . $config->blog_name . '</span><br/><br/>');
-	print('<form action="?" method="post">');
-	print('<a type="blog_title">enter password</a><br/><input type="password" name="password">');
-	print('&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>');
+	print '<span class="sitetitle">password</span>';
+	print '<form action="?" method="post">';
+	print '<input type="password" name="password">';
+	print '&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>';
 	
 	Engine::quit(); // don't allow any further access of administration unless logged in
 	
@@ -370,25 +370,8 @@ if(isset($_GET['config'])) {
 
 } else { // main
 	
-	print '<p>&gt;&gt; <a href="?config" class="pagesub">config</a> &bull;';
-	print 'change site options + variables</p>';
-	print '<p>&gt;&gt; <a href="?plugins" class="pagesub">plugins</a> &bull;';
-	print 'enable, disable, and manage plugins</p>';
-	print '<p>&gt;&gt; <a href="?templates" class="pagesub">templates</a> &bull;';
-	print 'swap templates</p>';
-	print '<br/>';
-	print '<p>&gt;&gt; <a href="?create" class="pagesub">create</a> &bull;';
-	print 'make a new post or doc</p>';
-	print '<p>&gt;&gt; <a href="?modify" class="pagesub">modify</a> &bull;';
-	print 'edit or delete posts and docs</p>';
-	print '<br/>';
-	print '<p>&gt;&gt; <a href="?password" class="pagesub">change password</a> &bull;';
-	print 'change your administration password</p>';
-	print '<p>&gt;&gt; <a href="?logout" class="pagesub">logout</a> &bull;';
-	print 'destroy your administration session and return to your blog</p>';
-	print '<br/>';
-	print '<p>&lt;&lt; <a href="index.php" class="pagesub">back to site</a> &bull;';
-	print 'return to your blog</p>';
+	// Redirect to config section
+	header('Location: ?config');
 	
 }
 
