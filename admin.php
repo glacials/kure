@@ -1,13 +1,15 @@
 <?php
 
+define('KURE_ROOT', '');
+
 // Autoload any class which is used in this file
 function __autoload($class) {
-	include 'classes/' . $class . '.php';
+	include KURE_ROOT . 'classes/' . $class . '.php';
 }
 
 $config = Engine::get_config();
 
-require_once 'functions.php';
+require_once KURE_ROOT . 'functions.php';
 session_start();
 
 // logout
@@ -15,7 +17,7 @@ if(isset($_GET['logout'])) {
 	
 	unset($_SESSION['admin']);
 	session_destroy();
-	header('Location: ?');
+	header('Location: ' . KURE_ROOT . 'index.php');
 	
 }
 
@@ -27,7 +29,7 @@ if(!isset($_SESSION['admin']) || $_SESSION['admin'] != $config->admin_password) 
 		if(md5($_POST['password']) == $config->admin_password) {
 			
 			$_SESSION['admin'] = $config->admin_password;
-			header('Location: admin.php');
+			header('Location: ' . KURE_ROOT . 'admin.php');
 			
 		} else {
 			
@@ -134,32 +136,32 @@ if(isset($_GET['config'])) {
 	
 	if(isset($_POST['template_submit'])) {
 		
-		if(!write_config(array('template' => $_POST['template'])))
-			Engine::quit('<span class="error">Error writing to <tt>config.php</tt>. Check permissions and try again.</span>');
+		$config->template = $_POST['template'];
 		
-		print('<span class="success">Template changed.</span>');
-		
-	} else {
-		
-		print('<form action="?templates" method="post">' . "\n");
-		$templates = glob($root . 'templates/*', GLOB_ONLYDIR);
-		
-		foreach($templates as $template) {
-			
-			$template = str_replace($root . 'templates/', '', $template);
-			print('<input type="radio" name="template" value="' . $template . '"');
-			
-			if($template == Config::$template)
-				print(' checked');
-			
-			print('> <tt>' . $template. '</tt><br/>' . "\n");
-			
-		}
-		
-		print('<br/><input type="submit" name="template_submit" value="save" class="form_submit"></form>');
+		if($config->save())
+			print('<span class="success">Template changed.</span><br/><br/>');
+		else
+			Engine::quit('Error writing to <tt>config.php</tt>. Check permissions and try again.');
 		
 	}
-
+	
+	print('<form action="?templates" method="post">' . "\n");
+	$templates = glob(KURE_ROOT . 'templates/*', GLOB_ONLYDIR);
+	
+	foreach($templates as $template) {
+		
+		$template = str_replace(KURE_ROOT . 'templates/', '', $template);
+		print('<input type="radio" name="template" value="' . $template . '"');
+		
+		if($template == $config->template)
+			print(' checked');
+		
+		print('> <tt>' . $template. '</tt><br/>' . "\n");
+		
+	}
+	
+	print('<br/><input type="submit" name="template_submit" value="save" class="form_submit"></form>');
+	
 } elseif(isset($_GET['create'])) {
 	
 	print('<span class="pagesub">create</span><br/><br/>' . "\n");
@@ -200,12 +202,12 @@ if(isset($_GET['config'])) {
 			if(strstr($oldname, 'docs/')) {
 				
 				$type = 'docs';
-				$oldname = str_replace('docs/', '', $oldname);
+				$oldname = str_replace(KURE_ROOT . 'docs/', '', $oldname);
 				
 			} elseif(strstr($oldname, 'posts/')) {
 				
 				$type = 'posts';
-				$oldname = str_replace('posts/', '', $oldname);
+				$oldname = str_replace(KURE_ROOT . 'posts/', '', $oldname);
 				
 			}
 			
@@ -257,8 +259,8 @@ if(isset($_GET['config'])) {
 		
 	} else {
 		
-		$posts = glob($root . "posts/*.txt");
-		$docs = glob($root . "docs/*.txt");
+		$posts = glob(KURE_ROOT . "posts/*.txt");
+		$docs = glob(KURE_ROOT . "docs/*.txt");
 		
 		usort($posts, "sort_by_mtime");
 		usort($docs, "sort_by_mtime");
@@ -284,8 +286,8 @@ if(isset($_GET['config'])) {
 			
 		}
 		
-		$poststr = str_replace("'", "\\'", $poststr);
-		$docstr = str_replace("'", "\\'", $docstr); // escape the ' character so it doesn't interefere with the javascript
+		$poststr = str_replace('\'', "\\'", $poststr);
+		$docstr = str_replace('\'', "\\'", $docstr); // escape the ' character so it doesn't interefere with the javascript
 		
 		print '<div id="tabs"></div>';
 		print '<script src="js/tabs.js" type="text/javascript"></script>';
@@ -346,10 +348,10 @@ if(isset($_GET['config'])) {
 		if(md5($_POST['curpass']) != $config->admin_password)
 			Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
 		
-		Config::set('admin_password', md5($_POST['newpass1']));
-		Config::save();
-		
-		print('<span class="success">Password changed.</span>');
+		$config->admin_password = md5($_POST['newpass1']);
+
+		if($config->save())
+			print('<span class="success">Password changed.</span>');
 		
 	} else {
 		
