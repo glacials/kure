@@ -107,13 +107,13 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 		
 	} else {
 		
-		$file    = $type . 's/' . $filename . '.txt';
-		$title   = $file;
-		$title   = str_replace($type . 's/', '', $title);
-		$title   = str_replace('.txt', '', $title);
+		$file           = $type . 's/' . $filename . '.txt';
+		$title          = $file;
+		$title          = str_replace($type . 's/', '', $title);
+		$title          = str_replace('.txt', '', $title);
 		$friendly_title = $title;
-		$title   = str_replace('_', ' ', $title);
-		$content = str_replace('\n', '<br/>', file_get_contents($file));
+		$title          = str_replace('_', ' ', $title);
+		$content        = str_replace('\n', '<br/>', file_get_contents($file));
 		
 		Template::run('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $friendly_title, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
 		
