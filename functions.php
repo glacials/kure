@@ -122,7 +122,7 @@ function config_value($var) {
 
 // creates entry with title $title, content $content, of type $type, with creation time $time
 // returns true on success. exit()s otherwise.
-function create_entry($title, $content, $type, $time = time()) {
+function create_entry($title, $content, $type) {
 
   global $root;
 
