@@ -122,13 +122,13 @@ if(isset($_GET['config'])) {
 	
 	print('<span class="pagesub">plugins</span><br/>' . "\n");
 	print('<div style="position: relative; left: 8px;">');
-	plug('admplugins', 'listing');
+	Engine::plug('admplugins', 'listing');
 	print('</div>');
 	
 } elseif(isset($_GET['plugin'])) {
 	
 	// blank page for plugins to use as a config/about page
-	plug('admplugins', 'page');
+	Engine::plug('admplugins', 'page');
 	
 } elseif(isset($_GET['templates'])) {
 	
@@ -173,18 +173,18 @@ if(isset($_GET['config'])) {
 		
 	} else {
 		
-		plug('admcreate', 'top');
+		Engine::plug('admcreate', 'top');
 		print('<form action="?create" method="post">' . "\n");
 		print('title<br/><input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n");
-		plug('admcreate', 'title_after');
+		Engine::plug('admcreate', 'title_after');
 		print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n");
-		plug('admcreate', 'content_after');
+		Engine::plug('admcreate', 'content_after');
 		print('<input checked name="type" type="radio" value="posts">post' . "\n");
 		print('<input name="type" type="radio" value="docs">doc' . "\n");
-		plug('admcreate', 'type_after');
+		Engine::plug('admcreate', 'type_after');
 		print('<br><br>' . "\n");
 		print('<input class="form_submit" name="submit_post" type="submit" value="post">' . "\n");
-		plug('admcreate', 'button_after');
+		Engine::plug('admcreate', 'button_after');
 		print('</form>' . "\n\n");
 		
 	}
@@ -238,21 +238,21 @@ if(isset($_GET['config'])) {
 			$oldtitle = deparse_title($oldtitle);
 			$oldcontent = file_get_contents($_GET['modify'] . '.txt');
 			
-			plug('admmodify', 'top');
+			Engine::plug('admmodify', 'top');
 			print('<form action="?modify=submit" method="post">' . "\n");
 			print('title<br/><input class="form_text" name="title" size="50" type="text" value="' . $oldtitle . '"><br><br>' . "\n");
-			plug('admmodify', 'title_after');
+			Engine::plug('admmodify', 'title_after');
 			print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">' . $oldcontent . '</textarea><br><br>' . "\n");
-			plug('admmodify', 'content_after');
+			Engine::plug('admmodify', 'content_after');
 			
 			print '<input ' . ($oldtype == 'posts' ? 'checked' : '') . 'name="type" type="radio" value="posts">post' . "\n";
 			print '<input ' . ($oldtype == 'docs' ? 'checked' : '') . 'name="type" type="radio" value="docs">doc' . "\n";
 			
-			plug('admmodify', 'type_after');
+			Engine::plug('admmodify', 'type_after');
 			print('<br><br>' . "\n");
 			print('<input type="hidden" name="oldfile" value="' . $_GET['modify'] . '">' . "\n");
 			print('<input class="form_submit" name="modify_entry" type="submit" value="modify">' . "\n");
-			plug('admmodify', 'button_after');
+			Engine::plug('admmodify', 'button_after');
 			print('</form>' . "\n\n");
 			
 		}
