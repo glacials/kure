@@ -120,9 +120,9 @@ function config_value($var) {
 
 }
 
-// creates entry with title $title, content $content and of type $type
+// creates entry with title $title, content $content, of type $type, with creation time $time
 // returns true on success. exit()s otherwise.
-function create_entry($title, $content, $type) {
+function create_entry($title, $content, $type, $time = time()) {
 
   global $root;
 
@@ -134,9 +134,12 @@ function create_entry($title, $content, $type) {
     $type .= 's';  
 
   if(file_exists($root . $type . '/' . $title . '.txt'))
-    error('<span class="error">A post with that name already exists.</span>');
+    Engine::quit('<span class="error">A post with that name already exists.</span>');
   elseif(!file_put_contents($root . $type . '/' . $title . '.txt', $content))
-    error("Could not create file <tt>' . $type . '/' . $title . '.txt</tt>. Check permissions and try again.<br/><br/>It is also possible that you used an invalid character in your title (titles are used as filenames).</span>");
+    Engine::quit("Could not create file <tt>' . $type . '/' . $title . '.txt</tt>. Check permissions and try again.<br/><br/>It is also possible that you used an invalid character in your title (titles are used as filenames).</span>");
+
+	// Set creation time
+	touch($roow . $type . '/' . $title . '.txt', $time);
 
   return true;
 

@@ -210,10 +210,10 @@ if(isset($_GET['config'])) {
 			}
 			
 			if(!delete_entry($oldname, $type))
-				exit('<span class="error">Old entry could not be removed. Check permissions and try again.</span>');
+				Engine::quit('<span class="error">Old entry could not be removed. Check permissions and try again.</span>');
 			
 			if(create_entry($_POST['title'], $_POST['content'], $_POST['type']))
-				print('<span class="success">Entry modified.</span>');
+				print '<span class="success">Entry modified.</span>';
 			
 		} else {
 			
