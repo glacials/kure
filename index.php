@@ -72,10 +72,10 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 			$title = $file;
 			$title = str_replace('docs/', '', $title);
 			$title = str_replace('.txt', '', $title);
-			$uftitle = $title;
+			$friendly_title = $title;
 			$id = md5($title); // dynamic hook identifier
 			$title = deparse_title($title);
-			Template::run('doclist', array('id' => $id, 'DOCTITLE' => $title, 'DOCADDRESS' => $uftitle, 'DOCDATE' => date('F jS, Y', filemtime($file))));
+			Template::run('doclist', array('id' => $id, 'DOCTITLE' => $title, 'DOCADDRESS' => $friendly_title, 'DOCDATE' => date('F jS, Y', filemtime($file))));
 			
 		}
 		
@@ -99,7 +99,7 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 	}
 	
 	$filename = sanitize($filename);
-	print plug($type, 'top');
+	print Engine::plug($type, 'top');
 	
 	if(!file_exists($type . 's/' . $filename . '.txt')) {
 		
@@ -111,11 +111,11 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 		$title   = $file;
 		$title   = str_replace($type . 's/', '', $title);
 		$title   = str_replace('.txt', '', $title);
-		$uftitle = $title;
+		$friendly_title = $title;
 		$title   = str_replace('_', ' ', $title);
 		$content = str_replace('\n', '<br/>', file_get_contents($file));
 		
-		Template::run('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $uftitle, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
+		Template::run('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $friendly_title, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
 		
 	}
 	
@@ -168,12 +168,12 @@ if(isset($_GET['docs'])) { // if we're at the docs page
 			$title = $file;
 			$title = str_replace('posts/', '', $title);
 			$title = str_replace('.txt', '', $title);
-			$uftitle = $title;
+			$friendly_title = $title;
 			$id = md5($title); // dynamic hook identifier
 			$title = deparse_title($title);
 			$content = str_replace("\n", '<br/>' . "\n", file_get_contents($file));
 			
-			Template::run('postlist', array('id' => $id, 'POSTTITLE' => $title, 'POSTADDRESS' => $uftitle, 'POSTDATE' => date('F jS, Y', filemtime($file)), 'POSTCONTENT' => $content));
+			Template::run('postlist', array('id' => $id, 'POSTTITLE' => $title, 'POSTADDRESS' => $friendly_title, 'POSTDATE' => date('F jS, Y', filemtime($file)), 'POSTCONTENT' => $content));
 			
 			$i++;
 			
