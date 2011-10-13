@@ -49,23 +49,6 @@ $head =
 		<p>Detecting tasks...</p>
 ';
 
-$required_paths = array('admin.php', 'functions.php', 'index.php');
-$success = true;
-
-foreach($required_paths as $path) {
-	
-	if(!file_exists($path)) {
-		
-		print '<b>ERROR:</b> File or directory <tt>' . $path . '</tt> is missing.<br/>';
-		$success = false;
-		
-	}
-	
-}
-
-if(!$success)
-  Engine::quit('<br/>Please upload any missing files before continuing.');
-
 if(!isset($_POST['create'])) // so that we can use header() to refresh later
 	print $head;
 
@@ -79,15 +62,10 @@ if(!is__writable('./'))
 if(!file_exists('config.php'))
 	$todo_kure['config'] = 'generate <tt>config.php</tt>';
 
-if(!file_exists('posts/'))
-	$todo_kure['posts'] = 'create a <tt>posts</tt> directory';
-elseif(!is__writable("posts"))
-	$todo_user[] = 'make the <tt>posts/</tt> directory writeable';
-
-if(!file_exists('docs/'))
-	$todo_kure['docs'] = 'create a <tt>docs</tt> directory';
-elseif(!is__writable('docs'))
-	$todo_user[] = 'make the <tt>docs/</tt> directory writeable';
+if(!file_exists('entries/'))
+	$todo_kure['entries'] = 'create an <tt>entries</tt> directory';
+elseif(!is__writable('entries'))
+	$todo_user[] = 'make the <tt>entries/</tt> directory writeable';
 
 if(isset($_POST['create'])) {
 	
@@ -102,12 +80,9 @@ if(isset($_POST['create'])) {
 			'show_admin_link'     => true,
 			'blog_name'           => 'kure',
 			'blog_sub'            => 'beta',
-			'template'            => 'sanitation',
-			'posts_per_page'      => 8,
-			'show_doc_dates'      => true,
-			'show_doc_page_dates' => true,
-			'abc_posts'           => false,
-			'abc_docs'            => true
+			'template'            => 'k1',
+			'entries_per_page'      => 8,
+			'abc_entries'           => false,
 		);
 		
 		$config = new Config();
@@ -119,11 +94,8 @@ if(isset($_POST['create'])) {
 		
 	}
 	
-	if(isset($todo_kure['posts']) && !mkdir('posts/'))
-		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>posts/</tt></span>');
-	
-	if(isset($todo_kure['docs']) && !mkdir('docs/'))
-		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>docs/</tt></span>');
+	if(isset($todo_kure['entries']) && !mkdir('entries/'))
+		Engine::quit($head . '<span class="error">Couldn\'t create directory <tt>entries/</tt></span>');
 	
 	header('Location: ?'); // refresh the page to refresh the tasks
 	
@@ -158,28 +130,28 @@ if(isset($todo_user)) {
 
 print '<br/><br/>';
 
-if(isset($todo_kure))
+if(isset($todo_kure)) {
+		
 	foreach($todo_kure as $task)
 		print '&bull; ' . $task . '<br/>';
+	
+	print 'Or, if you are able, feel free to perform any of kure\'s tasks yourself. Either way, refresh this page when you are finished.';
+	
+} else {
+	
+	print 'Refresh this page when you\'re finished.';
+	
+}
 
 print '<br/>';
 
-if(isset($todo_user)) {
+if(!isset($todo_user)) {
 	
-	print 'Refresh this page when you\'ve completed your tasks';
-	
-	if(isset($todo_kure))
-		print ', and kure will be ready to complete its own';
-	
-	print '.'; // <('.'<)
-	
-} else {
-
 	print '<form action="?" method="post">';
 	
 	if(isset($todo_kure['config'])) {
 		
-		print 'Before the config file is generated, however, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>';
+		print 'Before the config file is generated, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>';
     print '<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>';
 		print '<p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>';
 		
