@@ -1,4 +1,3 @@
 .*
 config.php
-posts/*.txt
-docs/*.txt
+entries/*.txt
