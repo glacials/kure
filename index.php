@@ -52,155 +52,115 @@ $config = Engine::get_config();
 
 Template::run('header');
 
-/***** DOCS *****/
-if(isset($_GET['docs'])) { // if we're at the docs page
-	
-	Template::run('doclist_header');
-	$alldocs = glob('docs/*.txt');
-	
-	if(!$config->abc_docs) // if we're NOT sorting alphabetically
-		usort($alldocs, 'sort_by_mtime');
-	
-	if(count($alldocs) == 0) {
+/***** Entry Viewer *****/
+if(isset($_GET['entry'])) { // if a specific entry has been requested
 		
-		print('<i>&lt;no docs to display&gt;</i>');
-		
-	} else {
-		
-		foreach($alldocs as $file) {
-			
-			$title = $file;
-			$title = str_replace('docs/', '', $title);
-			$title = str_replace('.txt', '', $title);
-			$friendly_title = $title;
-			$id = md5($title); // dynamic hook identifier
-			$title = deparse_title($title);
-			Template::run('doclist', array('id' => $id, 'DOCTITLE' => $title, 'DOCADDRESS' => $friendly_title, 'DOCDATE' => date('F jS, Y', filemtime($file))));
-			
-		}
-		
-	}
-	
-	Template::run('doclist_footer');
-	
-/***** VIEWPOST/VIEWDOC *****/
-} elseif(isset($_GET['post']) || isset($_GET['doc'])) { // if a post/doc has been requested
-	
-	if(isset($_GET['post'])) {
-		
-		$type = 'post';
-		$filename = $_GET['post'];
-		
-	} else {
-		
-		$type = 'doc';
-		$filename = $_GET['doc'];
-		
-	}
-	
+	$filename = $_GET['entry'];
+
 	$filename = sanitize($filename);
-	print Engine::plug($type, 'top');
+	print Engine::plug('entry', 'top');
 	
-	if(!file_exists($type . 's/' . $filename . '.txt')) {
+	if(!file_exists('entries/' . $filename . '.txt')) {
 		
-		print 'The requested file <tt>' . $type . 's/' . $filename . '.txt</tt> does not exist.';
+		print 'The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.';
 		
 	} else {
 		
-		$file           = $type . 's/' . $filename . '.txt';
-		$title          = $file;
-		$title          = str_replace($type . 's/', '', $title);
-		$title          = str_replace('.txt', '', $title);
-		$friendly_title = $title;
-		$title          = str_replace('_', ' ', $title);
-		$content        = str_replace('\n', '<br/>', file_get_contents($file));
+		$title   = str_replace('_', ' ', $filename);
+		$file    = 'entries/' . $filename . '.txt';
+		$content = str_replace('\n', '<br/>', file_get_contents($file));
+		$date    = filemtime($file);
+
+		$template_vars = array('ENTRYTITLE'   => $title,
+		                       'ENTRYADDRESS' => $file,
+		                       'ENTRYDAY'     => date('j', $date),
+		                       'ENTRYMONTH'   => date('F', $date),
+		                       'ENTRYYEAR'    => date('Y', $date),
+		                       'ENTRYCONTENT' => $content
+		                      );
 		
-		Template::run('entry', array('ENTRYTYPE' => $type, 'ENTRYTITLE' => $title, 'ENTRYADDRESS' => $friendly_title, 'ENTRYDATE' => date('F jS, Y', filemtime($file)), 'ENTRYCONTENT' => $content));
+		Template::run('entry', $template_vars);
 		
 	}
 	
-/***** POSTS *****/
-} else { // if we weren't told to do anything else
+/***** Entry Listing (Home) *****/
+} else {
 	
-	Template::run('postlist_header');
+	Template::run('entrylist_header');
 	
 	if(!isset($_GET['page']))
 		$_GET['page'] = 1; // default to page 1
 	
-	$postHandler = new PostHandler($_GET['page']);
+	$entries = glob('entries/*.txt');
+
+	if(!$entries)
+		Engine::quit('No entries to display.');
 	
-	$allposts = glob('posts/*.txt');
-	if(!$allposts)
-		$allposts = array();
+	$num_entries = count($entries);
 	
-	$total_posts = count($allposts);
+	// if the total number of entries isn't divisible by the number we want to display,
+	// then we want to make $num_entries / $config->entries_per_page round up one. (think it out.) this is for pagination.
+	if($num_entries % $config->entries_per_page != 0)
+		$num_entries += $config->entries_per_page;
 	
-	// if the total number of posts isn't divisible by the number we want to display,
-	// then we want to make $total_posts / $config->posts_per_page round up one. (think it out.) this is for pagination.
-	if($total_posts % $config->posts_per_page != 0)
-		$total_posts += $config->posts_per_page;
+	if(!$config->abc_entries) // if we're NOT sorting alphabetically
+		usort($entries, 'sort_by_mtime');
 	
-	if(!$config->abc_posts) // if we're NOT sorting alphabetically
-		usort($allposts, 'sort_by_mtime');
+	$first_entry_on_page = ($_GET['page'] * $config->entries_per_page) - $config->entries_per_page;
+	$entry_offset = 0;
+	$i = 0; // monitor how many entries we display
 	
-	$page_firstpost = ($_GET['page'] * $config->posts_per_page) - $config->posts_per_page;
-	$curpost = 0;
-	$i = 0; // monitor how many posts we display
-	
-	if(count($allposts) == 0) {
+	foreach($entries as $entry) {
 		
-		print '<i>&lt;no posts to display&gt;</i>';
+		if($i == $config->entries_per_page && $config->entries_per_page != 0)
+			break;
 		
-	} else {
-		
-		foreach($allposts as $file) {
+		if(isset($_GET['page']) && ($entry_offset < $first_entry_on_page) || ($entry_offset > ($first_entry_on_page + $config->entries_per_page))) {
 			
-			if($i == $config->posts_per_page && $config->posts_per_page != 0)
-				break;
-			
-			if(isset($_GET['page']) && ($curpost < $page_firstpost) || ($curpost > ($page_firstpost + $config->posts_per_page))) {
-				
-				$curpost++;
-				continue;
-				
-			}
-			
-			$title = $file;
-			$title = str_replace('posts/', '', $title);
-			$title = str_replace('.txt', '', $title);
-			$friendly_title = $title;
-			$id = md5($title); // dynamic hook identifier
-			$title = deparse_title($title);
-			$content = str_replace("\n", '<br/>' . "\n", file_get_contents($file));
-			
-			Template::run('postlist', array('id' => $id, 'POSTTITLE' => $title, 'POSTADDRESS' => $friendly_title, 'POSTDATE' => date('F jS, Y', filemtime($file)), 'POSTCONTENT' => $content));
-			
-			$i++;
+			$first_entry_on_page++;
+			continue;
 			
 		}
 		
+		$title   = str_replace('_', ' ', $entry);
+		$title   = str_replace('entries/', '', $title);
+		$title   = str_replace('.txt', '', $title);
+		$file    = $entry;
+		$address = '?entry=' . str_replace('entries/', '', $entry);
+		$address = str_replace('.txt', '', $address);
+		$content = str_replace('\n', '<br/>\n', file_get_contents($file));
+		$date    = filemtime($file);
+
+		$template_vars = array('ENTRYTITLE'   => $title,
+		                       'ENTRYADDRESS' => $address,
+		                       'ENTRYDAY'     => date('j', $date),
+		                       'ENTRYMONTH'   => date('F', $date),
+		                       'ENTRYYEAR'    => date('Y', $date),
+		                       'ENTRYCONTENT' => $content
+		                      );
+		
+		Template::run('entry', $template_vars);
+		
+		$i++;
+		
 	}
 	
-	if($config->posts_per_page != 0 && $total_posts > $config->posts_per_page) {
+	// Display "previous entries" / "more recent entries" links if necessary
+	if($config->entries_per_page != 0 && $num_entries > $config->entries_per_page) {
 		
-		if($_GET['page'] + 1 <= $total_posts / $config->posts_per_page)
-			print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous posts</a>';
+		if($_GET['page'] + 1 <= $num_entries / $config->entries_per_page)
+			print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous entries</a>';
 		
 		if($_GET['page'] != 1) {
 			
-			// we check if we're on page 2, because the next page will be 1, aka homepage.
-			if($_GET['page'] == 2)
-				$next = './';
-			else
-				$next = '?page=' . ($_GET['page'] - 1);
-			
-			print '| <a class="navitem" href="' . $next . '">more recent posts<font size="1">&gt;&gt;</font></a>';
+			$next = '?page=' . ($_GET['page'] - 1);
+			print '| <a class="navitem" href="' . $next . '">more recent entries<font size="1">&gt;&gt;</font></a>';
 			
 		}
 		
 	}
 	
-	Template::run('postlist_footer');
+	Template::run('entrylist_footer');
 	
 }
 

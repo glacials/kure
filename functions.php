@@ -120,34 +120,30 @@ function config_value($var) {
 
 }
 
-// creates entry with title $title, content $content, of type $type, with creation time $time
+// creates entry with title $title, content $content, with creation time $time
 // returns true on success. exit()s otherwise.
-function create_entry($title, $content, $type) {
+function create_entry($title, $content) {
 
   global $root;
 
   $title = parse_title($title);
   $content = parse($content);
 
-  // change "doc" -> "docs" and "post" -> "posts"
-  if(substr($type, -1) != 's')
-    $type .= 's';  
-
-  if(file_exists($root . $type . '/' . $title . '.txt'))
-    Engine::quit('<span class="error">A post with that name already exists.</span>');
-  elseif(!file_put_contents($root . $type . '/' . $title . '.txt', $content))
-    Engine::quit("Could not create file <tt>' . $type . '/' . $title . '.txt</tt>. Check permissions and try again.<br/><br/>It is also possible that you used an invalid character in your title (titles are used as filenames).</span>");
+  if(file_exists($root . 'entries/' . $title . '.txt'))
+    Engine::quit('<span class="error">An entry with that name already exists.</span>');
+  elseif(!file_put_contents($root . 'entries/' . $title . '.txt', $content))
+    Engine::quit('Could not create file <tt>entries/' . $title . '.txt</tt>. Check permissions and try again.<br/><br/>It is also possible that you used an invalid character in your title (titles are used as filenames).</span>');
 
 	// Set creation time
-	touch($roow . $type . '/' . $title . '.txt', $time);
+	touch($root . 'entries/' . $title . '.txt', time());
 
   return true;
 
 }
 
-// attempts to delete entry $title of type $type ($type can be "post", "posts", "doc" or "docs")
+// attempts to delete entry $title
 // returns true on success; false otherwise
-function delete_entry($title, $type) {
+function delete_entry($title) {
 
   global $root;
 
@@ -156,11 +152,7 @@ function delete_entry($title, $type) {
   $title = str_replace('\\', '', $title);
   $title = str_replace(' ', '_', $title);
   
-  // change "doc" -> "docs" and "post" -> "posts"
-  if(substr($type, -1) != 's')
-    $type .= "s"; 
-
-  return unlink($root . $type . '/' . $title . '.txt');
+  return unlink($root . 'entries/' . $title . '.txt');
 
 }
 

@@ -1,7 +1,5 @@
 <?php
 
-define('KURE_ROOT', '../');
-
 class Engine {
 	
 	private static $config;

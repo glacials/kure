@@ -1,9 +1,8 @@
 <table align="center" width="90%">
 	<tr>
 		<td width="100%">
-			<span class="blog_title">{ENTRYTITLE}</a>{HOOK:{ENTRYTYPE}-TITLE_AFTER}<br />
-			{IF:POST}<span class="blog_date">{ENTRYDATE}</span>{/IF:POST}
-			{IF:DOC}{IF:DOCDATES}<span class="blog_date">{ENTRYDATE}</span>{/IF:DOCDATES}{/IF:DOC}{HOOK:{ENTRYTYPE}-DATE_AFTER}<br />
+			<a class="blog_title">{ENTRYTITLE}</a>{HOOK:ENTRY-TITLE_AFTER}<br />
+			<a href="{ENTRYADDRESS}" class="date">{ENTRYDAY} {ENTRYMONTH} {ENTRYYEAR}</a><br/>
 		</td>
 	</tr>
 	<tr>
@@ -12,7 +11,7 @@
 			<span class="blog_content">
 				{ENTRYCONTENT}
 			</span>
-			{HOOK:{ENTRYTYPE}-BODY_AFTER}<br /><br />
+			{HOOK:ENTRY-BODY_AFTER}<br /><br />
 		</td>
 	</tr>
 </table>

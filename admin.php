@@ -67,14 +67,11 @@ if(isset($_GET['config'])) {
 	
 	if(isset($_POST['config_submit'])) {
 		
-		$config->blog_name           = $_POST['blog_name'];
-		$config->blog_sub            = $_POST['blog_sub'];
-		$config->posts_per_page      = $_POST['posts_per_page'];
-		$config->show_doc_dates      = $_POST['show_doc_dates'];
-		$config->show_doc_page_dates = $_POST['show_doc_page_dates'];
-		$config->abc_docs            = $_POST['abc_docs'];
-		$config->abc_posts           = $_POST['abc_posts'];
-		$config->show_admin_link     = $_POST['show_admin_link'];
+		$config->blog_name             = $_POST['blog_name'];
+		$config->blog_sub              = $_POST['blog_sub'];
+		$config->entries_per_page      = $_POST['entries_per_page'];
+		$config->abc_entries           = $_POST['abc_entries'];
+		$config->show_admin_link       = $_POST['show_admin_link'];
 		
 		if(!$config->save())
 			Engine::quit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
@@ -87,27 +84,12 @@ if(isset($_GET['config'])) {
 		
 		print 'blog name<br/><input type="text" name="blog_name" value="' . $config->blog_name . '" class="form_text"><br/><br/>';
 		print 'subname<br/><input type="text" name="blog_sub" value="' . $config->blog_sub . '" class="form_text"><br/><br/>';
-		print 'posts per page<br/><input type="text" name="posts_per_page" value="' . $config->posts_per_page . '" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>';
+		print 'entries per page<br/><input type="text" name="entries_per_page" value="' . $config->entries_per_page . '" class="form_text" size="3"> <span class="note">0 for unlimited</span><br/><br/>';
 		
-		print '<select name="show_doc_dates">';
-		print '<option value="true"' . ($config->show_doc_dates ? 'selected' : '') . '>Yes</option>';
-		print '<option value="false"' . (!$config->show_doc_dates ? 'selected' : '') . '>No</option>';
-		print '</select> display dates on docs<br/><br/>';
-		
-		print '<select name="show_doc_page_dates">';
-		print '<option value="true"' . ($config->show_doc_page_dates ? 'selected' : '') . '>Yes</option>';
-		print '<option value="false"' . (!$config->show_doc_page_dates ? 'selected' : '') . '>No</option>';
-		print '</select> display dates on doc listing<br/><br/>';
-		
-		print '<select name="abc_docs">';
-		print '<option value="true"' . ($config->abc_docs ? 'selected' : '') . '>Alphabetical</option>';
-		print '<option value="false"' . (!$config->abc_docs ? 'selected' : '') . '>Date descending</option>';
-		print '</select> doc order<br/><br/>';
-		
-		print '<select name="abc_posts">';
-		print '<option value="true"' . ($config->abc_posts ? 'selected' : '') . '>Alphabetical</option>';
-		print '<option value="false"' . (!$config->abc_posts ? 'selected' : '') . '>Date descending</option>';
-		print '</select> post order<br/><br/>';
+		print '<select name="abc_entries">';
+		print '<option value="true"' . ($config->abc_entries ? 'selected' : '') . '>Alphabetical</option>';
+		print '<option value="false"' . (!$config->abc_entries ? 'selected' : '') . '>Date descending</option>';
+		print '</select> entry order<br/><br/>';
 		
 		print '<select name="show_admin_link">';
 		print '<option value="true"' . ($config->show_admin_link ? 'selected' : '') . '>Yes</option>';
@@ -166,9 +148,9 @@ if(isset($_GET['config'])) {
 	
 	print('<span class="pagesub">create</span><br/><br/>' . "\n");
 	
-	if(isset($_POST['submit_post'])) {
+	if(isset($_POST['submit_entry'])) {
 	
-		if(create_entry($_POST['title'], $_POST['content'], $_POST['type']))
+		if(create_entry($_POST['title'], $_POST['content']))
 			print('<span class="success">Entry created.</span>');
 		
 	} else {
@@ -179,11 +161,8 @@ if(isset($_GET['config'])) {
 		Engine::plug('admcreate', 'title_after');
 		print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n");
 		Engine::plug('admcreate', 'content_after');
-		print('<input checked name="type" type="radio" value="posts">post' . "\n");
-		print('<input name="type" type="radio" value="docs">doc' . "\n");
-		Engine::plug('admcreate', 'type_after');
 		print('<br><br>' . "\n");
-		print('<input name="submit_post" type="submit" value="create">' . "\n");
+		print('<input name="submit_entry" type="submit" value="create">' . "\n");
 		Engine::plug('admcreate', 'button_after');
 		print('</form>' . "\n\n");
 		
@@ -195,27 +174,12 @@ if(isset($_GET['config'])) {
 	
 	if($_GET['modify'] != null) {
 		
-		if(isset($_POST['modify_entry'])) {
+		if(isset($_POST['submit'])) {
 			
 			$oldname = $_POST['oldfile'];
+			$oldname = str_replace('entries/', '', $oldname);
 			
-			if(strstr($oldname, 'docs/')) {
-				
-				$type = 'docs';
-				$oldname = str_replace('docs/', '', $oldname);
-				
-			} elseif(strstr($oldname, 'posts/')) {
-				
-				$type = 'posts';
-				$oldname = str_replace('posts/', '', $oldname);
-				
-			} else {
-				
-				Engine::quit('Bad entry type.');
-				
-			}
-			
-			if(!delete_entry($oldname, $type))
+			if(!delete_entry($oldname))
 				Engine::quit('Old entry could not be removed. Check permissions and try again.');
 			
 			if(create_entry($_POST['title'], $_POST['content'], $_POST['type']))
@@ -223,24 +187,10 @@ if(isset($_GET['config'])) {
 			
 		} else {
 			
-			if(substr($_GET['modify'], 0, 5) == 'posts') {
-				
-				$oldtype = 'posts';
-				$oldtitle = str_replace('posts/', '', $_GET['modify']);
-				
-			} elseif(substr($_GET['modify'], 0, 4) == 'docs') {
-				
-				$oldtype = 'docs';
-				$oldtitle = str_replace('docs/', '', $_GET['modify']);
-				
-			} else {
-				
-				Engine::quit('Bad entry type.');
-				
-			}
+			$oldtitle = str_replace('entries/', '', $_GET['modify']);
 			
 			$oldtitle = deparse_title($oldtitle);
-			$oldcontent = file_get_contents($_GET['modify'] . '.txt');
+			$oldcontent = file_get_contents(KURE_ROOT . 'entries/' . $_GET['modify'] . '.txt');
 			
 			Engine::plug('admmodify', 'top');
 			print('<form action="?modify=submit" method="post">' . "\n");
@@ -248,14 +198,9 @@ if(isset($_GET['config'])) {
 			Engine::plug('admmodify', 'title_after');
 			print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12">' . $oldcontent . '</textarea><br><br>' . "\n");
 			Engine::plug('admmodify', 'content_after');
-			
-			print '<input ' . ($oldtype == 'posts' ? 'checked' : '') . ' name="type" type="radio" value="posts">post' . "\n";
-			print '<input ' . ($oldtype == 'docs' ? 'checked' : '') . ' name="type" type="radio" value="docs">doc' . "\n";
-			
-			Engine::plug('admmodify', 'type_after');
 			print('<br><br>' . "\n");
 			print('<input type="hidden" name="oldfile" value="' . $_GET['modify'] . '">' . "\n");
-			print('<input name="modify_entry" type="submit" value="save">' . "\n");
+			print('<input name="submit" type="submit" value="save">' . "\n");
 			Engine::plug('admmodify', 'button_after');
 			print('</form>' . "\n\n");
 			
@@ -263,80 +208,37 @@ if(isset($_GET['config'])) {
 		
 	} else {
 		
-		$posts = glob(KURE_ROOT . "posts/*.txt");
-		$docs = glob(KURE_ROOT . "docs/*.txt");
+		$entries = glob(KURE_ROOT . 'entries/*.txt');
 		
-		usort($posts, "sort_by_mtime");
-		usort($docs, "sort_by_mtime");
+		usort($entries, 'sort_by_mtime');
 		
-		$poststr = "";
-		$docstr = "";
-		
-		foreach($posts as $post) {
+		foreach($entries as $entry) {
 			
-			$post = str_replace('posts/', '', $post);
-			$post = str_replace('.txt', '', $post);
-			$post_title = deparse_title($post);
-			$poststr .= '&nbsp;&nbsp;<a href="?del=posts/' . $post . '" class="small">[del]</a>&nbsp;<a href="?modify=posts/' . $post . '">' . $post_title . '</a><br/>';
+			$entry = str_replace(KURE_ROOT . 'entries/', '', $entry);
+			$entry = str_replace('.txt', '', $entry);
+			$entry_title = deparse_title($entry);
+			print '&nbsp;&nbsp;<a href="?del=' . $entry . '" class="small">[del]</a>&nbsp;<a href="?modify=' . $entry . '">' . $entry_title . '</a><br/>';
 			
 		}
-		
-		foreach($docs as $doc) {
-			
-			$doc = str_replace('docs/', '', $doc);
-			$doc = str_replace('.txt', '', $doc);
-			$doc_title = deparse_title($doc);
-			$docstr .= '&nbsp;&nbsp;<a href="?del=docs/' . $doc . '" class="small">[del]</a>&nbsp;<a href="?modify=docs/' . $doc . '">' . $doc_title . '</a><br/>';
-			
-		}
-		
-		$poststr = str_replace('\'', "\\'", $poststr);
-		$docstr = str_replace('\'', "\\'", $docstr); // escape the ' character so it doesn't interefere with the javascript
-		
-		print '<div id="tabs"></div>';
-		print '<script src="js/tabs.js" type="text/javascript"></script>';
-		print '<script type="text/javascript">';
-		print 'var tabs = new Tabs(document.getElementById(\'tabs\'));';
-		print 'tabs.Add(\'posts\', postsTabSwitch);';
-		print 'tabs.Add(\'docs\', docsTabSwitch);';
-		print 'function postsTabSwitch(paneElement) {';
-		print 'if(paneElement.innerHTML == \'\')';
-		print 'paneElement.innerHTML = \'' . $poststr . '\'';
-		print '}';
-		print 'function docsTabSwitch(paneElement) {';
-		print 'if(paneElement.innerHTML == \'\')';
-		print 'paneElement.innerHTML = \'' . $docstr . '\'';
-		print '}';
-		print '</script>';
 		
 	}
 	
 } elseif(isset($_GET['del'])) {
 	
-	if(strstr($_GET['del'], 'docs/')) {
-		
-		$type = 'doc';
-		$title = str_replace('docs/', '', $_GET['del']);
-		
-	} elseif(strstr($_GET['del'], 'posts/')) {
-		
-		$type = 'post';
-		$title = str_replace('posts/', '', $_GET['del']);
-		
-	}
+	$title = $_GET['del'];
 	
 	if(isset($_POST['confirm_delete'])) {
 		
-		if(delete_entry($title, $type))
+		if(delete_entry($title))
 			print('<span class="success">Entry deleted.</span>');
 		else
-			print('<span class="error">Couldn\'t delete $type <tt>' . deparse_title($title) . '</tt>. Check permissions and try again.</span>');
+			print('<span class="error">Couldn\'t delete entry <tt>' . deparse_title($title) . '</tt>. Check permissions and try again.</span>');
 		
 	} else {
 		
 		print('<span class="pagesub">delete entry</span><br/><br/>' . "\n");
-		print('Are you sure you want to delete the ' . $type . '<b><tt>' . deparse_title($title) . '</tt></b>? This cannot be undone.<br/><br/>' . "\n");
-		print('<div align="right"><form action="?del=' . $_GET['del'] . '" method="post"><input type="submit" name="confirm_delete" value="Yes, delete this ' . $type . '"></form>' . "\n");
+		print('Are you sure you want to delete the entry <b><tt>' . deparse_title($title) . '</tt></b>? This cannot be undone.<br/><br/>' . "\n");
+		print('<div align="right"><form action="?del=' . $_GET['del'] . '" method="post"><input type="submit" name="confirm_delete" value="Yes, delete this entry"></form>' . "\n");
 		print('<a href="?modify" class="navitem">Go back</a></div>');
 		
 	}

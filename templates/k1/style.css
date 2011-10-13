@@ -3,6 +3,7 @@
 	font-family: "trebuchet ms", arial;
 	font-size: 18px;
 	font-weight: bold;
+	letter-spacing: -1px;
 	text-decoration: none;
 }
 
@@ -64,12 +65,6 @@ table.table_download td {
 	color: #000000;
 	font-family: "trebuchet ms", arial;
 	font-size: 12px;
-}
-
-.blog_date {
-	color: #7f7f7f;
-	font-family: "trebuchet ms", arial;
-	font-size: 10px;
 }
 
 .error {
@@ -180,4 +175,18 @@ a:hover.small {
 
 .success {
 	color: #090;
+}
+
+a.date:link {
+	color:           #777;
+	font-size:       12px;
+	text-decoration: none;
+}
+
+a.date:visited {
+	color: #777;
+}
+
+a.date:hover {
+	color: #00f;
 }

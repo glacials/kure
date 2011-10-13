@@ -12,13 +12,9 @@ class Config {
 	
 	private $template;
 	
-	private $posts_per_page;
+	private $entries_per_page;
 	
-	private $show_doc_dates;
-	private $show_doc_page_dates;
-	
-	private $abc_posts;
-	private $abc_docs;
+	private $abc_entries;
 	
 	public function __get($variable) {
 		return $this->$variable;
