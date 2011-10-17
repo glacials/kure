@@ -21,10 +21,10 @@
 
 /***** FILE HANDLING ********************************************************************/
 
-function sort_by_mtime($file1,$file2) {
+function sort_by_mtime($entry1, $entry2) {
 
-  $time1 = filemtime($file1);
-  $time2 = filemtime($file2);
+  $time1 = $entry1->timestamp;
+  $time2 = $entry2->timestamp;
 
   if ($time1 == $time2)
     return 0;
@@ -206,8 +206,6 @@ function get_config($plugin) {
 
 }
 
-/***** PARSING **************************************************************************/
-
 // returns a parsed version of $string for use in entry content; removes any php code and applies bbcode
 function parse($string) {
 
@@ -233,7 +231,7 @@ function parse($string) {
     '<u>$1</u>',
     '<tt><a href="$1" class="content">$2</a></tt>',
     '<tt><a href="$1" class="content">$1</a></tt>',
-    '<img src="$1" />',
+    '<img src="$1"/>',
   );
   
   $string = preg_replace($bb_find, $bb_replace, $string);
@@ -245,35 +243,40 @@ function parse($string) {
 
 // returns a parsed version of $string for use as an entry filename
 function parse_title($string) {
-
-  $string = parse($string);
-
-  if(strpos($string, '_') ||
-     strpos($string, '/') ||
-     strpos($string, '\\')||
-     strpos($string, '|') ||
-     strpos($string, ':') ||
-     strpos($string, '*') ||
-     strpos($string, '?') ||
-     strpos($string, '\'')||
-     strpos($string, '<') ||
-     strpos($string, '>') ||
-     strpos($string, '../')
-  )
-    exit("Invalid characters in title.");
-
-  $string = str_replace(' ', '_', $string);
-  $string = str_replace('../', '', $string);
-
-  return $string;
-
+	
+	$string = parse($string);
+	
+	if(strpos($string, '_') ||
+	   strpos($string, '/') ||
+	   strpos($string, '\\')||
+	   strpos($string, '|') ||
+	   strpos($string, ':') ||
+	   strpos($string, '*') ||
+	   strpos($string, '?') ||
+	   strpos($string, '\'')||
+	   strpos($string, '<') ||
+	   strpos($string, '>') ||
+	   strpos($string, '../')
+	  )
+		Engine::quit('Invalid characters in title.');
+	
+	// Convert hyphens to underscores, spaces to hyphens, and remove bad things
+	$string = str_replace('-', '_',  $string);
+	$string = str_replace(' ', '-',  $string);
+	$string = str_replace('../', '', $string);
+	
+	return $string;
+	
 }
 
 // inverse function of parse_title()
 function deparse_title($string) {
-
-  return str_replace('_', ' ', $string);
-
+	
+	$string = str_replace('-', ' ', $string);
+	$string = str_replace('_', '-', $string);
+	
+	return $string;
+	
 }
 
 // cleans $string of any attempts to access things it shouldn't

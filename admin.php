@@ -272,8 +272,8 @@ if(isset($_GET['config'])) {
 
 } else { // main
 	
-	// Redirect to config section
-	header('Location: ?config');
+	// Redirect to create section
+	header('Location: ?create');
 	
 }
 

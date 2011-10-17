@@ -34,12 +34,17 @@
  * :P
  */
 
+define('KURE_ROOT', '');
+
 // Tell all files to include relative to THIS FILE's directory
 set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
 
 // Autoload any class which is used in this file
 function __autoload($class) {
-	include 'classes/' . $class . '.php';
+	if(file_exists('classes/' . $class . '.php'))
+		include 'classes/' . $class . '.php';
+	else
+		include_once 'classes/Exceptions.php';
 }
 
 require_once 'functions.php';
@@ -54,113 +59,51 @@ Template::run('header');
 
 /***** Entry Viewer *****/
 if(isset($_GET['entry'])) { // if a specific entry has been requested
-		
-	$filename = $_GET['entry'];
-
-	$filename = sanitize($filename);
-	print Engine::plug('entry', 'top');
 	
-	if(!file_exists('entries/' . $filename . '.txt')) {
-		
-		print 'The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.';
-		
-	} else {
-		
-		$title   = str_replace('_', ' ', $filename);
-		$file    = 'entries/' . $filename . '.txt';
-		$content = str_replace('\n', '<br/>', file_get_contents($file));
-		$date    = filemtime($file);
-
-		$template_vars = array('ENTRYTITLE'   => $title,
-		                       'ENTRYADDRESS' => $file,
-		                       'ENTRYDAY'     => date('j', $date),
-		                       'ENTRYMONTH'   => date('F', $date),
-		                       'ENTRYYEAR'    => date('Y', $date),
-		                       'ENTRYCONTENT' => $content
-		                      );
-		
-		Template::run('entry', $template_vars);
-		
-	}
+	$filename = sanitize($_GET['entry']);
+	
+	$entry_handler = new EntryHandler($filename);
+	
+	if(!$entry_handler->has_next())
+		Engine::quit('The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.');
 	
 /***** Entry Listing (Home) *****/
 } else {
 	
-	Template::run('entrylist_header');
-	
 	if(!isset($_GET['page']))
-		$_GET['page'] = 1; // default to page 1
+		$_GET['page'] = 0; // default to page 0
 	
-	$entries = glob('entries/*.txt');
-
-	if(!$entries)
+	$entry_handler = new EntryHandler($_GET['page'], $config->entries_per_page);
+	
+	if(!$entry_handler->has_next())
 		Engine::quit('No entries to display.');
 	
-	$num_entries = count($entries);
-	
-	// if the total number of entries isn't divisible by the number we want to display,
-	// then we want to make $num_entries / $config->entries_per_page round up one. (think it out.) this is for pagination.
-	if($num_entries % $config->entries_per_page != 0)
-		$num_entries += $config->entries_per_page;
-	
-	if(!$config->abc_entries) // if we're NOT sorting alphabetically
-		usort($entries, 'sort_by_mtime');
-	
-	$first_entry_on_page = ($_GET['page'] * $config->entries_per_page) - $config->entries_per_page;
-	$entry_offset = 0;
-	$i = 0; // monitor how many entries we display
-	
-	foreach($entries as $entry) {
-		
-		if($i == $config->entries_per_page && $config->entries_per_page != 0)
-			break;
-		
-		if(isset($_GET['page']) && ($entry_offset < $first_entry_on_page) || ($entry_offset > ($first_entry_on_page + $config->entries_per_page))) {
-			
-			$first_entry_on_page++;
-			continue;
-			
-		}
-		
-		$title   = str_replace('_', ' ', $entry);
-		$title   = str_replace('entries/', '', $title);
-		$title   = str_replace('.txt', '', $title);
-		$file    = $entry;
-		$address = '?entry=' . str_replace('entries/', '', $entry);
-		$address = str_replace('.txt', '', $address);
-		$content = str_replace('\n', '<br/>\n', file_get_contents($file));
-		$date    = filemtime($file);
+}
 
-		$template_vars = array('ENTRYTITLE'   => $title,
-		                       'ENTRYADDRESS' => $address,
-		                       'ENTRYDAY'     => date('j', $date),
-		                       'ENTRYMONTH'   => date('F', $date),
-		                       'ENTRYYEAR'    => date('Y', $date),
-		                       'ENTRYCONTENT' => $content
-		                      );
-		
-		Template::run('entry', $template_vars);
-		
-		$i++;
-		
-	}
+while($entry_handler->has_next()) {
 	
-	// Display "previous entries" / "more recent entries" links if necessary
-	if($config->entries_per_page != 0 && $num_entries > $config->entries_per_page) {
-		
-		if($_GET['page'] + 1 <= $num_entries / $config->entries_per_page)
-			print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '"><font size="1">&lt;&lt;</font>previous entries</a>';
-		
-		if($_GET['page'] != 1) {
-			
-			$next = '?page=' . ($_GET['page'] - 1);
-			print '| <a class="navitem" href="' . $next . '">more recent entries<font size="1">&gt;&gt;</font></a>';
-			
-		}
-		
-	}
+	$entry = $entry_handler->next();
 	
-	Template::run('entrylist_footer');
+	$template_vars = array('ENTRYTITLE'   => $entry->title,
+	                       'ENTRYADDRESS' => '?entry=' . $entry->filename,
+	                       'ENTRYDAY'     => date('j', $entry->timestamp),
+	                       'ENTRYMONTH'   => date('F', $entry->timestamp),
+	                       'ENTRYYEAR'    => date('Y', $entry->timestamp),
+	                       'ENTRYCONTENT' => $entry->content
+	                      );
+	
+	Template::run('entry', $template_vars);
+	
+}
+
+// Display "previous entries" / "more recent entries" links if necessary
+if(($_GET['page'] + 1) * $config->entries_per_page < $entry_handler->num_entries)
+	print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '">less recent</a>';
+
+if($_GET['page'] != 0) {
+	
+	$next = '?page=' . ($_GET['page'] - 1);
+	print '<a class="navitem" href="' . $next . '"> more recent</a>';
 	
 }
 

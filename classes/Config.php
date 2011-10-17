@@ -21,7 +21,10 @@ class Config {
 	}
 		
 	public function __set($variable, $value) {
+
 		$this->$variable = $value;
+		return $this;
+
 	}
 	
 	// Writes the current configuration to file.
