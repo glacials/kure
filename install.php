@@ -102,7 +102,7 @@ if(isset($_POST['create'])) {
 }
 
 if(!isset($todo_user) && !isset($todo_kure))
-	Engine::quit('<b>All done!</b> Be sure to DELETE THIS FILE before moving on to your <a href="admin">admin panel</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
+	Engine::quit('<b>All done!</b> Be sure to DELETE THIS FILE before <a href="index.php">moving on</a>.<br/><br/>Keep in mind that <b>kure is still in beta</b>. This means that there may (and probably will) be some bugs and possible security holes. In most cases, security holes in kure will only affect kure\'s directory, but this does not rule out the possbile risk of other files on your server. It is a good practice in general, even if you\'re not using kure, to backup important files and information on your server regularly.');
 
 print 'Okay. ';
 if(isset($todo_user))
@@ -135,7 +135,8 @@ if(isset($todo_kure)) {
 	foreach($todo_kure as $task)
 		print '&bull; ' . $task . '<br/>';
 	
-	print 'Or, if you are able, feel free to perform any of kure\'s tasks yourself. Either way, refresh this page when you are finished.';
+	if(isset($todo_user))
+		print '<br/>Or, if you are able, feel free to perform any of kure\'s tasks yourself. Either way, refresh this page when you are finished.';
 	
 } else {
 	
