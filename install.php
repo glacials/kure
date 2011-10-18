@@ -134,7 +134,7 @@ if(!isset($todo_user)) {
 	if(isset($todo_kure['config'])) {
 		
 		print 'Before the config file is generated, <b>you must set a password with which you will access the administration interface</b>.<br/>It will be encrypted and stored in <tt>config.php</tt> with all other configuration variables, which is why you need to set it now.<br/><br/>You can change this later.<br/><br/>';
-    print '<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>';
+		print '<span class="pagetitle" style="color: #000000; font-size: 16px;">password:</span>';
 		print '<p><input type="password" name="pass1"> (enter)</p><p><input type="password" name="pass2"> (confirm)</p>';
 		
 	}
@@ -150,7 +150,7 @@ function is__writable($path) {
 	// NOTE: use a trailing slash for folders!!!
 	// see http://bugs.php.net/bug.php?id=27609
 	// see http://bugs.php.net/bug.php?id=30931
-
+	
 	if($path{strlen($path) - 1} == '/') // recursively return a temporary file path
 		return is__writable($path . uniqid(mt_rand()) . '.tmp');
 	elseif(is_dir($path))

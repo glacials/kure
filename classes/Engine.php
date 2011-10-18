@@ -67,35 +67,33 @@ class Engine {
 		}
 		
 	}
-
-function plug($page, $hook, $id = false) {
 	
-	$GLOBALS['plugging'] = true;
-	
-	$output = '';
-	
-	if(isset($GLOBALS['rac'][$page][$hook])) {
+	function plug($page, $hook, $id = false) {
 		
-		foreach($GLOBALS['rac'][$page][$hook] as $file => $html) {
+		$GLOBALS['plugging'] = true;
+		
+		$output = '';
+		
+		if(isset($GLOBALS['rac'][$page][$hook])) {
 			
-			include($file);
-			$output .= ($rack[$page][$hook]); // print refreshed html
+			foreach($GLOBALS['rac'][$page][$hook] as $file => $html) {
+				
+				include($file);
+				$output .= ($rack[$page][$hook]); // print refreshed html
+				
+			}
 			
 		}
 		
+		if($id)
+			$output .= Engine::plug($page, $hook . '#' . $id); // dynamic plug
+		
+		$GLOBALS['plugging'] = false;
+		
+		return $output;
+		
 	}
 	
-	if($id)
-		$output .= Engine::plug($page, $hook . '#' . $id); // dynamic plug
-	
-	$GLOBALS['plugging'] = false;
-	
-	return $output;
-	
 }
-
-
-	
-};
 
 ?>

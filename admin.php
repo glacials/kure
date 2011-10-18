@@ -255,7 +255,7 @@ if(isset($_GET['config'])) {
 			Engine::quit('Incorrect current password. <a href="?password">Try again</a>.');
 		
 		$config->admin_password = md5($_POST['newpass1']);
-
+		
 		if($config->save())
 			print('<span class="success">Password changed.</span>');
 		
@@ -269,7 +269,7 @@ if(isset($_GET['config'])) {
 		print '<input type="submit" name="pass_submit" value="save"></form>';
 		
 	}
-
+	
 } else { // main
 	
 	// Redirect to create section
