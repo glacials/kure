@@ -1,6 +1,6 @@
 <?php
 
-$version = '0.7.1';
+$version = '0.7.2';
 @include_once 'functions.php'; // supress errors because the file & directory check below will handle it
 
 // Autoload any class which is used in this file
