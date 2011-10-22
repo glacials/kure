@@ -3,7 +3,7 @@
 class Template {
 	
 	// outputs code from $page in the current template using the variables contained in array $vars
-	static function run($page, $vars = null) {
+	public static function run($page, $vars = null) {
 		
 		$config = Engine::get_config();
 		
