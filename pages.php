@@ -15,7 +15,7 @@
  * format to the second format.
  *
  * This is mainly meant for those who wish to turn kure entries into more of a
- * "page" feel than a blog post.
+ * "page" feel than a blog post, but can be used for just cleaner URLs alone.
  *
  * To install, put this file in the plugins folder in your main kure directory.
  * If one doesn't exist, create it.
@@ -24,8 +24,7 @@
 
 if(isset($_GET['entry']))
 	header('Location: ?' . $_GET['entry']);
-
-if(!isset($_GET['entry']) && count($_GET) != 0)
+elseif(count($_GET) != 0)
 	$_GET['entry'] = array_pop(array_keys($_GET));
 
 ?>
