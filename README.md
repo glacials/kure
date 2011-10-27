@@ -22,3 +22,5 @@ kure does, however, tickle my fancy, which is why I started it. I love it and I 
 I can, but it won't always be fast.
 
 Please feel free to hit me up if you have any questions, bug reports/fixes, or just want to chat. I'm all ears.
+
+Also, check out some plugins in the `plugins` branch. If you've got a plugin, please fork that branch, add your plugin, and pull request me!
