@@ -14,7 +14,10 @@ class EntryHandler {
 			$entry_filename = array_pop(func_get_args());
 			
 			$entry_file = 'entries/' . $entry_filename . '.txt';
-			$this->entries[0] = self::entry_from_file($entry_file);
+			
+			if(file_exists($entry_file))
+				$this->entries[0] = self::entry_from_file($entry_file);
+			
 			$this->num_entries = 1;
 			
 		} else {
