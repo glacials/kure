@@ -48,7 +48,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 		Engine::quit('The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.');
 	
 /***** Entry Listing (Home) *****/
-} else {
+} elseif(empty($_GET)) {
 	
 	if(!isset($_GET['page']))
 		$_GET['page'] = 0; // default to page 0
