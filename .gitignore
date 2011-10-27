@@ -1,3 +1,5 @@
 .*
 config.php
 entries/*.txt
+plugins/*
+templates/*
