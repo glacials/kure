@@ -32,13 +32,13 @@ class EntryHandler {
 			foreach(array_slice($entry_files, $page * $limit, $limit) as $file)
 				$this->entries[] = self::entry_from_file($file);
 			
-			if(!$config->abc_entries && is_array($this->entries))
-				usort($this->entries,
-					function($entry_a, $entry_b) {
+			function compare_entries($entry_a, $entry_b) {
 						if($entry_a->timestamp == $entry_b->timestamp) return 0;
 						return $entry_a->timestamp > $entry_b->timestamp ? -1 : 1;
-					}
-				);
+			}
+			
+			if(!$config->abc_entries && is_array($this->entries))
+				usort($this->entries, "compare_entry");
 			
 			$this->num_entries = count($this->entries);
 			
