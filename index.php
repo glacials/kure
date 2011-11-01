@@ -42,7 +42,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	
 	$filename = sanitize($_GET['entry']);
 	
-	$entry_handler = new EntryHandler($filename);
+	$entry_handler = new EntryHandler($filename, null);
 	
 	if(!$entry_handler->has_next())
 		Engine::quit('The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.');

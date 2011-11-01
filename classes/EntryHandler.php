@@ -9,7 +9,7 @@ class EntryHandler {
 	public function __construct($page, $limit) {
 		
 		// This constructor can be called with just one argument: an entry filename.
-		if(func_num_args() == 1) {
+		if(func_num_args() == 1 || $limit == null) {
 			
 			$entry_filename = array_pop(func_get_args());
 			
