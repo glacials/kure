@@ -8,10 +8,10 @@ class EntryHandler {
 	// Page 0 is the first page
 	public function __construct($page, $limit) {
 		
-		// This constructor can be called with just one argument: an entry filename.
-		if(func_num_args() == 1 || $limit == null) {
+		// If $limit is null, $page is the filename of exactly one entry to display
+		if($limit == null) {
 			
-			$entry_filename = array_pop(func_get_args());
+			$entry_filename = $page;
 			
 			$entry_file = 'entries/' . $entry_filename . '.txt';
 			
