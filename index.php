@@ -68,12 +68,12 @@ while($entry_handler->has_next()) {
 	
 	$entry = $entry_handler->next();
 	
-	$template_vars = array('ENTRYTITLE'   => $entry->title,
-	                       'ENTRYADDRESS' => '?entry=' . $entry->filename,
-	                       'ENTRYDAY'     => date('j', $entry->timestamp),
-	                       'ENTRYMONTH'   => date('F', $entry->timestamp),
-	                       'ENTRYYEAR'    => date('Y', $entry->timestamp),
-	                       'ENTRYCONTENT' => $entry->content
+	$template_vars = array('{ENTRYTITLE}'   => $entry->title,
+	                       '{ENTRYADDRESS}' => '?entry=' . $entry->filename,
+	                       '{ENTRYDAY}'     => date('j', $entry->timestamp),
+	                       '{ENTRYMONTH}'   => date('F', $entry->timestamp),
+	                       '{ENTRYYEAR}'    => date('Y', $entry->timestamp),
+	                       '{ENTRYCONTENT}' => $entry->content
 	                      );
 	
 	Template::run('entry', $template_vars);

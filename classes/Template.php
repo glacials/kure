@@ -9,9 +9,11 @@ class Template {
 		
 		$html = file_get_contents('templates/' . $config->template . '/' . $page . '.html');
 		
-		$vars['TITLE']    = $config->blog_name;
-		$vars['SUBTITLE'] = $config->blog_sub;
-		$vars['VERSION']  = $config->version;
+		$vars['{TITLE}']    = $config->blog_name;
+		$vars['{SUBTITLE}'] = $config->blog_sub;
+		$vars['{VERSION}']  = $config->version;
+		
+		$html = str_replace(array_keys($vars), $vars, $html);
 		
 		// todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
 		$hook_pages = array(
