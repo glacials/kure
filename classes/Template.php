@@ -13,17 +13,6 @@ class Template {
 		$vars['SUBTITLE'] = $config->blog_sub;
 		$vars['VERSION']  = $config->version;
 		
-		foreach($vars as $var => $val)
-			$html = str_replace('{' . $var . '}', $val, $html);
-
-		$vars_find = array(
-			'/{IF:ADMINLINK}(.*?){\/IF:ADMINLINK}/is',
-		);
-		
-		$vars_replace[] = $config->show_admin_link ? '$1' : '';
-		
-		$html = preg_replace($vars_find, $vars_replace, $html);
-		
 		// todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
 		$hook_pages = array(
 			'kure'       => array('head', 'top', 'title_before', 'title_after', 'navtitle_before', 'navtitle_after', 'naventries_after', 'navdocs_after', 'navadmin_after', 'page_top', 'page_bottom', 'bottom'),
