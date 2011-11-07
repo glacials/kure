@@ -38,7 +38,7 @@ class EntryHandler {
 			}
 			
 			if(!$config->abc_entries && is_array($this->entries))
-				usort($this->entries, "compare_entry");
+				usort($this->entries, "compare_entries");
 			
 			$this->num_entries = count($this->entries);
 			
