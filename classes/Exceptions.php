@@ -1,5 +1,6 @@
 <?php
 
-class PropertyAccessException extends LogicException;
+class PropertyAccessException       extends LogicException {};
+class PropertyDoesNotExistException extends LogicException {};
 
 ?>

@@ -21,7 +21,7 @@ class Engine {
 		
 		if(self::$config == null) {
 			
-			self::$config = new Config();
+			self::$config = new Config('kure');
 			self::$config->load();
 			
 		}

@@ -1,5 +1,5 @@
 .*
-config.php
+config.ini
 entries/*.txt
 plugins/*
 templates/*
