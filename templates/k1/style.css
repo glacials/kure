@@ -124,38 +124,33 @@ div#footer {
 	padding:      0 3px 0;
 }
 
+input[type="text"], input[type="password"] {
+	box-shadow:  0 0 10px #ddd;
+	height:      28px;
+	font-family: "trebuchet ms";
+	font-size    16px;
+}
+
 input[type="submit"] {
-	background-color: #ffffff;
-	border:           1px solid #000;
-	box-shadow:       2px 2px 1px #ccc;
-	color:            #000000;
+	background-color: #fff;
+	border:           1px solid #ddd;
+	box-shadow:       0 0 10px #ddd;
+	color:            #000;
 	font-family:      "trebuchet ms";
 	font-size:        16px;
 	letter-spacing:   -1px;
+	height:           28px;
 	padding:          2px 8px;
 }
 
 input[type="submit"]:active {
-	box-shadow: inset 2px 2px 1px #ccc;
-}
-
-hr {
-	background-color: #ccc;
-	border:           none;
-	height:           1px;
+	box-shadow: inset 0 0 10px #ddd;
 }
 
 .note {
 	color:       #7f7f7f;
 	font-family: arial;
 	font-size:   12px;
-}
-
-.pagetitle {
-	color:          #404040;
-	font-family:    "trebuchet ms", arial;
-	font-size:      20px;
-	letter-spacing: -1px;
 }
 
 .pagesub, .smallsub {
