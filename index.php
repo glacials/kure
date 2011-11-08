@@ -48,7 +48,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 		Engine::quit('The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.');
 	
 /***** Entry Listing (Home) *****/
-} elseif(empty($_GET)) {
+} elseif(empty($_GET) || isset($_GET['page'])) {
 	
 	if(!isset($_GET['page']))
 		$_GET['page'] = 0; // default to page 0
@@ -81,12 +81,20 @@ while($entry_handler->has_next()) {
 }
 
 // Display "previous entries" / "more recent entries" links if necessary
-if(($_GET['page'] + 1) * $config->entries_per_page < $entry_handler->num_entries)
-	print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '">less recent</a>';
+if(($_GET['page'] + 1) * $config->entries_per_page < $entry_handler->total_entries) {
+	
+	$last = '?page=' . ($_GET['page'] + 1);
+	print '<a class="navitem" href="' . $last . '">less recent</a>';
+	
+}
 
 if($_GET['page'] != 0) {
 	
-	$next = '?page=' . ($_GET['page'] - 1);
+	if($_GET['page'] == 1)
+		$next = '?';
+	else
+		$next = '?page=' . ($_GET['page'] - 1);
+	
 	print '<a class="navitem" href="' . $next . '"> more recent</a>';
 	
 }
