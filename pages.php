@@ -24,7 +24,7 @@
 
 if(isset($_GET['entry']))
 	header('Location: ?' . $_GET['entry']);
-elseif(count($_GET) != 0)
+elseif(!empty($_GET) && !isset($_GET['page']))
 	$_GET['entry'] = array_pop(array_keys($_GET));
 
 ?>
