@@ -27,18 +27,18 @@ class EntryHandler {
 			$start_post = $limit * $page;
 			$end_post   = $start_post + $limit - 1;
 			
-			$entry_files = glob('entries/*.txt');
-			
-			foreach(array_slice($entry_files, $page * $limit, $limit) as $file)
+			foreach(glob('entries/*.txt') as $file)
 				$this->entries[] = self::entry_from_file($file);
 			
 			function compare_entries($entry_a, $entry_b) {
-						if($entry_a->timestamp == $entry_b->timestamp) return 0;
-						return $entry_a->timestamp > $entry_b->timestamp ? -1 : 1;
+				if($entry_a->timestamp == $entry_b->timestamp) return 0;
+				return $entry_a->timestamp > $entry_b->timestamp ? -1 : 1;
 			}
 			
 			if(!$config->abc_entries && is_array($this->entries))
 				usort($this->entries, "compare_entries");
+			
+			$this->entries = array_slice($this->entries, $page * $limit, $limit);
 			
 			$this->num_entries = count($this->entries);
 			
