@@ -67,11 +67,11 @@ if(isset($_GET['config'])) {
 	
 	if(isset($_POST['config_submit'])) {
 		
-		$config->blog_name             = $_POST['blog_name'];
-		$config->blog_sub              = $_POST['blog_sub'];
-		$config->entries_per_page      = $_POST['entries_per_page'];
-		$config->abc_entries           = $_POST['abc_entries'];
-		$config->show_admin_link       = $_POST['show_admin_link'];
+		$config->blog_name        = $_POST['blog_name'];
+		$config->blog_sub         = $_POST['blog_sub'];
+		$config->entries_per_page = $_POST['entries_per_page'];
+		$config->abc_entries      = $_POST['abc_entries'];
+		$config->show_admin_link  = $_POST['show_admin_link'];
 		
 		if(!$config->save())
 			Engine::quit('<span class="error">Couldn\'t write to <tt>config.php</tt>; check permissions and try again.</span>');
