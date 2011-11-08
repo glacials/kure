@@ -8,27 +8,27 @@ div.entry_title {
 }
 
 a:link, a:visited {
-	color: #0300ff;
-	font-family: "trebuchet ms", arial;
+	color:           #0300ff;
+	font-family:     "trebuchet ms", arial;
 	text-decoration: none;
 }
 
 a:hover {
-	background: #0300ff;
-	color: #ffffff;
+	background: #00f;
+	color:      #fff;
 }
 
 a:link.footer, a:visited.footer {
-	color: #7f7f7f;
-	font-family: "trebuchet ms", arial;
-	font-size: 11px;
-	letter-spacing: -1px;
+	color:           #7f7f7f;
+	font-family:     "trebuchet ms", arial;
+	font-size:       11px;
+	letter-spacing:  -1px;
 	text-decoration: none; 
 }
 
 a:hover.footer {
-	background: #0300ff;
-	color: #ffffff;
+	background: #00f;
+	color:      #fff;
 }
 
 a.small {
@@ -63,10 +63,10 @@ a.date:hover {
 }
 
 body {
-	background: #ffffff;
-	color: #000000;
+	background:  #fff;
+	color:       #000;
 	font-family: "trebuchet ms", arial;
-	font-size: 14px;
+	font-size:   14px;
 }
 
 .success {
@@ -74,14 +74,15 @@ body {
 }
 
 div#entries {
-	margin: auto;
-	width:  40%;
+	margin:     auto;
+	min-height: 90%;
+	width:      40%;
 }
 
 p {
-	color: #7f7f7f;
+	color:       #7f7f7f;
 	font-family: "trebuchet ms", arial;
-	font-size: 12px;
+	font-size:   12px;
 }
 
 .blog_content {
@@ -94,8 +95,9 @@ p {
 	color: #f00;
 }
 
-div.footer {
+div#footer {
 	color:       #7f7f7f;
+	height:      10px;
 	font-family: "trebuchet ms", arial;
 	font-size:   10px;
 	margin:      auto;
@@ -104,15 +106,15 @@ div.footer {
 }
 
 .form_text, .form_textarea {
-	background: #ffffff;
-	border: 1px;
-	border-color:#000000;
+	background:   #fff;
+	border:       1px;
+	border-color: #000;
 	border-style: solid;
-	color: #000000;
-	font-family: "trebuchet ms", arial;
-	font-size: 16px;
-	margin: 0px 5px 0px;
-	padding: 0px 3px 0px;
+	color:        #000;
+	font-family:  "trebuchet ms", arial;
+	font-size:    16px;
+	margin:       0 5px 0;
+	padding:      0 3px 0;
 }
 
 input[type="submit"] {
@@ -136,32 +138,25 @@ hr {
 	height:           1px;
 }
 
-.navtitle {
-	color: #7f7f7f;
-	font-family: "trebuchet ms", arial;
-	font-size: 16px;
-	letter-spacing: -1px;
-}
-
 .note {
-	color: #7f7f7f;
+	color:       #7f7f7f;
 	font-family: arial;
-	font-size: 12px;
+	font-size:   12px;
 }
 
 .pagetitle {
-	color: #404040;
-	font-family: "trebuchet ms", arial;
-	font-size: 20px;
+	color:          #404040;
+	font-family:    "trebuchet ms", arial;
+	font-size:      20px;
 	letter-spacing: -1px;
 }
 
 .pagesub, .smallsub {
-	color: #101010;
-	font-family: "trebuchet ms", arial;
-	font-size: 24px;
-	letter-spacing: -2px;
-	line-height: 50%;
+	color:           #101010;
+	font-family:     "trebuchet ms", arial;
+	font-size:       24px;
+	letter-spacing:  -2px;
+	line-height:     50%;
 	text-decoration: none;
 }
 
@@ -199,16 +194,16 @@ div#header {
 }
 
 div#header-left {
-	float:         left;
-	height:        30px;
-	text-align:    right;
-	width:         30%;
+	float:      left;
+	height:     30px;
+	text-align: right;
+	width:      30%;
 }
 
 div#header-right {
-	float:        left;
-	height:       30px;
-	position:     relative;
-	text-align:   left;
-	width:        40%;
+	float:      left;
+	height:     30px;
+	position:   relative;
+	text-align: left;
+	width:      40%;
 }
