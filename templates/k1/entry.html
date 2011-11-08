@@ -1,8 +1,21 @@
-{HOOK:ENTRY-TOP}
-<div class="entry_title">{ENTRYTITLE}</div>{HOOK:ENTRY-TITLE_AFTER}
-<a href="{ENTRYADDRESS}" class="date">{ENTRYDAY} {ENTRYMONTH} {ENTRYYEAR}</a><br/>
-<span class="blog_content">
-	{ENTRYCONTENT}
-</span>
-{HOOK:ENTRY-BODY_AFTER}<br/><br/>
-{HOOK:ENTRY-BOTTOM}
+			<div class="entry">{HOOK:ENTRY-TOP}
+				<div class="entry-title">
+					{ENTRYTITLE}
+				</div>{HOOK:ENTRY-TITLE_AFTER}
+				<div class="entry-date">
+					<a class="date" href="{ENTRYADDRESS}">{ENTRYDAY} {ENTRYMONTH} {ENTRYYEAR}</a>
+				</div>
+				<span class="blog-content">
+					{ENTRYCONTENT}
+				</span>{HOOK:ENTRY-BODY_AFTER}{HOOK:ENTRY-BOTTOM}
+			</div>
+admin.php
+classes
+config.ini
+COPYING
+entries
+functions.php
+index.php
+install.php
+README.md
+templates

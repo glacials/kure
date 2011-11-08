@@ -4,15 +4,13 @@
 		<link rel="stylesheet" type="text/css" href="templates/k1/style.css">
 		{HOOK:KURE-HEAD}
 	</head>
-	<body>
-		{HOOK:KURE-TOP}
-		{HOOK:KURE-TITLE_BEFORE}
+	<body>{HOOK:KURE-TOP}
 		<div id="header">
 			<div id="header-left">
-				<a class="sitetitle" href="?">{TITLE}</a>{HOOK:KURE-TITLE_AFTER}
+				{HOOK:KURE-TITLE_BEFORE}<a class="sitetitle" href="?">{TITLE}</a>{HOOK:KURE-TITLE_AFTER}
 			</div>
 			<div id="header-right">
 				<span class="sitesub">{SUBTITLE}</span>
 			</div>
 		</div>
-		<div id="entries">{HOOK:KURE-PAGE_TOP}
+		<div id="content">{HOOK:KURE-PAGE_TOP}
