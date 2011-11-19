@@ -255,4 +255,13 @@ function sanitize($string) {
 	
 }
 
+function compare_entries($entry_a, $entry_b) {
+	
+	if($entry_a->timestamp == $entry_b->timestamp)
+		return 0;
+	
+	return $entry_a->timestamp > $entry_b->timestamp ? -1 : 1;
+	
+}
+
 ?>

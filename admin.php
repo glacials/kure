@@ -144,30 +144,6 @@ if(isset($_GET['config'])) {
 	
 	print('<br/><input type="submit" name="template_submit" value="save" class="form_submit"></form>');
 	
-} elseif(isset($_GET['create'])) {
-	
-	print('<span class="pagesub">create</span><br/><br/>' . "\n");
-	
-	if(isset($_POST['submit_entry'])) {
-	
-		if(create_entry($_POST['title'], $_POST['content']))
-			print('<span class="success">Entry created.</span>');
-		
-	} else {
-		
-		Engine::plug('admcreate', 'top');
-		print('<form action="?create" method="post">' . "\n");
-		print('title<br/><input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n");
-		Engine::plug('admcreate', 'title_after');
-		print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n");
-		Engine::plug('admcreate', 'content_after');
-		print('<br><br>' . "\n");
-		print('<input name="submit_entry" type="submit" value="create">' . "\n");
-		Engine::plug('admcreate', 'button_after');
-		print('</form>' . "\n\n");
-		
-	}
-
 } elseif(isset($_GET['modify'])) {
 	
 	print('<span class="pagesub">modify</span><br/><br/>' . "\n");
@@ -210,7 +186,7 @@ if(isset($_GET['config'])) {
 		
 		$entries = glob(KURE_ROOT . 'entries/*.txt');
 		
-		usort($entries, 'sort_by_mtime');
+		usort($entries, 'compare_entries');
 		
 		foreach($entries as $entry) {
 			
@@ -272,8 +248,27 @@ if(isset($_GET['config'])) {
 	
 } else { // main
 	
-	// Redirect to create section
-	header('Location: ?create');
+	print('<span class="pagesub">create</span><br/><br/>' . "\n");
+	
+	if(isset($_POST['submit_entry'])) {
+	
+		if(create_entry($_POST['title'], $_POST['content']))
+			print('<span class="success">Entry created.</span>');
+		
+	} else {
+		
+		Engine::plug('admcreate', 'top');
+		print('<form action="?create" method="post">' . "\n");
+		print('title<br/><input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n");
+		Engine::plug('admcreate', 'title_after');
+		print('content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n");
+		Engine::plug('admcreate', 'content_after');
+		print('<br><br>' . "\n");
+		print('<input name="submit_entry" type="submit" value="create">' . "\n");
+		Engine::plug('admcreate', 'button_after');
+		print('</form>' . "\n\n");
+		
+	}
 	
 }
 
