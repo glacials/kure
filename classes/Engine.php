@@ -45,7 +45,7 @@ class Engine {
 		
 		if(file_exists(KURE_ROOT . 'plugins/')) { // plugins dir is optional
 			
-			$findmods = glob($root . 'plugins/*.php');
+			$findmods = glob(KURE_ROOT . 'plugins/*.php');
 			
 			// intialize our arrays so array_merge_recursive won't fail if they are not arrays by that time
 			if(count($findmods) != 0) {
