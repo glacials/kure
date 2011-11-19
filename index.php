@@ -80,6 +80,9 @@ while($entry_handler->has_next()) {
 	
 }
 
+if(!isset($_GET['page']))
+	$_GET['page'] = 0; // default to page 0
+
 // Display "previous entries" / "more recent entries" links if necessary
 if(($_GET['page'] + 1) * $config->entries_per_page < $entry_handler->num_entries)
 	print '<a class="navitem" href="?page=' . ($_GET['page'] + 1) . '">less recent</a>';
