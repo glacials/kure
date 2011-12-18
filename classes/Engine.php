@@ -3,6 +3,7 @@
 class Engine {
 	
 	private static $config;
+	private static $language;
 	
 	public static function error($message = '') {
 		print '<span class="error">' . $message . '</span>';
@@ -21,13 +22,26 @@ class Engine {
 		
 		if(self::$config == null) {
 			
-			self::$config = new Config('kure');
+			self::$config = new Config('config.ini', 'kure');
 			self::$config->load();
 			
 		}
 		
 		return self::$config;
-
+		
+	}
+	
+	public static function get_language() {
+		
+		if(self::$language == null) {
+			
+			self::$language = new Config('languages/' . self::get_config()->language . '.ini', 'kure');
+			self::$language->load();
+			
+		}
+		
+		return self::$language;
+		
 	}
 	
 	// Returns the size of the longest string in $strings
@@ -45,7 +59,7 @@ class Engine {
 		
 		if(file_exists(KURE_ROOT . 'plugins/')) { // plugins dir is optional
 			
-			$findmods = glob($root . 'plugins/*.php');
+			$findmods = glob(KURE_ROOT . 'plugins/*.php');
 			
 			// intialize our arrays so array_merge_recursive won't fail if they are not arrays by that time
 			if(count($findmods) != 0) {
