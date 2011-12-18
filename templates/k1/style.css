@@ -166,7 +166,7 @@ input[type="submit"]:active {
 	font-size: 20px;
 }
 
-a:link.sitetitle, a:visited.sitetitle {
+a:link.site-title, a:visited.site-title {
 	color:          #404040;
 	font-family:    "trebuchet ms", arial;
 	font-size:      26px;
@@ -175,12 +175,12 @@ a:link.sitetitle, a:visited.sitetitle {
 	text-shadow:    0 0 2px #aaa;
 }
 
-a:hover.sitetitle {
+a:hover.site-title {
 	background: none;
 	color:      #4040ff;
 }
 
-.sitesub {
+span.site-subtitle {
 	color:          #404040;
 	font-family:    "trebuchet ms", arial;
 	font-size:      26px;
