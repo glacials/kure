@@ -62,7 +62,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	$entry_handler = new EntryHandler($_GET['page'], $config->entries_per_page);
 	
 	if(!$entry_handler->has_next())
-		Engine::quit('No entries to display.');
+		Engine::quit($language->no_entries);
 	
 }
 
