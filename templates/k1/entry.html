@@ -1,19 +1,7 @@
-{HOOK:ENTRY-TOP}
-<table align="center" width="90%">
-	<tr>
-		<td width="100%">
-			<a class="blog_title">{ENTRYTITLE}</a>{HOOK:ENTRY-TITLE_AFTER}<br/>
-			<a href="{ENTRYADDRESS}" class="date">{ENTRYDAY} {ENTRYMONTH} {ENTRYYEAR}</a><br/>
-		</td>
-	</tr>
-	<tr>
-		<td width="100%">
-			<br />
-			<span class="blog_content">
-				{ENTRYCONTENT}
-			</span>
-			{HOOK:ENTRY-BODY_AFTER}<br/><br/>
-		</td>
-	</tr>
-</table>
-{HOOK:ENTRY-BOTTOM}
+			<div class="entry">{HOOK:ENTRY-TOP}
+				<div class="entry-title">{ENTRYTITLE}</div>{HOOK:ENTRY-TITLE_AFTER}
+				<div class="entry-date"><a class="date" href="{ENTRYADDRESS}">{ENTRYDAY} {ENTRYMONTH} {ENTRYYEAR}</a></div>
+				<div class="entry-content">
+					{ENTRYCONTENT}
+				</div>{HOOK:ENTRY-BODY_AFTER}{HOOK:ENTRY-BOTTOM}
+			</div>

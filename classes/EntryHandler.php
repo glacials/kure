@@ -4,6 +4,7 @@ class EntryHandler {
 	
 	private $entries;
 	private $num_entries;
+	private $total_entries;
 	
 	// Page 0 is the first page
 	public function __construct($page, $limit) {
@@ -24,12 +25,10 @@ class EntryHandler {
 			
 			$config = Engine::get_config();
 			
-			$start_post = $limit * $page;
+			$start_post = $page * $limit ;
 			$end_post   = $start_post + $limit - 1;
 			
-			$entry_files = glob('entries/*.txt');
-			
-			foreach(array_slice($entry_files, $page * $limit, $limit) as $file)
+			foreach(glob('entries/*.txt') as $file)
 				$this->entries[] = self::entry_from_file($file);
 			
 			if(!$config->abc_entries && is_array($this->entries))
@@ -46,6 +45,9 @@ class EntryHandler {
 		if($variable == 'num_entries')
 			return $this->num_entries;
 		
+		if($variable == 'total_entries')
+			return $this->total_entries;
+		
 		throw new PropertyAccessException('I will not return property <tt>$' . $variable . '</tt>.');
 		
 	}
@@ -59,7 +61,7 @@ class EntryHandler {
 		return new Entry($title, $content, $timestamp);
 		
 	}
-
+	
 	// Returns the next entry in the queue
 	public function next() {
 		return $this->has_next() ? array_shift($this->entries) : false;

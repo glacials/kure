@@ -9,20 +9,14 @@ class Template {
 		
 		$html = file_get_contents('templates/' . $config->template . '/' . $page . '.html');
 		
-		$vars['TITLE']    = $config->blog_name;
-		$vars['SUBTITLE'] = $config->blog_sub;
-		$vars['VERSION']  = $config->version;
+		if(!$html)
+			throw new TemplateNotFoundException();
 		
-		foreach($vars as $var => $val)
-			$html = str_replace('{' . $var . '}', $val, $html);
-
-		$vars_find = array(
-			'/{IF:ADMINLINK}(.*?){\/IF:ADMINLINK}/is',
-		);
+		$vars['{TITLE}']    = $config->blog_name;
+		$vars['{SUBTITLE}'] = $config->blog_sub;
+		$vars['{VERSION}']  = $config->version;
 		
-		$vars_replace[] = $config->show_admin_link ? '$1' : '';
-		
-		$html = preg_replace($vars_find, $vars_replace, $html);
+		$html = str_replace(array_keys($vars), $vars, $html);
 		
 		// todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
 		$hook_pages = array(
