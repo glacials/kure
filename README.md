@@ -1,5 +1,5 @@
 kure
-============
+----
 kure is a PHP blogging engine that runs on a stupidly simple flat-file database.
 
 One text file represents one blog post;
@@ -13,7 +13,7 @@ care you can keelhaul and manage them with git, vim, ftp, your own scripts, your
 little sister, or any combination thereof. Just make sure she's a good typist.
 
 What else you got?
----------------------
+------------------
 kure's meant to be like a LEGO Star Wars ship. It's got a hull, and everything
 else is detachable. It sports a templating engine, a plugin engine, and basic
 localization. Strip everything away, and it's `cat` plus chips.
