@@ -12,6 +12,13 @@ kure comes with a small, removable admin plugin to manage posts, but for all I
 care you can keelhaul and manage them with git, vim, ftp, your own scripts, your
 little sister, or any combination thereof. Just make sure she's a good typist.
 
+Starting out
+------------
+To use kure, just `git clone` it somewhere web-accessible, and start putting
+`*.txt` files into the `entries` directory. kure should pick them up
+immediately. To use spaces in a post's title, just use a standard hyphen (`-`)
+in the filename instead.
+
 What else you got?
 ------------------
 kure's meant to be like a LEGO Star Wars ship. It's got a hull, and everything
@@ -22,13 +29,6 @@ kure is built to be a simple, portable, easy-to-understand engine. If you want
 something you can hack into shape yourself, or if you're new to programming and
 looking to mess with something, kure might tickle some fancies. It's also pretty
 fast to set up because it doesn't mess with any databases, so there's that.
-
-Starting out
-------------
-To use kure, just `git clone` it somewhere web-accessible, and start putting
-`*.txt` files into the `entries` directory. kure should pick them up
-immediately. To use spaces in a post's title, just use a standard hyphen (`-`)
-in the filename instead.
 
 Contributing
 ------------
