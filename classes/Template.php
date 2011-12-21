@@ -10,7 +10,7 @@ class Template {
 		$html = file_get_contents('templates/' . $config->template . '/' . $page . '.html');
 		
 		if(!$html)
-			throw new TemplateNotFoundException();
+			throw new TemplateNotFoundException('I couldn\'t find the template file <tt>templates/' . $config->template . '/' . $page . '.html</tt>.');
 		
 		$vars['{TITLE}']    = $config->blog_name;
 		$vars['{SUBTITLE}'] = $config->blog_sub;
