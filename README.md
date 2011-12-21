@@ -4,9 +4,9 @@ kure is a PHP blogging engine that runs on a stupidly simple flat-file database.
 
 One text file represents one blog post;
 
-	* the filename is the post title (with a couple of exceptions),
-	* the file contents is the post itself, and
-	* the file's "last modified" timestamp is the post date.
+* the filename is the post title (with a couple of exceptions),
+* the file contents is the post itself, and
+* the file's "last modified" timestamp is the post date.
 
 kure comes with a small, removable admin plugin to manage posts, but for all I
 care you can keelhaul and manage them with git, vim, ftp, your own scripts, your
