@@ -23,6 +23,13 @@ something you can hack into shape yourself, or if you're new to programming and
 looking to mess with something, kure might tickle some fancies. It's also pretty
 fast to set up because it doesn't mess with any databases, so there's that.
 
+Starting out
+------------
+To use kure, just `git clone` it somewhere web-accessible, and start putting
+`*.txt` files into the `entries` directory. kure should pick them up
+immediately. To use spaces in a post's title, just use a standard hyphen (`-`)
+in the filename instead.
+
 Contributing
 ------------
 Wrote a plugin? Fork the `plugins` branch, throw it in there, and pull request
