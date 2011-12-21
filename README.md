@@ -28,4 +28,5 @@ Contributing
 Wrote a plugin? Fork the `plugins` branch, throw it in there, and pull request
 me. Got a template? Fork `templates` and do the same.
 
-And if you know another language, fork `master`, make a language definition (e.g. `languages/en.ini`), and pull request me.
+And if you know another language, fork `master`, make a language definition
+(e.g. `languages/en.ini`), and pull request me.
