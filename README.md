@@ -1,5 +1,5 @@
 kure
-----
+====
 kure is a PHP blogging engine that runs on a stupidly simple flat-file database.
 
 One text file represents one blog post;
