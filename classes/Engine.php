@@ -6,7 +6,7 @@ class Engine {
 	private static $language;
 	
 	public static function error($message = '') {
-		print '<span class="error">' . $message . '</span>';
+		print '<span class="error">' . $message . '</span>' . "\n";
 	}
 	
 	// Exits all PHP processing on-the-spot and spits error message $error.
