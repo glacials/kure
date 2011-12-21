@@ -1,26 +1,31 @@
-What is kure?
+kure
 ============
+kure is a PHP blogging engine that runs on a stupidly simple flat-file database.
 
-kure is a blogging engine written in PHP. It runs on a flat-file database, which means it stores its posts and other information in straight-up text files
-rather than database systems (such as MySQL, PostgreSQL, etc.). There are advantages to this and there are disadvantages to it, but we won't get into that here.
+One text file represents one blog post;
 
+	* the filename is the post title (with a couple of exceptions),
+	* the file contents is the post itself, and
+	* the file's "last modified" timestamp is the post date.
 
-What does kure offer?
+kure comes with a small, removable admin plugin to manage posts, but for all I
+care you can keelhaul and manage them with git, vim, ftp, your own scripts, your
+little sister, or any combination thereof. Just make sure she's a good typist.
+
+What else you got?
 ---------------------
+kure's meant to be like a LEGO Star Wars ship. It's got a hull, and everything
+else is detachable. It sports a templating engine, a plugin engine, and basic
+localization. Strip everything away, and it's `cat` plus chips.
 
-kure sports a templating engine to suit your styling needs and a plugin engine to suit your mechanical ones.
+kure is built to be a simple, portable, easy-to-understand engine. If you want
+something you can hack into shape yourself, or if you're new to programming and
+looking to mess with something, kure might tickle some fancies. It's also pretty
+fast to set up because it doesn't mess with any databases, so there's that.
 
-kure is built to be simple, portable, and easy to understand. If you want an engine you can hack into shape yourself, you may become buddy-buddy with kure faster than you think.
-Likewise, if you're just learning PHP and want to fool around with something that's not overcomplicated, kure may suit your need.
+Contributing
+------------
+Wrote a plugin? Fork the `plugins` branch, throw it in there, and pull request
+me. Got a template? Fork `templates` and do the same.
 
-
-What's the development of kure look like?
------------------------------------------
-
-kure is currently in beta. At the current rate, it will probably stay in beta for a very long time. I provide small updates and bugfixes when I can, but I am currently a very busy student.
-kure does, however, tickle my fancy, which is why I started it. I love it and I love to develop it. Even more, however, I love people who love kure. Rest assured that I do what I can when
-I can, but it won't always be fast.
-
-Please feel free to hit me up if you have any questions, bug reports/fixes, or just want to chat. I'm all ears.
-
-Also, check out some plugins in the `plugins` branch. If you've got a plugin, please fork that branch, add your plugin, and pull request me!
+And if you know another language, fork `master`, make a language definition (e.g. `languages/en.ini`), and pull request me.
