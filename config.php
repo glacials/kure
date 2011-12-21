@@ -23,6 +23,8 @@ entries_per_page = 8
 abc_entries = no
 
 ; Language -- must be an ini file in `languages`
+; Default is en
 language = en
 
+; Do not change, unless you feel like it
 version = 0.7.2
