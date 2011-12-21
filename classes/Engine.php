@@ -22,7 +22,7 @@ class Engine {
 		
 		if(self::$config == null) {
 			
-			self::$config = new Config('config.ini', 'kure');
+			self::$config = new Config();
 			self::$config->load();
 			
 		}
@@ -35,7 +35,7 @@ class Engine {
 		
 		if(self::$language == null) {
 			
-			self::$language = new Config('languages/' . self::get_config()->language . '.ini', 'kure');
+			self::$language = new Language('languages/' . self::get_config()->language . '.ini', 'kure');
 			self::$language->load();
 			
 		}
