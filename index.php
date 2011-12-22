@@ -49,8 +49,13 @@ try {
 	Engine::quit($language->cant_read_config, $e->getMessage());
 	
 }
-
-Template::run('header');
+try {
+	Template::run('header');
+} catch(CannotFindFileException $e) {
+	Engine::quit($language->cant_find_template, $e->getMessage());
+} catch(CannotReadFileException $e) {
+	Engine::quit($language->cant_read_template, $e->getMessage());
+}
 
 /***** Entry Viewer *****/
 if(isset($_GET['entry'])) { // if a specific entry has been requested
@@ -97,7 +102,13 @@ while($entry_handler->has_next()) {
 	                       '{ENTRYCONTENT}' => $entry->content
 	                      );
 	
-	Template::run('entry', $template_vars);
+	try {
+		Template::run('entry', $template_vars);
+	} catch(CannotFindFileException $e) {
+		Engine::quit($language->cant_find_template, $e->getMessage());
+	} catch(CannotReadFileException $e) {
+		Engine::quit($language->cant_read_template, $e->getMessage());
+	}
 	
 }
 
@@ -123,6 +134,12 @@ if($_GET['page'] != 0) {
 	
 }
 
-Template::run('footer');
+try{
+	Template::run('footer');
+} catch(CannotFindFileException $e) {
+	Engine::quit($language->cant_find_template, $e->getMessage());
+} catch(CannotReadFileException $e) {
+	Engine::quit($language->cant_read_template, $e->getMessage());
+}
 
 ?>
