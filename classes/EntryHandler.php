@@ -37,9 +37,6 @@ class EntryHandler {
 			
 			$config = Engine::get_config();
 			
-			$start_post = $page * $limit ;
-			$end_post   = $start_post + $limit - 1;
-			
 			foreach(glob('entries/*.txt') as $file)
 				$this->entries[] = self::entry_from_file($file);
 			
@@ -47,10 +44,8 @@ class EntryHandler {
 				usort($this->entries, 'compare_entries');
 			
 			$this->total_entries = count($this->entries);
-			
-			$this->entries = array_slice($this->entries, $start_post, $limit);
-			
-			$this->num_entries = count($this->entries);
+			$this->entries       = array_slice($this->entries, $page * $limit, $limit);
+			$this->num_entries   = count($this->entries);
 			
 		}
 		
