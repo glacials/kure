@@ -46,6 +46,10 @@ class EntryHandler {
 			if(!$config->abc_entries && is_array($this->entries))
 				usort($this->entries, 'compare_entries');
 			
+			$this->total_entries = count($this->entries);
+			
+			$this->entries = array_slice($this->entries, $start_post, $limit);
+			
 			$this->num_entries = count($this->entries);
 			
 		}
