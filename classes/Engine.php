@@ -5,15 +5,41 @@ class Engine {
 	private static $config;
 	private static $language;
 	
-	public static function error($message = '') {
+	/*
+	 * Spits error message $error, and prints a monospaced blockquote containing
+	 * $information if given.
+	 *
+	 * $error should be a general error message describing the operation that
+	 * failed (e.g. "Could not read entry."), and $information (if needed) should
+	 * be situation-specific information about the error (e.g. the filename of the
+	 * entry that failed to print).
+	 *
+	 * In general, when using exceptions, $error should be a message that is
+	 * determined by what type of exception was caught, and $information should
+	 * be information that was thrown to the catch block via the 'message' of the
+	 * exception ($e->getMessage()).
+	 */
+	public static function error($message, $information = false) {
+		
 		print '<span class="error">' . $message . '</span>' . "\n";
+		
+		if($information)
+			print '<blockquote><tt>' . $information . '</tt></blockquote>';
+		
 	}
 	
-	// Exits all PHP processing on-the-spot and spits error message $error.
-	public static function quit($message = '') {
+	/*
+	 * Spits error message $error if given, prints a monospaced blockquote
+	 * containing $information if given, runs the footer template, then quits.
+	 *
+	 * @uses Engine::error()
+	 */
+	public static function quit($message = false, $information = false) {
 		
-		self::error($message);
-		Template::run("footer", array());
+		if($message)
+			self::error($message, $information);
+		
+		Template::run('footer', array());
 		exit();
 		
 	}

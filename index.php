@@ -34,8 +34,21 @@ if(!file_exists('config.php'))
 	exit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>' . "\n");
 
 Engine::init_plugins();
-$config = Engine::get_config();
-$language = Engine::get_language();
+
+try {
+	
+	$config = Engine::get_config();
+	$language = Engine::get_language();
+	
+} catch(CannotFindFileException $e) {
+	
+	Engine::quit($language->cant_find_config, $e->getMessage());
+	
+} catch(CannotReadFileException $e) {
+	
+	Engine::quit($language->cant_read_config, $e->getMessage());
+	
+}
 
 Template::run('header');
 
@@ -47,7 +60,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	$entry_handler = new EntryHandler($filename, null);
 	
 	if(!$entry_handler->has_next())
-		Engine::quit('The requested file <tt>entries/' . $filename . '.txt</tt> doesn\'t exist.');
+		Engine::quit($language->cant_find);
 	
 /***** Entry Listing (Home) *****/
 } elseif(empty($_GET) || isset($_GET['page'])) {
@@ -59,7 +72,13 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	if(!is_numeric($_GET['page']))
 		Engine::quit('Invalid page.');
 	
-	$entry_handler = new EntryHandler($_GET['page'], $config->entries_per_page);
+	try {
+		$entry_handler = new EntryHandler($_GET['page'], $config->entries_per_page);
+	} catch(CannotFindFileException $e) {
+		Engine::quit($language->cant_find_entry, $e->getMessage());
+	} catch(CannotReadFileException $e) {
+		Engine::quit($language->cant_read_entry, $e->getMessage());
+	}
 	
 	if(!$entry_handler->has_next())
 		Engine::quit($language->no_entries);

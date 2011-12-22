@@ -18,6 +18,8 @@ class EntryHandler {
 			
 			if(file_exists($entry_file))
 				$this->entries[0] = self::entry_from_file($entry_file);
+			else
+				throw new CannotFindFileException($entry_file);
 			
 			$this->num_entries = 1;
 			
@@ -57,6 +59,9 @@ class EntryHandler {
 		$title     = deparse_title(str_replace(array('entries/', '.txt'), '', $file));
 		$content   = file_get_contents($file);
 		$timestamp = filemtime($file);
+		
+		if(!$content || !$timestamp)
+			throw new CannotReadFileException($file);
 		
 		return new Entry($title, $content, $timestamp);
 		

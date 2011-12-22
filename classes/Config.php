@@ -23,11 +23,14 @@ class Config {
 	}
 	
 	public function load() {
+
+		if(!file_exists($this->file))
+			throw new CannotFindFileException($this->file);
 		
 		$config_vars = parse_ini_file($this->file, true);
 		
 		if(!$config_vars)
-			throw new CouldNotReadFileException('Sorry, I couldn\'t read the config file <tt>' . $this->file . '</tt>.');
+			throw new CannotReadFileException($this->file);
 		
 		foreach($config_vars[$this->section] as $config_key => $config_val)
 			$this->vars[$config_key] = $config_val;
