@@ -60,7 +60,7 @@ class EntryHandler {
 		$content   = file_get_contents($file);
 		$timestamp = filemtime($file);
 		
-		if(!$content || !$timestamp)
+		if($content === false || !$timestamp)
 			throw new CannotReadFileException($file);
 		
 		return new Entry($title, $content, $timestamp);
