@@ -19,6 +19,15 @@ To use kure, just `git clone` it somewhere web-accessible, and start putting
 immediately. To use spaces in a post's title, just use a standard hyphen (`-`)
 in the filename instead.
 
+Abridged features
+-------------------
+
+* Small, portable, light, insert other midget adjectives here
+* Templates + plugins
+* Uses CSS3
+* Lets you make your entries folder a git repo and feel super cool about it
+* Doesn't work in Internet Explorer
+
 What else you got?
 ------------------
 kure's meant to be like a LEGO Star Wars ship. It's got a hull, and everything
