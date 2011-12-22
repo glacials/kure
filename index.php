@@ -49,6 +49,7 @@ try {
 	Engine::quit($language->cant_read_config, $e->getMessage());
 	
 }
+
 try {
 	Template::run('header');
 } catch(CannotFindFileException $e) {
