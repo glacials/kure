@@ -116,11 +116,13 @@ while($entry_handler->has_next()) {
 if(!isset($_GET['page']))
 	$_GET['page'] = 0; // default to page 0
 
+print '<div class="split">' . "\n";
+
 // Display "previous entries" / "more recent entries" links if necessary
 if(($_GET['page'] + 1) * $config->entries_per_page < $entry_handler->total_entries) {
 	
 	$last = '?page=' . ($_GET['page'] + 1);
-	print '<a class="navitem" href="' . $last . '">less recent</a>';
+	print '<div class="left-split"><a class="navitem" href="' . $last . '">less recent</a></div>';
 	
 }
 
@@ -131,9 +133,11 @@ if($_GET['page'] != 0) {
 	else
 		$next = '?page=' . ($_GET['page'] - 1);
 	
-	print '<a class="navitem" href="' . $next . '"> more recent</a>';
+	print '<div class="right-split"><a class="navitem" href="' . $next . '"> more recent</a></div>';
 	
 }
+
+print '</div>' . "\n";
 
 try{
 	Template::run('footer');

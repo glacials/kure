@@ -23,8 +23,27 @@ div#content {
 	/*box-shadow: 0 0 9px #ddd; /* uncomment for a nice shadow around entries */
 	margin:     auto;
 	min-height: 90%;
+	min-width:  200px;
 	padding:    10px 15px;
 	width:      40%;
+}
+
+div.split {
+	width: 100%;
+}
+
+div.left-split {
+	float:       left;
+	margin-left: -5%;
+	text-align:  left;
+	width:       50%;
+}
+
+div.right-split {
+	float:        right;
+	margin-right: -5%;
+	text-align:   right;
+	width:        50%;
 }
 
 div#footer, a.footer:link, a.footer:visited {
