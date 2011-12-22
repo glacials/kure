@@ -6,13 +6,20 @@ class EntryHandler {
 	private $num_entries;
 	private $total_entries;
 	
-	// Page 0 is the first page
-	public function __construct($page, $limit) {
+	/**
+	 * Takes either one or two arguments.
+	 * 
+	 * If one, the argument must be the filename, without path or extension, of
+	 * a single entry to be displayed.
+	 * 
+	 * If two, the first argument must be the page the user is on, and the second
+	 * must be the number of entries to be displayed.
+	 */
+	public function __construct() {
 		
-		// If $limit is null, $page is the filename of exactly one entry to display
-		if($limit == null) {
+		if(func_num_args() == 1) {
 			
-			$entry_filename = $page;
+			$entry_filename = func_get_arg(0);
 			
 			$entry_file = 'entries/' . $entry_filename . '.txt';
 			
@@ -24,6 +31,9 @@ class EntryHandler {
 			$this->num_entries = 1;
 			
 		} else {
+			
+			$page  = func_get_arg(0);
+			$limit = func_get_arg(1);
 			
 			$config = Engine::get_config();
 			

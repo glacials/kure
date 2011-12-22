@@ -57,7 +57,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	
 	$filename = sanitize($_GET['entry']);
 	
-	$entry_handler = new EntryHandler($filename, null);
+	$entry_handler = new EntryHandler($filename);
 	
 	if(!$entry_handler->has_next())
 		Engine::quit($language->cant_find);
@@ -70,7 +70,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	
 	// Avoid injection stuff
 	if(!is_numeric($_GET['page']))
-		Engine::quit('Invalid page.');
+		Engine::quit($language->bad_page);
 	
 	try {
 		$entry_handler = new EntryHandler($_GET['page'], $config->entries_per_page);
