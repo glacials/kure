@@ -27,4 +27,4 @@ abc_entries = no
 language = en
 
 # Do not change, unless you feel like it
-# version =
+version =
