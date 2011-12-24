@@ -6,25 +6,25 @@
  */
 
 [kure]
-; Name & description of site
+# Name & description of site
 blog_name = kure
 blog_sub  = beta
 
-; Template -- must be a folder in `templates`
-; Default is k1
+# Template -- must be a folder in `templates`
+# Default is k1
 template = k1
 
-; Number of entries to display per page
-; Default is 8; no limit is 0
+# Number of entries to display per page
+# Default is 8; no limit is 0
 entries_per_page = 8
 
-; Alphabetize entries? (no to display by most recent)
-; Default is no
+# Alphabetize entries? (no to display by most recent)
+# Default is no
 abc_entries = no
 
-; Language -- must be an ini file in `languages`
-; Default is en
+# Language -- must be an ini file in `languages`
+# Default is en
 language = en
 
-; Do not change, unless you feel like it
+# Do not change, unless you feel like it
 version = 0.7.2
