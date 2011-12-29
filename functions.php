@@ -40,53 +40,6 @@ if(!function_exists('file_get_contents')) {
 	
 }
 
-// returns a format of $var friendly to writing into a config file (as a variable name or key)
-function config_key($var) {
-	
-	$disallowed = array(
-	'`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '+', '\t', '[',
-	'{', ']', '}', '\\', '|', ';', ':', '\'', '\n', ',', '<', '.', '>', '/', '?', '"'
-	);
-
-  $var = str_replace($disallowed, '', $var);
-  return $var;
-
-}
-
-// returns a format of $var friendly to writing into a config file (as a variable value), e.g.
-// if $var is a boolean false, "false" (a string) will be returned;
-// if $var is a string "banana", "\"banana\"" will be returned;
-// if $var is an int 71, 71 will be returned (no change), etc.
-// note that passing this function "false" (string) is the same as passing it false (boolean),
-// likewise passing it "14" (string) is the same as passing it 14 (int)
-function config_value($var) {
-	
-	// if it's a boolean, make it a string so it will write as a boolean
-	if(is_bool($var) || $var === 'true' || $var === 'false') {
-		
-		if($var === 'true' || $var === 'false')
-			return $var;
-		else
-			return ($var ? 'true' : 'false');
-		
-	}
-	
-	// if it only contains numeric digits, return its int value
-	if(ctype_digit($var))
-		return (int)$var;
-	
-	// if it's a number but contains more than just numeric digits, return its double value
-	if(is_numeric($var))
-		return (double)$var;
-	
-	// if it's a string, surround it with quotes
-	if(is_string($var))
-		return '"' . $var . '"';
-	
-	exit('<span class="error">Invalid datatype: <tt>' . write_value($var) . '</tt></span>');
-	
-}
-
 // adds dimension $dimension to each element in array $array, e.g. $x['a']['b'] = y; becomes $x['a']['b']['c'] = y;
 function add_dimension($array, $dimension) {
 	
