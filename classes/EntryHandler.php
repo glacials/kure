@@ -40,8 +40,10 @@ class EntryHandler {
 			foreach(glob('entries/*.txt') as $file)
 				$this->entries[] = self::entry_from_file($file);
 			
-			if(!$config->abc_entries && is_array($this->entries))
+			if(is_array($this->entries))
 				usort($this->entries, 'compare_entries');
+			else
+				$this->entries = array();
 			
 			$this->total_entries = count($this->entries);
 			$this->entries       = array_slice($this->entries, $page * $limit, $limit);
