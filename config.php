@@ -26,5 +26,5 @@ abc_entries = no
 # Default is en
 language = en
 
-# Do not change, unless you feel like it
+# No need to change
 version =
