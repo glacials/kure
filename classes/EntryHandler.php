@@ -15,7 +15,7 @@ class EntryHandler {
 	 * If two, the first argument must be the page the user is on, and the second
 	 * must be the number of entries to be displayed.
 	 */
-	public function __construct() {
+	public function __construct(/* <filename> | <page, num_entries_to_display> */) {
 		
 		if(func_num_args() == 1) {
 			
@@ -64,12 +64,35 @@ class EntryHandler {
 		throw new PropertyAccessException('I will not return property <tt>$' . $variable . '</tt>.');
 		
 	}
-		
+	
 	private static function entry_from_file($file) {
 		
-		$title     = deparse_title(str_replace(array('entries/', '.txt'), '', $file));
-		$content   = file_get_contents($file);
-		$timestamp = filemtime($file);
+		$content = file_get_contents($file);
+		
+		// Gather JSON, if the entry has any
+		$pattern = "/{(.*)}/";
+		$matches = array();
+		preg_match($pattern, $content, $matches);
+		
+		if(isset($matches[0])) {
+			
+			$json = json_decode($matches[0]);
+			// Remove the parsed JSON from the entry content
+			$content = str_replace($matches[0], "", $content);
+			
+		}
+		
+		// If there's a JSON title use it, else use the filename
+		if(isset($json->title))
+			$title = $json->title;
+		else
+			$title = deparse_title(str_replace(array('entries/', '.txt'), '', $file));
+		
+		// If there's a JSON date use it, else use the file modification time
+		if(isset($json->date))
+			$timestamp = strtotime($json->date);
+		else
+			$timestamp = filemtime($file);
 		
 		if($content === false || !$timestamp)
 			throw new CannotReadFileException($file);
