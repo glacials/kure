@@ -89,6 +89,10 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	if(!$entry_handler->has_next())
 		Engine::quit($language->no_entries);
 	
+} else {
+	
+	Engine::quit($language->bad_page);
+	
 }
 
 while($entry_handler->has_next()) {
