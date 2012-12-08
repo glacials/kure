@@ -19,6 +19,16 @@ class Entry {
 	public function __get($variable) {
 		return $this->$variable;
 	}
+
+	/*
+	 * Writes the constructed entry to file.
+	 */
+	public function write() {
+		
+		return file_put_contents(KURE_ROOT . 'entries/' . $this->title . '.txt', $this->content)
+		   and touch(KURE_ROOT . 'entries/' . $this->title . '.txt', $this->timestamp);
+		
+	}
 	
 }
 
