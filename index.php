@@ -93,7 +93,7 @@ if(isset($_GET['entry'])) { // if a specific entry has been requested
 	
 } else {
 	
-	Engine::quit($language->bad_page);
+	Engine::quit('');
 	
 }
 
