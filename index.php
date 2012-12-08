@@ -20,6 +20,11 @@ session_start();
 // Tell all files to include relative to THIS FILE's directory
 set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
 
+// Avoid warnings about unset timezones by setting it to the server's timezone
+if( function_exists("date_default_timezone_set")
+and function_exists("date_default_timezone_get"))
+	@date_default_timezone_set(@date_default_timezone_get());
+
 // Autoload any class which is used in this file
 function __autoload($class) {
 	if(file_exists('classes/' . $class . '.php'))
