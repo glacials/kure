@@ -35,9 +35,6 @@ function __autoload($class) {
 
 require_once 'functions.php';
 
-if(!file_exists('config.php'))
-	exit('<p>It looks like you haven\'t installed kure yet!<br/>Proceed to <a href="install.php">installation</a> if you need to install.<br/>If you don\'t, be sure to make sure your kure-related directories exist.</p>' . "\n");
-
 Engine::init_plugins();
 
 try {
