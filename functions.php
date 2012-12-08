@@ -57,7 +57,7 @@ function add_dimension($array, $dimension) {
 function parse($string) {
 	
 	$string = str_replace('<?', '&lt;?', $string);
-	$string = str_replace('?>', '?&gt;', $string); // Please ignore this comment; it is meant to fix broken syntax coloring in some editors caused by this line. <?php
+	$string = str_replace('?>', '?&gt;', $string);
 	$string = str_replace('\\', '',      $string);
 	
 	// start bbcode
