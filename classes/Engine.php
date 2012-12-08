@@ -80,7 +80,7 @@ class Engine {
 	
 	public static function init_plugins() {
 		
-		$plugging = false;
+		$GLOBALS['plugging'] = false;
 		$GLOBALS['rac'] = array(); // mockup array so all our foreach()s don't fail if we don't find plugins
 		
 		if(file_exists(KURE_ROOT . 'plugins/')) { // plugins dir is optional
