@@ -23,7 +23,7 @@ class Config {
 	}
 	
 	public function load() {
-
+		
 		if(!file_exists($this->file))
 			throw new CannotFindFileException($this->file);
 		
@@ -36,6 +36,19 @@ class Config {
 			$this->vars[$config_key] = $config_val;
 		
 		return $this;
+		
+	}
+	
+	/*
+	 * Sets config variable $variable to $value without writing to file.
+	 *
+	 * Warning: This override will only last until end of page! No config
+	 * variables in-file will actually be changed. This is used for things like
+	 * changing the blog subtitle on a page that could use a title there.
+	 */
+	public function set($variable, $value) {
+		
+		$this->vars[$variable] = $value;
 		
 	}
 	
