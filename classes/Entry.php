@@ -26,6 +26,7 @@ class Entry {
 	public function write() {
 
 		$file = KURE_ROOT . 'entries/' . $this->title . '.txt';
+		$file = str_replace(' ', '-', $file);
 		
 		return file_put_contents($file, $this->content)
 		   and touch($file, $this->timestamp);
