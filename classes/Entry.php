@@ -24,9 +24,11 @@ class Entry {
 	 * Writes the constructed entry to file.
 	 */
 	public function write() {
+
+		$file = KURE_ROOT . 'entries/' . $this->title . '.txt';
 		
-		return file_put_contents(KURE_ROOT . 'entries/' . $this->title . '.txt', $this->content)
-		   and touch(KURE_ROOT . 'entries/' . $this->title . '.txt', $this->timestamp);
+		return file_put_contents($file, $this->content)
+		   and touch($file, $this->timestamp);
 		
 	}
 	
