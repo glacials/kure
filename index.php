@@ -34,6 +34,7 @@ function __autoload($class) {
 }
 
 require_once 'functions.php';
+require_once 'classes/markdown.php';
 
 Engine::init_plugins();
 

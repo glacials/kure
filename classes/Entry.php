@@ -17,6 +17,9 @@ class Entry {
 	}
 		
 	public function __get($variable) {
+		$config = Engine::get_config();
+		if($variable == 'content' && $config->markdown)
+			return Markdown($this->content);
 		return $this->$variable;
 	}
 
@@ -29,7 +32,7 @@ class Entry {
 		$file = str_replace(' ', '-', $file);
 		
 		return file_put_contents($file, $this->content)
-		   and touch($file, $this->timestamp);
+		    && touch($file, $this->timestamp);
 		
 	}
 	
