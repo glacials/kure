@@ -60,8 +60,10 @@ if($GLOBALS['plugging'] && isset($_GET['admin'])) {
 			if(!is_writable(KURE_ROOT . 'entries/'))
 				$rack['kure']['page_top'] .= '<span style="color: #ffa500;">It looks like your <tt>entries</tt> folder isn\'t writable. You may want to change that before trying to post from here.</span><br/><br/>';
 			$rack['kure']['page_top'] .= '<form action="?admin=create" method="post">';
-			$rack['kure']['page_top'] .= 'title<br/><input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n";
-			$rack['kure']['page_top'] .= 'content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n";
+			$rack['kure']['page_top'] .= 'title<br/>';
+			$rack['kure']['page_top'] .= '<input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n";
+			$rack['kure']['page_top'] .= 'content<br/>';
+			$rack['kure']['page_top'] .= '<textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n";
 			$rack['kure']['page_top'] .= '<input name="submit_entry" type="submit" value="create">' . "\n";
 			$rack['kure']['page_top'] .= '</form>' . "\n\n";
 			
