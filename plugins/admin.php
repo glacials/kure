@@ -50,11 +50,15 @@ if($GLOBALS['plugging'] && isset($_GET['admin'])) {
 			
 			$entry = new Entry($_POST['title'], $_POST['content'], time());
 			
-			if($entry->write())
+			if(@$entry->write())
 				$rack['kure']['page_top'] .= ('<span class="success">Entry created.</span>');
+			else
+				$rack['kure']['page_top'] .= '<span style="color: red;">Couldn\'t write to file.</span><br/><br/>(Told you.)';
 			
 		} else {
 			
+			if(!is_writable(KURE_ROOT . 'entries/'))
+				$rack['kure']['page_top'] .= '<span style="color: #ffa500;">It looks like your <tt>entries</tt> folder isn\'t writable. You may want to change that before trying to post from here.</span><br/><br/>';
 			$rack['kure']['page_top'] .= '<form action="?admin=create" method="post">';
 			$rack['kure']['page_top'] .= 'title<br/><input class="form_text" name="title" size="50" type="text"><br/><br/>' . "\n";
 			$rack['kure']['page_top'] .= 'content<br/><textarea class="form_textarea" cols="80" name="content" rows="12"></textarea><br/><br/>' . "\n";
