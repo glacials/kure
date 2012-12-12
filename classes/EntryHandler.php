@@ -20,13 +20,16 @@ class EntryHandler {
     if(func_num_args() == 1) {
 
       $entry_filename = func_get_arg(0);
+      $entry_title = deparse_title($entry_filename);
 
-      $entry_file = 'entries/' . $entry_filename . '.txt';
+      foreach(glob("entries/*.txt") as $file) {
+        $entry = self::entry_from_file($file);
+        if($entry->title == $entry_title)
+          $this->entries[0] = $entry;
+      }
 
-      if(file_exists($entry_file))
-        $this->entries[0] = self::entry_from_file($entry_file);
-      else
-        throw new CannotFindFileException($entry_file);
+      if(count($this->entries) == 0)
+        throw new CannotFindFileException($entry_filename);
 
       $this->num_entries = 1;
 
