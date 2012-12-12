@@ -62,11 +62,17 @@ try {
 }
 
 /***** Entry Viewer *****/
-if(isset($_GET['entry'])) { // if a specific entry has been requested
+if(isset($_GET['e'])) { // if a specific entry has been requested
 	
-	$filename = sanitize($_GET['entry']);
+	$filename = sanitize($_GET['e']);
 	
-	$entry_handler = new EntryHandler($filename);
+	try {
+		$entry_handler = new EntryHandler($filename);
+	} catch(CannotFindFileException $e) {
+		Engine::quit($language->cant_find_entry, $e->getMessage());
+	} catch(CannotReadFileException $e) {
+		Engine::quit($language->cant_read_entry, $e->getMessage());
+	}
 	
 	if(!$entry_handler->has_next())
 		Engine::quit($language->cant_find);
@@ -103,7 +109,7 @@ while($entry_handler->has_next()) {
 	$entry = $entry_handler->next();
 	
 	$template_vars = array('{ENTRYTITLE}'   => $entry->title,
-	                       '{ENTRYADDRESS}' => '?entry=' . $entry->filename,
+	                       '{ENTRYADDRESS}' => '?e=' . $entry->filename,
 	                       '{ENTRYDAY}'     => date('j', $entry->timestamp),
 	                       '{ENTRYMONTH}'   => date('F', $entry->timestamp),
 	                       '{ENTRYYEAR}'    => date('Y', $entry->timestamp),
