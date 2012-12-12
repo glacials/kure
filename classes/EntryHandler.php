@@ -9,13 +9,13 @@ class EntryHandler {
   /**
    * Takes either one or two arguments.
    *
-   * If one, the argument must be the filename, without path or extension, of
-   * a single entry to be displayed.
+   * If one, the argument must be the modified title, without path or extension,
+   * of a single entry to be displayed, i.e. the value of $_GET['e'].
    *
    * If two, the first argument must be the page the user is on, and the second
    * must be the number of entries to be displayed.
    */
-  public function __construct(/* <filename> | <page, num_entries_to_display> */) {
+  public function __construct(/* <title> | <page, num_entries_to_display> */) {
 
     if(func_num_args() == 1) {
 
