@@ -1,41 +1,41 @@
 <?php
 
 class Entry {
-	
-	private $filename;
-	private $title;
-	private $content;
-	private $timestamp;
-	
-	public function __construct($title, $content, $timestamp) {
-		
-		$this->filename  = parse_title($title);
-		$this->title     = $title;
-		$this->content   = $content;
-		$this->timestamp = $timestamp;
-		
-	}
-		
-	public function __get($variable) {
-		$config = Engine::get_config();
-		if($variable == 'content' && $config->markdown)
-			return Markdown($this->content);
-		return $this->$variable;
-	}
 
-	/*
-	 * Writes the constructed entry to file.
-	 */
-	public function write() {
+  private $filename;
+  private $title;
+  private $content;
+  private $timestamp;
 
-		$file = KURE_ROOT . 'entries/' . $this->title . '.txt';
-		$file = str_replace(' ', '-', $file);
-		
-		return file_put_contents($file, $this->content)
-		    && touch($file, $this->timestamp);
-		
-	}
-	
+  public function __construct($title, $content, $timestamp) {
+
+    $this->filename  = parse_title($title);
+    $this->title     = $title;
+    $this->content   = $content;
+    $this->timestamp = $timestamp;
+
+  }
+
+  public function __get($variable) {
+    $config = Engine::get_config();
+    if($variable == 'content' && $config->markdown)
+      return Markdown($this->content);
+    return $this->$variable;
+  }
+
+  /*
+   * Writes the constructed entry to file.
+   */
+  public function write() {
+
+    $file = KURE_ROOT . 'entries/' . $this->title . '.txt';
+    $file = str_replace(' ', '-', $file);
+
+    return file_put_contents($file, $this->content)
+        && touch($file, $this->timestamp);
+
+  }
+
 }
 
 ?>
