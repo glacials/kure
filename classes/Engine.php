@@ -24,7 +24,7 @@ class Engine {
 		print '<span class="error">' . $message . '</span>' . "\n";
 		
 		if($information)
-			print '<blockquote><tt>' . $information . '</tt></blockquote>';
+			print '<blockquote><tt>' . $information . '</tt></blockquote>' . "\n";
 		
 	}
 	
