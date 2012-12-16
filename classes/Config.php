@@ -44,7 +44,8 @@ class Config {
    *
    * Warning: This override will only last until end of page! No config
    * variables in-file will actually be changed. This is used for things like
-   * changing the blog subtitle on a page that could use a title there.
+   * changing the blog subtitle on a page that could use a title there (the
+   * admin plugin does this).
    */
   public function set($variable, $value) {
 
