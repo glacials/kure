@@ -39,10 +39,14 @@ if($GLOBALS['plugging'] && isset($_GET['admin'])) {
     if(isset($_SESSION['admin'])) // bad session
       $rack['kure']['page_top'] .= '<span class="error">Session invalid; please login again.</span><br/>';
 
-    $rack['kure']['page_top'] .= '<span class="sitetitle">password</span>';
-    $rack['kure']['page_top'] .= '<form action="?admin" method="post">';
-    $rack['kure']['page_top'] .= '<input type="password" name="password">';
-    $rack['kure']['page_top'] .= '&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>';
+    if($password == 'changeme') {
+      $rack['kure']['page_top'] .= 'Before logging in, you must change your password on line 3 of <tt>plugins/admin.php</tt>';
+    } else {
+      $rack['kure']['page_top'] .= '<span class="sitetitle">password</span>';
+      $rack['kure']['page_top'] .= '<form action="?admin" method="post">';
+      $rack['kure']['page_top'] .= '<input type="password" name="password">';
+      $rack['kure']['page_top'] .= '&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>';
+    }
 
   } elseif($_GET['admin'] == 'create') {
 
