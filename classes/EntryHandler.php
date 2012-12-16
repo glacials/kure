@@ -58,13 +58,10 @@ class EntryHandler {
 
   public function __get($variable) {
 
-    if($variable == 'num_entries')
-      return $this->num_entries;
+    if($variable == 'num_entries' || $variable == 'total-entries')
+      return $this->$variable;
 
-    if($variable == 'total_entries')
-      return $this->total_entries;
-
-    throw new PropertyAccessException('I will not return property <tt>$' . $variable . '</tt>.');
+    throw new PropertyAccessException('$' . $variable);
 
   }
 
