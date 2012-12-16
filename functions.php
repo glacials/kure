@@ -144,4 +144,21 @@ function compare_entries($entry_a, $entry_b) {
 
 }
 
+function exception_handler($e) {
+  $language = Engine::get_language();
+  if(get_class($e) == 'CannotFindFileException')
+    $error = $language->cant_find_file;
+  elseif(get_class($e) == 'CannotReadFileException')
+    $error = $language->cant_read_file;
+  elseif(get_class($e) == 'CannotWriteFileException')
+    $error = $language->cant_write_file;
+  elseif(get_class($e) == 'PropertyAccessException')
+    $error = $language->cant_read_property;
+  elseif(get_class($e) == 'PropertyDoesNotExistException')
+    $error = $language->property_doesnt_exist;
+  else
+    Engine::error($language->unknown_exception);
+  Engine::error($error, $e->getMessage() . ' ' . $e->getFile() . ':' . $e->getLine());
+}
+
 ?>

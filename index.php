@@ -36,6 +36,7 @@ function __autoload($class) {
 require_once 'functions.php';
 require_once 'classes/markdown.php';
 
+set_exception_handler('exception_handler');
 Engine::init_plugins();
 
 try {
@@ -159,5 +160,4 @@ try{
 } catch(CannotReadFileException $e) {
   Engine::quit($language->cant_read_template, $e->getMessage());
 }
-
 ?>
