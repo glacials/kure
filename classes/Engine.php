@@ -61,7 +61,7 @@ class Engine {
 
     if(self::$language == null) {
 
-      self::$language = new Language('languages/' . self::get_config()->language . '.ini', 'kure');
+      self::$language = new Language(KURE_ROOT . 'languages/' . self::get_config()->language . '.ini', 'kure');
       self::$language->load();
 
     }

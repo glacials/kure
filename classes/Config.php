@@ -8,8 +8,8 @@ class Config {
 
   public function __construct($section = 'kure', $file = 'config.php') {
 
-    $this->file = $file;
     $this->section = $section;
+    $this->file = $file;
 
   }
 
