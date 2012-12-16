@@ -6,7 +6,7 @@ class Config {
   private $section;
   private $vars;
 
-  public function __construct($file = 'config.php', $section = 'kure') {
+  public function __construct($section = 'kure', $file = 'config.php') {
 
     $this->file = $file;
     $this->section = $section;
