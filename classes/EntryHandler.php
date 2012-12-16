@@ -58,7 +58,7 @@ class EntryHandler {
 
   public function __get($variable) {
 
-    if($variable == 'num_entries' || $variable == 'total-entries')
+    if($variable == 'num_entries' || $variable == 'total_entries')
       return $this->$variable;
 
     throw new PropertyAccessException('$' . $variable);
