@@ -1,6 +1,8 @@
 <?php
 
+/* Config options */
 $password = 'changeme';
+$display_link = true;
 
 $config = Engine::get_config();
 
@@ -40,7 +42,7 @@ if($GLOBALS['plugging'] && isset($_GET['admin'])) {
       $rack['kure']['page_top'] .= '<span class="error">Session invalid; please login again.</span><br/>';
 
     if($password == 'changeme') {
-      $rack['kure']['page_top'] .= 'Before logging in, you must change your password on line 3 of <tt>plugins/admin.php</tt>';
+      $rack['kure']['page_top'] .= 'Before logging in, you must change your password on line 4 of <tt>plugins/admin.php</tt>';
     } else {
       $rack['kure']['page_top'] .= '<span class="sitetitle">password</span>';
       $rack['kure']['page_top'] .= '<form action="?admin" method="post">';
@@ -77,5 +79,8 @@ if($GLOBALS['plugging'] && isset($_GET['admin'])) {
     $rack['kure']['page_top'] .= '<a href="?admin=logout">logout</a>';
   }
 }
+
+if($display_link)
+  $rack['kure']['bottom'] =  ' / <a class="footer" href="?admin">admin</a>';
 
 ?>
