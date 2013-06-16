@@ -25,7 +25,7 @@ if(isset($_GET['admin'])) {
         }
       </style>";
 
-  $rack['kure']['subtitle_after'] = "\n<span id='site-subtitle' class='secret'><a href='?'>admin</a></span>";
+  $rack['kure']['subtitle_after'] = "\n<span id='site-subtitle' class='secret'><a href='?admin'>admin</a></span>";
 }
 
 if($_GET['admin'] == 'create')
