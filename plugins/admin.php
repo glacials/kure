@@ -1,6 +1,6 @@
 <?php
 
-$password = 'changeme';
+$password = 'hi';
 
 $config = Engine::get_config();
 
@@ -10,6 +10,20 @@ if($_GET['admin'] == 'logout') {
   unset($_SESSION['admin']);
   //session_destroy();
 
+}
+
+// Modify site subtitle to be a link to admin home on hover
+if(isset($_GET['admin'])) {
+  $rack['kure']['head'] = "\n    <style type='text/css'>
+        div#header-right:hover span#site-subtitle, span.secret {
+          display: none;
+        }
+        div#header-right:hover span#site-subtitle.secret {
+          display: inline;
+        }
+      </style>";
+
+  $rack['kure']['subtitle_after'] = "\n<span id='site-subtitle' class='secret'><a href='?'>admin</a></span>";
 }
 
 if($_GET['admin'] == 'create')
