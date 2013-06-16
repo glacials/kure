@@ -20,7 +20,7 @@ class Template {
 
     // todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
     $hook_pages = array(
-      'kure'       => array('head', 'top', 'title_before', 'title_after', 'navtitle_before', 'navtitle_after', 'naventries_after', 'navdocs_after', 'navadmin_after', 'page_top', 'page_bottom', 'bottom'),
+      'kure'       => array('head', 'top', 'title_before', 'title_after', 'subtitle_before', 'subtitle_after', 'navtitle_before', 'navtitle_after', 'naventries_after', 'navdocs_after', 'navadmin_after', 'page_top', 'page_bottom', 'bottom'),
       'entries'    => array('top', 'bottom', 'entry_top', 'entry-title_after', 'entry-date_after', 'entry-body_after'),
       'entry'      => array('top', 'title_after', 'date_after', 'body_after', 'bottom'),
       'adm'        => array('head', 'top'),
