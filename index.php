@@ -14,7 +14,6 @@
  * :P
  */
 
-define('KURE_ROOT', '');
 session_start();
 
 // Tell all files to include relative to THIS FILE's directory

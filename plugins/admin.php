@@ -48,7 +48,7 @@ try {
       if($_POST['password'] == $admin_config->password) {
 
         $_SESSION['admin'] = true;
-        header('Location: ' . KURE_ROOT . '?admin');
+        header('Location: ?admin');
 
       } else {
         $rack['kure']['page_top'] .= '<div class="error">Invalid password.</div>';
@@ -86,7 +86,7 @@ try {
 
       } else {
 
-        if(!is_writable(KURE_ROOT . 'entries/'))
+        if(!is_writable('entries/'))
           $rack['kure']['page_top'] .= '<span style="color: #ffa500;">It looks like your <tt>entries</tt> folder isn\'t writable. You may want to change that before trying to post from here.</span><br/><br/>';
         $rack['kure']['page_top'] .= '<form action="?admin=create" method="post">';
         $rack['kure']['page_top'] .= 'title<br/>';
