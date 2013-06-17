@@ -18,20 +18,28 @@ entries_per_page = 8
 # Default is no
 abc_entries = no
 
-# Markdown is a simple parsing format to pick up on certain cues in plaintext
-# and convert them to their HTML equivalents. Unless you write your own HTML in
-# your entries, you probably want this on.
-# See http://daringfireball.net/projects/markdown/ for more info.
+# Parse entries with Markdown? See http://daringfireball.net/projects/markdown/
 # Default is yes
 markdown = yes
 
-# Template -- must be a folder in `templates`
+# Template (must be a folder in `templates`)
 # Default is k1
 template = k1
 
-# Language -- must be an ini file in `languages`
+# Language (must be an ini file in `languages`)
 # Default is en
 language = en
 
 # No need to change
 version =
+
+# If you ditch the admin plugin, you can also ditch this and all following lines
+[admin]
+# Admin login password
+# Default is changeme (which you must change)
+password = changeme
+
+# Display link to admin page in footer?
+# If no, you can access the page at <kure's url>/?admin
+# Default is yes
+display_link = yes
