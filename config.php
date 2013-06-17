@@ -1,4 +1,4 @@
-;<?/*
+;<?php/*
 ;
 ; This file holds the format of an INI file, because that's how it is parsed.
 ; However it holds the extension and opening tag of a PHP file so that we don't
