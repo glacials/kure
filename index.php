@@ -40,18 +40,12 @@ set_exception_handler('exception_handler');
 Engine::init_plugins();
 
 try {
-
-  $config = Engine::get_config();
+  $config   = Engine::get_config();
   $language = Engine::get_language();
-
 } catch(CannotFindFileException $e) {
-
   Engine::quit($language->cant_find_config, $e->getMessage());
-
 } catch(CannotReadFileException $e) {
-
   Engine::quit($language->cant_read_config, $e->getMessage());
-
 }
 
 try {
