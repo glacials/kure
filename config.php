@@ -33,7 +33,7 @@ template = k1
 language = en
 
 ; No need to change
-version =
+version = 0.8
 
 ; If you ditch the admin plugin, you can also ditch this and all following lines
 [admin]
