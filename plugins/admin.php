@@ -33,6 +33,8 @@ try {
 
   if($_GET['admin'] == 'create')
     $config->set('blog_sub', 'create');
+  elseif($_GET['admin'] == 'edit')
+    $config->set('blog_sub', 'edit');
   elseif(isset($_GET['admin']))
     $config->set('blog_sub', 'admin');
 
@@ -67,6 +69,10 @@ try {
         $rack['kure']['page_top'] .= '&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="login" value="login"></form>';
       }
 
+    } elseif(isset($_GET['success'])) {
+
+      $rack['kure']['page_top'] .= ('<span class="success">Entry '. $_GET['success'] .'.</span>');
+
     } elseif($_GET['admin'] == 'create') {
 
       if(isset($_POST['submit_entry'])) {
@@ -74,7 +80,7 @@ try {
         $entry = new Entry($_POST['title'], $_POST['content'], time());
 
         if(@$entry->write())
-          $rack['kure']['page_top'] .= ('<span class="success">Entry created.</span>');
+          header('Location: ?admin=create&success=created');
         else
           $rack['kure']['page_top'] .= '<span style="color: red;">Couldn\'t write to file.</span><br/><br/>(Told you.)';
 
@@ -91,8 +97,52 @@ try {
         $rack['kure']['page_top'] .= '</form>' . "\n\n";
 
       }
+    } elseif($_GET['admin'] == 'edit') {
+
+      if(isset($_POST['edit_entry'])) {
+
+        $entry_handler = new EntryHandler($_POST['old_title']);
+        $old_entry = $entry_handler->next();
+        unlink('entries/'. $old_entry->filename . '.txt');
+        //$rack['kure']['page_top'] .= 'keep_time is '. $_POST['keep_time'];
+        $entry = new Entry($_POST['title'], $_POST['content'], $_POST['keep_time'] == 'on' ? $old_entry->timestamp : time());
+        $entry->write();
+        header('Location: ?admin=edit&success=edited');
+
+      } elseif(isset($_POST['delete_entry'])) {
+
+        $entry_handler = new EntryHandler($_POST['old_title']);
+        $old_entry = $entry_handler->next();
+        unlink('entries/'. $old_entry->filename .'.txt');
+        header('Location: ?admin=edit&success=deleted');
+
+      } elseif(isset($_GET['entry'])) {
+
+        $entry = new EntryHandler($_GET['entry']);
+        $entry = $entry->next();
+        $rack['kure']['page_top'] .= '<form action="?admin=edit&entry='. $_GET['edit'] .'" method="post" style="display: inline;">';
+        $rack['kure']['page_top'] .= '<input name="old_title" type="hidden" value="'. $entry->title .'"/>'."\n";
+        $rack['kure']['page_top'] .= 'title<br/>';
+        $rack['kure']['page_top'] .= '<input class="form_text" name="title" size="50" type="text" value="'. $entry->title .'"><br/><br/>'."\n";
+        $rack['kure']['page_top'] .= 'content<br/>';
+        $rack['kure']['page_top'] .= '<textarea class="form_textarea" cols="80" name="content" rows="12">'. $entry->raw_content .'</textarea><br/><br/>'."\n";
+        $rack['kure']['page_top'] .= '<p><label><input name="keep_time" type="checkbox" checked/> Keep original timestamp</label></p>'."\n";
+        $rack['kure']['page_top'] .= '<input name="edit_entry" type="submit" value="edit"/>'."\n";
+        $rack['kure']['page_top'] .= '<input name="delete_entry" type="submit" value="delete this entry" style="background-color: red; color: white;" onclick="return confirm(\'Really delete '. $entry->title .'?\');return false;"/>'."\n";
+        $rack['kure']['page_top'] .= '</form>'."\n";
+
+      } else {
+
+        $entry_handler = new EntryHandler(0, 0);
+        while($entry_handler->has_next()) {
+          $entry = $entry_handler->next();
+          $rack['kure']['page_top'] .= '<a href="?admin=edit&entry='. $entry->filename .'">'. $entry->title .'</a><br/>';
+        }
+
+      }
     } else {
       $rack['kure']['page_top'] .= '<a href="?admin=create">new entry</a><br/>';
+      $rack['kure']['page_top'] .= '<a href="?admin=edit">edit entries</a><br/>';
       $rack['kure']['page_top'] .= '<a href="?admin=logout">logout</a>';
     }
   }
