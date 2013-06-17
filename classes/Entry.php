@@ -20,6 +20,8 @@ class Entry {
     $config = Engine::get_config();
     if($variable == 'content' && $config->markdown)
       return Markdown($this->content);
+    elseif($variable == 'raw_content')
+      return $this->content;
     return $this->$variable;
   }
 
