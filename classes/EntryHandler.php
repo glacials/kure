@@ -49,7 +49,8 @@ class EntryHandler {
         $this->entries = array();
 
       $this->total_entries = count($this->entries);
-      $this->entries       = array_slice($this->entries, $page * $limit, $limit);
+      if($limit != 0)
+        $this->entries       = array_slice($this->entries, $page * $limit, $limit);
       $this->num_entries   = count($this->entries);
 
     }
