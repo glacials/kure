@@ -137,7 +137,7 @@ input[type="text"], input[type="password"] {
   font-size    16px;
 }
 
-input[type="submit"] {
+input[type="submit"], button {
   background-color: #fff;
   border:           1px solid #ddd;
   box-shadow:       0 0 10px #ddd;
@@ -149,6 +149,6 @@ input[type="submit"] {
   padding:          2px 8px;
 }
 
-input[type="submit"]:active {
+input[type="submit"]:active, button:active {
   box-shadow: inset 0 0 10px #ddd;
 }
