@@ -9,14 +9,14 @@ class Config {
   public function __construct($section = 'kure', $file = 'config.php') {
 
     $this->section = $section;
-    $this->file = $file;
+    $this->file    = $file;
 
   }
 
   public function __get($variable) {
 
     if(!isset($this->vars[$variable]))
-      throw new PropertyDoesNotExistException('Sorry, I couldn\'t find a config variable called <tt>' . $variable . '</tt>.');
+      throw new PropertyDoesNotExistException($variable);
 
     return $this->vars[$variable];
 
@@ -32,8 +32,9 @@ class Config {
     if(!$config_vars)
       throw new CannotReadFileException($this->file);
 
-    foreach($config_vars[$this->section] as $config_key => $config_val)
-      $this->vars[$config_key] = $config_val;
+    if(is_array($config_vars[$this->section]))
+      foreach($config_vars[$this->section] as $config_key => $config_val)
+        $this->vars[$config_key] = $config_val;
 
     return $this;
 
