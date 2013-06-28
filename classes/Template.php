@@ -16,8 +16,6 @@ class Template {
     $vars['{SUBTITLE}'] = $config->blog_sub;
     $vars['{VERSION}']  = $config->version;
 
-    $html = str_replace(array_keys($vars), $vars, $html);
-
     // todo: convert this into a preg_replace so that hooks don't need to be "defined" somewhere
     $hook_pages = array(
       'kure'       => array('head', 'top', 'title_before', 'title_after', 'subtitle_before', 'subtitle_after', 'navtitle_before', 'navtitle_after', 'naventries_after', 'navdocs_after', 'navadmin_after', 'page_top', 'page_bottom', 'bottom'),
@@ -33,6 +31,8 @@ class Template {
     foreach($hook_pages as $page => $locs)
       foreach($locs as $loc)
         $html = str_ireplace('{HOOK:' . $page . '-' . $loc . '}', Engine::plug($page, $loc, isset($vars['id']) ? $vars['id'] : false), $html);
+
+    $html = str_replace(array_keys($vars), $vars, $html);
 
     print($html);
 
