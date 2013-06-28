@@ -6,7 +6,7 @@
  * cautious.
  *
  * I graciously accept bug reports and suggestions for kure's engine. Visit
- * kure's repo at github.com/skoh-fley/kure. My email is breachreach@gmail.com
+ * kure's repo at github.com/skoh-fley/kure. My email is qhiiyr@gmail.com
  * if you wish to reach me directly.
  *
  * If you wish to remove the footer's "powered by kure" text, feel free. I
