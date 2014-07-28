@@ -20,8 +20,7 @@ session_start();
 set_include_path(dirname($_SERVER['SCRIPT_FILENAME']));
 
 // Avoid warnings about unset timezones by setting it to the server's timezone
-if( function_exists("date_default_timezone_set")
-and function_exists("date_default_timezone_get"))
+if (function_exists("date_default_timezone_set") && function_exists("date_default_timezone_get"))
   @date_default_timezone_set(@date_default_timezone_get());
 
 // Autoload any class which is used in this file
