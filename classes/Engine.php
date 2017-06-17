@@ -6,7 +6,7 @@ class Engine {
   private static $language;
 
   /*
-   * Spits error message $error, and prints a monospaced blockquote containing
+   * Spits error message $message, and prints a monospaced blockquote containing
    * $information if given.
    *
    * $error should be a general error message describing the operation that
@@ -29,7 +29,7 @@ class Engine {
   }
 
   /*
-   * Spits error message $error if given, prints a monospaced blockquote
+   * Spits error message $message if given, prints a monospaced blockquote
    * containing $information if given, runs the footer template, then quits.
    *
    * @uses Engine::error()
