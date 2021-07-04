@@ -18,7 +18,7 @@ immediately. To use spaces in a post's title, just use a standard hyphen (`-`)
 in the filename instead.
 
 ### Abridged features
-* Small, portable, light, insert other midget adjectives here
+* Small, portable, light
 * Templates + plugins
 * Uses CSS3
 * Lets you make your entries folder a git repo and feel super cool about it
